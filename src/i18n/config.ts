@@ -1,4 +1,4 @@
 export const config = {
-  locales: ['fa', 'en'],
-  defaultLocale: 'fa'
-}; 
+  locales: ["fa", "en"],
+  defaultLocale: "fa",
+};

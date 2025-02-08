@@ -4,7 +4,7 @@ import { Vazirmatn } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from '@/i18n/routing';
+import { routing } from "@/i18n/routing";
 
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -19,7 +19,11 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
   const translations = {
     fa: {
       title: "گشتوک",
@@ -28,24 +32,24 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     en: {
       title: "Gashtook",
       description: "Iranian Cities Travel Guide",
-    }
+    },
   };
 
   return {
     title: translations[params.locale as keyof typeof translations].title,
-    description: translations[params.locale as keyof typeof translations].description,
+    description:
+      translations[params.locale as keyof typeof translations].description,
   };
 }
 
 export default async function RootLayout({
   children,
-  params: { locale }
+  params: { locale },
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-
-  if (!routing.locales.includes(locale as typeof routing.locales[number])) {
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     notFound();
   }
 
