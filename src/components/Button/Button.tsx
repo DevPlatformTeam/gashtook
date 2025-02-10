@@ -49,17 +49,10 @@ const Button: React.FC<ButtonProps> = ({
       )} 
       onClick={onClick}
     >
-      {isRTL ? (
-        <>
-          <span>{text}</span>
-          {icon && <span>{icon}</span>}
-        </>
-      ) : (
-        <>
+
           {icon && <span>{icon}</span>}
           <span>{text}</span>
-        </>
-      )}
+
     </button>
   );
 };
