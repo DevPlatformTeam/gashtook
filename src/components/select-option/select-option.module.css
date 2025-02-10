@@ -1,0 +1,91 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  position: relative;
+
+  label {
+    @apply text-base font-semibold;
+  }
+
+  input.select {
+    @apply font-medium bg-gray-200 text-secondary focus:bg-primaryfade focus:outline focus:outline-primary focus:outline-2;
+    
+    border-radius: 8px;
+
+    padding: 0.75rem 1rem 0.5rem 1rem;
+
+    outline: none;
+    border: none;
+  }
+
+  svg {
+    position: absolute;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    left: 1rem;
+    top: 1.125rem;
+
+    cursor: pointer;
+
+    transition: all ease 0.2s;
+    &:hover {
+      transform: rotate(90deg) scale(1.5);
+
+      color: var(--primary);
+    }
+  }
+
+  .container-list {
+    @apply bg-gray-200 outline outline-2 outline-gray-400;
+
+    width: 100%;
+
+    position: absolute;
+
+    height: fit-content;
+    max-height: 20rem;
+
+    top: 120%;
+
+    z-index: 10;
+
+    padding: 0.5rem;
+
+    border-radius: 8px;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+
+      height: fit-content;
+      max-height: 18.5rem;
+
+      overflow-y: auto;
+
+      .item {
+        cursor: pointer;
+
+        padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+
+        color: var(--secondary);
+
+        border-radius: 6px;
+
+        &:hover {
+          background-color: var(--primary);
+          color: var(--third);
+          font-weight: 700;
+        }
+      }
+
+      .not_found_text {
+        cursor: default;
+        text-align: center;
+      }
+    }
+  }
+}
