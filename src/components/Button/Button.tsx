@@ -12,14 +12,14 @@ interface IButtonProps {
   onClick?: () => void;
 }
 
-const Button: React.FC<IButtonProps> = ({ 
-  text, 
-  icon, 
-  color = "primary", 
-  textColor, 
-  outline = false, 
-  className, 
-  onClick 
+const Button: React.FC<IButtonProps> = ({
+  text,
+  icon,
+  color = "primary",
+  textColor,
+  outline = false,
+  className,
+  onClick,
 }) => {
   const locale = useLocale();
   const isRTL = locale === "fa";
