@@ -1,10 +1,16 @@
 import type { Metadata, Viewport } from "next";
+
 import "./globals.css";
+
 import { Vazirmatn } from "next/font/google";
+
 import { NextIntlClientProvider } from "next-intl";
+
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
+
 import { routing } from "@/i18n/routing";
+
 import Footer from "@/components/Footer/Footer";
 
 const vazirmatn = Vazirmatn({
@@ -36,6 +42,12 @@ export async function generateMetadata({
     },
   };
 
+  if (
+    !routing.locales.includes(params.locale as (typeof routing.locales)[number])
+  ) {
+    return notFound();
+  }
+
   return {
     title: translations[params.locale as keyof typeof translations].title,
     description:
@@ -50,14 +62,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
-    notFound();
-  }
-
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={ locale === 'fa' ? 'rtl' : 'ltr' } className={vazirmatn.className}>
+    <html
+      lang={locale}
+      dir={locale === "fa" ? "rtl" : "ltr"}
+      className={vazirmatn.className}
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}

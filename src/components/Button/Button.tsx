@@ -1,6 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import { useLocale } from "next-intl"; 
+import { useLocale } from "next-intl";
 
 interface IButtonProps {
   text: string;
@@ -21,10 +21,10 @@ const Button: React.FC<IButtonProps> = ({
   className, 
   onClick 
 }) => {
-  const locale = useLocale(); 
-  const isRTL = locale === "fa"; 
+  const locale = useLocale();
+  const isRTL = locale === "fa";
 
-  const baseStyles = 
+  const baseStyles =
     "flex items-center justify-center w-fit rounded-3xl gap-2 px-4 py-2 font-medium transition-all";
 
   const colors = {
@@ -40,13 +40,13 @@ const Button: React.FC<IButtonProps> = ({
   };
 
   return (
-    <button 
+    <button
       className={clsx(
-        baseStyles, 
-        colors[color], 
-        textColor ? `text-${textColor}` : "", 
-        className
-      )} 
+        baseStyles,
+        colors[color],
+        textColor ? `text-${textColor}` : "",
+        className,
+      )}
       onClick={onClick}
     >
       {isRTL ? (
