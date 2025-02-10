@@ -3,6 +3,8 @@ import { Link, routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
+import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
+import SearchInputComponents from "@/components/Search-comments/SearchInput.components";
 
 export default function HomePage({
   params: { locale },
@@ -36,6 +38,16 @@ export default function HomePage({
           color="secondary"
           className="text-lg px-6 py-3"
         />
+        <SelectOptionComponent
+          options={[
+            { id: 1, value: "option 1" },
+            { id: 2, value: "option 2" },
+            { id: 3, value: "option 3" },
+          ]}
+          name="select-option"
+          id="select-option"
+        />
+        <SearchInputComponents id="search" placeholder="سرچ کنید...." />
       </div>
     </div>
   );

@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  position: relative;
+
+  label {
+    @apply text-base font-semibold;
+  }
+
+  input.select {
+    @apply font-medium bg-gray-100 text-secondary rounded-full focus:bg-third focus:outline focus:outline-primary focus:outline-2;
+
+    padding: 0.5rem 1rem;
+
+    outline: none;
+    border: none;
+  }
+
+  svg {
+    position: absolute;
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    left: 1rem;
+    top: 0.5rem;
+
+    cursor: pointer;
+
+    transition: all ease 0.2s;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  .close:hover {
+    transform: rotate(90deg) scale(1.5);
+  }
+
+  .container-list {
+    @apply bg-third outline outline-2 outline-gray-200 rounded-xl shadow-md;
+
+    width: 100%;
+
+    position: absolute;
+
+    height: fit-content;
+    max-height: 20rem;
+
+    top: 120%;
+
+    z-index: 10;
+
+    padding: 0.5rem;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+
+      height: fit-content;
+      max-height: 18.5rem;
+
+      overflow-y: auto;
+
+      .item {
+        cursor: pointer;
+
+        padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+
+        color: var(--secondary);
+
+        border-radius: 8px;
+
+        &:hover {
+          background-color: var(--primary);
+          color: var(--third);
+          font-weight: 700;
+        }
+      }
+
+      .not_found_text {
+        cursor: default;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: "var(--primary)",
+        primaryfade: "hsla(166, 100%, 34%, 0.3)",
         secondary: "var(--secondary)",
         third: "var(--third)",
       },
