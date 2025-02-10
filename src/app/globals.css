@@ -14,7 +14,3 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
-
-.primary-bg {
-  background-color: var(--primary) !important;
-}
