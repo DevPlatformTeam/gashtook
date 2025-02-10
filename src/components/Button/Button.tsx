@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 import { useLocale } from "next-intl"; 
 
-interface ButtonProps {
+interface IButtonProps {
   text: string;
   icon?: React.ReactNode;
   color?: "primary" | "secondary" | "third";
@@ -12,7 +12,7 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ 
+const Button: React.FC<IButtonProps> = ({ 
   text, 
   icon, 
   color = "primary", 
