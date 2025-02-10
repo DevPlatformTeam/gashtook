@@ -42,7 +42,9 @@ export async function generateMetadata({
     },
   };
 
-  if (!routing.locales.includes(params.locale as (typeof routing.locales)[number])) {
+  if (
+    !routing.locales.includes(params.locale as (typeof routing.locales)[number])
+  ) {
     return notFound();
   }
 
@@ -51,7 +53,6 @@ export async function generateMetadata({
     description:
       translations[params.locale as keyof typeof translations].description,
   };
-
 }
 
 export default async function RootLayout({
@@ -61,12 +62,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-
-
   const messages = await getMessages();
 
   return (
-    <html lang={locale} dir={ locale === 'fa' ? 'rtl' : 'ltr' } className={vazirmatn.className}>
+    <html
+      lang={locale}
+      dir={locale === "fa" ? "rtl" : "ltr"}
+      className={vazirmatn.className}
+    >
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}
