@@ -1,10 +1,15 @@
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
+import { notFound } from "next/navigation";
 
-export default function HomePage() {
+export default function HomePage({params: {locale}}: {params: {locale: string}}) {
   const t = useTranslations("HomePage");
+
+  if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
+    return notFound();
+  }
 
   return (
     <div>
