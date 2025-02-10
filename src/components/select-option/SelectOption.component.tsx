@@ -1,6 +1,12 @@
 "use client";
 
-import React, { ReactElement, useState, useCallback, useRef, useEffect } from "react";
+import React, {
+  ReactElement,
+  useState,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react";
 
 import styles from "./select-option.module.css";
 
@@ -20,7 +26,16 @@ type Props = {
 } & React.ComponentPropsWithoutRef<"input">;
 
 const SelectOptionComponent = React.memo(
-  ({ name, id, options, label, className, defaultValue, setSelectedCity, ...props }: Props): ReactElement => {
+  ({
+    name,
+    id,
+    options,
+    label,
+    className,
+    defaultValue,
+    setSelectedCity,
+    ...props
+  }: Props): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const ref = useRef<HTMLInputElement>(null);
@@ -49,12 +64,6 @@ const SelectOptionComponent = React.memo(
         }
       }
     };
-
-    // useEffect(() => {
-    //   if (defaultValue) {
-    //     setSearchTerm(defaultValue);
-    //   }
-    // }, [defaultValue]);
 
     return (
       <div className={`${styles.container} ${className}`}>

@@ -11,7 +11,7 @@
 
   input.select {
     @apply font-medium bg-gray-100 text-secondary rounded-full focus:bg-third focus:outline focus:outline-primary focus:outline-2;
-    
+
     padding: 0.5rem 1rem;
 
     outline: none;

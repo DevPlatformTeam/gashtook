@@ -16,7 +16,6 @@ import SearchInputComponents from "../Search-comments/SearchInput.components";
 import SelectOptionComponent from "../Select-option/SelectOption.component";
 
 export default function HeaderComponent() {
-
   const [selectedCity, setSelectedCity] = useState<string>("تهران");
 
   return (
@@ -29,25 +28,41 @@ export default function HeaderComponent() {
 
         {/* Navigation Section */}
         <div className={styles.search}>
-          <SelectOptionComponent defaultValue={selectedCity} className="max-w-36" name="city" id="city" options={[{ id: "1", value: "تهران" }, { id: "2", value: "مشهد" }]} />
-          <SearchInputComponents  id="search-header" placeholder="جستجوی مکان ها در تهران" />
+          <SelectOptionComponent
+            defaultValue={selectedCity}
+            className="max-w-36"
+            name="city"
+            id="city"
+            options={[
+              { id: "1", value: "تهران" },
+              { id: "2", value: "مشهد" },
+            ]}
+          />
+          <SearchInputComponents
+            id="search-header"
+            placeholder="جستجوی مکان ها در تهران"
+          />
         </div>
-
-
 
         {/* Actions Section */}
         <div className={styles.actions}>
-          <Button color="primary" outline={true} icon={<LuUserRound className={"w-5 h-5"} />} text="حساب کاربری من" />
-          <Button color="primary" icon={<GoDownload className={"w-5 h-5"} />} text="دانلود اپلیکیشن" />
+          <Button
+            color="primary"
+            outline={true}
+            icon={<LuUserRound className={"w-5 h-5"} />}
+            text="حساب کاربری من"
+          />
+          <Button
+            color="primary"
+            icon={<GoDownload className={"w-5 h-5"} />}
+            text="دانلود اپلیکیشن"
+          />
         </div>
       </div>
 
-
       {/* Menu Section */}
       <nav className={styles.navMenu}>
-        <button>
-          تهران من
-        </button>
+        <button>تهران من</button>
         <button>
           دیدنی
           <IoChevronDown />

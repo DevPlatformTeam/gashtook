@@ -24,9 +24,7 @@ export default function SearchInputComponents({
     setSearchTerm(value);
   };
 
-  const handleSearch = () => {
-    
-  };
+  const handleSearch = () => {};
 
   return (
     <div className={styles.search}>

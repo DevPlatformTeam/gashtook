@@ -39,11 +39,15 @@ export default function HomePage({
           className="text-lg px-6 py-3"
         />
         <SelectOptionComponent
-          options={[{ id: 1, value: "option 1" }, { id: 2, value: "option 2" }, { id: 3, value: "option 3" }]}
+          options={[
+            { id: 1, value: "option 1" },
+            { id: 2, value: "option 2" },
+            { id: 3, value: "option 3" },
+          ]}
           name="select-option"
           id="select-option"
         />
-        <SearchInputComponents id="search" placeholder="سرچ کنید...."  />
+        <SearchInputComponents id="search" placeholder="سرچ کنید...." />
       </div>
     </div>
   );
