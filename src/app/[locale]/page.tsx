@@ -3,8 +3,8 @@ import { Link, routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
-import SelectOptionComponent from "@/components/select-option/select-option.component";
-import SearchInputComponents from "@/components/search-comments/SearchInput.components";
+import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
+import SearchInputComponents from "@/components/Search-comments/SearchInput.components";
 
 export default function HomePage({
   params: { locale },

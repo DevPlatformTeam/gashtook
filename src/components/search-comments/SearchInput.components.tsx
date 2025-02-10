@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import styles from "./SearchInput.module.css";
+import styles from "./search-input.module.css";
 
 import { CiSearch } from "react-icons/ci";
 

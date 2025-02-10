@@ -6,7 +6,7 @@
   position: relative;
 
   input {
-    @apply font-medium bg-gray-200 text-secondary focus:bg-primaryfade rounded-full px-6 py-2 pt-3 focus:outline focus:outline-primary focus:outline-2;
+    @apply font-medium bg-gray-100 text-secondary focus:bg-third rounded-full px-6 py-2 focus:outline focus:outline-primary focus:outline-2;
   }
 
   svg {
@@ -16,7 +16,7 @@
     height: 2rem;
 
     left: 0.5rem;
-    top: 0.5rem;
+    top: 0.25rem;
 
     cursor: pointer;
 

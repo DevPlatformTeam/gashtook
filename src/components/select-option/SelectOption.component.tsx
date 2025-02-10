@@ -1,10 +1,10 @@
 "use client";
 
-import React, { ReactElement, useState, useCallback } from "react";
+import React, { ReactElement, useState, useCallback, useRef, useEffect } from "react";
 
 import styles from "./select-option.module.css";
 
-import { IoClose } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
 
 type Props = {
   name: string;
@@ -13,34 +13,58 @@ type Props = {
     id: string | number;
     value: string;
   }[];
+  defaultValue?: string;
   label?: string;
+  className?: string;
+  setSelectedCity?: (city: string) => void;
 } & React.ComponentPropsWithoutRef<"input">;
 
 const SelectOptionComponent = React.memo(
-  ({ name, id, options, label, ...props }: Props): ReactElement => {
+  ({ name, id, options, label, className, defaultValue, setSelectedCity, ...props }: Props): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
+    const ref = useRef<HTMLInputElement>(null);
 
-    // Handle clearing the search term
+    // تابع برای پاک کردن مقدار ورودی
     const handleClear = useCallback(() => {
       setSearchTerm("");
     }, []);
 
+    // تابع انتخاب مقدار از لیست
     const handleSelect = useCallback(
       (item: { id: string | number; value: string }) => {
         setSearchTerm(item.value);
+        setIsOpen(false);
       },
       [],
     );
 
+    // تغییر وضعیت فوکوس
+    const handleClickIcon = () => {
+      if (ref.current) {
+        if (document.activeElement === ref.current) {
+          ref.current.blur();
+        } else {
+          ref.current.focus();
+        }
+      }
+    };
+
+    // useEffect(() => {
+    //   if (defaultValue) {
+    //     setSearchTerm(defaultValue);
+    //   }
+    // }, [defaultValue]);
+
     return (
-      <div className={styles.container}>
-        <label htmlFor={id}>{label}</label>
+      <div className={`${styles.container} ${className}`}>
+        {label && <label htmlFor={id}>{label}</label>}
         <input
+          ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
-          value={searchTerm}
+          value={searchTerm || defaultValue}
           onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
           className={styles.select}
@@ -48,7 +72,13 @@ const SelectOptionComponent = React.memo(
           id={id}
           {...props}
         />
-        {searchTerm && <IoClose onClick={handleClear} />}
+        <IoChevronDown
+          className={`${isOpen ? "rotate-180" : ""}`}
+          onMouseDown={(e) => {
+            e.preventDefault(); // جلوگیری از از دست رفتن فوکوس ناخواسته
+            handleClickIcon();
+          }}
+        />
         {isOpen && (
           <div className={styles["container-list"]}>
             <ul className={styles.list + " scroll"}>
