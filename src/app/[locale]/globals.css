@@ -15,6 +15,7 @@ body {
   background: var(--background);
 }
 
-.primary-bg {
-  background-color: var(--primary) !important;
+.inset-block-card-btn {
+  inset-inline-end: 1.0rem;
+  inset-block-end: 2.5rem;
 }
