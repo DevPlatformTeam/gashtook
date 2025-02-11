@@ -1,0 +1,15 @@
+.radio-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+
+  .radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    input {
+      accent-color: var(--primary);
+    }
+  }
+}
