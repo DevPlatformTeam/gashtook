@@ -1,12 +1,12 @@
 /* header.module.css */
 .header {
-  @apply bg-third py-4 md:pb-0 shadow;
+  @apply bg-third py-4 lg:pb-0 shadow;
 
-  .container {
-    @apply mx-auto flex items-center justify-between px-4 md:px-12;
+  .headerTop {
+    @apply container mx-auto flex items-center justify-between;
 
     .menu {
-      @apply flex items-center justify-center text-4xl md:hidden hover:text-primary active:scale-90 transition-all cursor-pointer;
+      @apply flex items-center justify-center text-4xl lg:hidden hover:text-primary active:scale-90 transition-all cursor-pointer;
     }
 
     .logo {
@@ -22,11 +22,11 @@
     }
 
     .mobileSearch { 
-      @apply text-4xl md:hidden flex-center hover:text-primary active:scale-90 transition-all cursor-pointer;
+      @apply text-4xl lg:hidden flex-center hover:text-primary active:scale-90 transition-all cursor-pointer;
     }
 
     .search {
-      @apply hidden md:flex-center gap-6 grow;
+      @apply hidden lg:flex-center gap-4 grow;
 
       & > div:nth-child(2) {
         @apply w-2/3;
@@ -34,13 +34,13 @@
     }
 
     .actions {
-      @apply hidden md:flex items-center space-x-4 rtl:space-x-reverse;
+      @apply hidden lg:flex items-center space-x-4 rtl:space-x-reverse;
 
     }
   }
 
   .navMenu {
-    @apply relative hidden md:flex items-center justify-center gap-8 py-4 mt-6;
+    @apply relative hidden lg:flex items-center justify-center gap-8 py-4 mt-6;
 
     &::before {
       position: absolute;

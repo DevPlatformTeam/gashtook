@@ -1,0 +1,19 @@
+.layoutOtherPages {
+    @apply flex flex-col gap-4 lg:gap-8 min-h-screen container;
+
+    .image {
+        @apply w-full h-72 object-cover mt-5 sm:mt-8 md:mt-10 lg:mt-11 child:size-full child:object-cover child:rounded-default;
+    }
+
+    .content {
+        @apply flex flex-col gap-1 lg:gap-2 lg:mr-10 justify-center;
+
+        h1 {
+            @apply text-2xl font-bold;
+        }
+
+        p {
+            @apply text-sm leading-7 font-medium text-justify;
+        }
+    }
+}

@@ -58,7 +58,7 @@ export default function HeaderComponent() {
 
   return (
     <header className={styles.header}>
-      <div className={`${styles.container} ${styles.headerTop}`}>
+      <div className={styles.headerTop}>
 
         <div className={styles.menu}>
           <HiOutlineMenu />
@@ -76,7 +76,7 @@ export default function HeaderComponent() {
         <div className={styles.search}>
           <SelectOptionComponent
             defaultValue={selectedCity}
-            className="max-w-36"
+            className="max-w-28"
             name="city"
             id="city"
             options={[
@@ -85,6 +85,7 @@ export default function HeaderComponent() {
             ]}
           />
           <SearchInputComponent
+            className="max-w-76"
             id="search-header"
             placeholder="جستجوی مکان ها در تهران"
           />

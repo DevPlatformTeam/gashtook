@@ -5,17 +5,20 @@ import React, { useState } from "react";
 import styles from "./search-input.module.css";
 
 import { CiSearch } from "react-icons/ci";
+import clsx from "clsx";
 
 type Props = {
   id: string;
   label?: string;
   placeholder: string;
+  className?: string;
 };
 
 export default function SearchInputComponent({
   id,
   label,
   placeholder,
+  className,
 }: Props) {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
@@ -27,7 +30,7 @@ export default function SearchInputComponent({
   const handleSearch = () => {};
 
   return (
-    <div className={styles.search}>
+    <div className={clsx(styles.search, className)}>
       {label && <label htmlFor={id}>{label}</label>}
       <input
         placeholder={placeholder}
