@@ -1,11 +1,6 @@
 "use client";
 
-import React, {
-  ReactElement,
-  useState,
-  useCallback,
-  useRef,
-} from "react";
+import React, { ReactElement, useState, useCallback, useRef } from "react";
 
 import styles from "./select-option.module.css";
 

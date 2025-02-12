@@ -21,7 +21,7 @@
       }
     }
 
-    .mobileSearch { 
+    .mobileSearch {
       @apply text-4xl lg:hidden flex-center hover:text-primary active:scale-90 transition-all cursor-pointer;
     }
 
@@ -35,7 +35,6 @@
 
     .actions {
       @apply hidden lg:flex items-center space-x-4 rtl:space-x-reverse;
-
     }
   }
 

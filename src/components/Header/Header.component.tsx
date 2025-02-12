@@ -27,7 +27,6 @@ export default function HeaderComponent() {
   const [selectedCity, setSelectedCity] = useState<string>("تهران");
   const [resize, setResize] = useState<number>(0);
 
-
   useEffect(() => {
     const handleResize = () => {
       setResize(window.innerWidth);
@@ -42,7 +41,9 @@ export default function HeaderComponent() {
   }, []);
 
   useEffect(() => {
-    const activeElement = document.querySelector(`.${styles.active}`) as HTMLElement | null;
+    const activeElement = document.querySelector(
+      `.${styles.active}`,
+    ) as HTMLElement | null;
 
     if (activeElement) {
       const width = activeElement.offsetWidth;
@@ -59,7 +60,6 @@ export default function HeaderComponent() {
   return (
     <header className={styles.header}>
       <div className={styles.headerTop}>
-
         <div className={styles.menu}>
           <HiOutlineMenu />
         </div>

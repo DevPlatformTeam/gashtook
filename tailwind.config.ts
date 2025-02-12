@@ -22,11 +22,11 @@ const config: Config = {
       container: {
         center: true,
         padding: {
-          DEFAULT: '1.25rem',
-          lg: '1.5rem',
-          xl: '2.625rem',
-          '2xl': '4rem',
-          '3xl': '5rem',
+          DEFAULT: "1.25rem",
+          lg: "1.5rem",
+          xl: "2.625rem",
+          "2xl": "4rem",
+          "3xl": "5rem",
         },
       },
       spacing: {
@@ -41,7 +41,7 @@ const config: Config = {
         tightest: "-.065em",
       },
       borderRadius: {
-        "default": "1.25rem",
+        default: "1.25rem",
       },
     },
   },
