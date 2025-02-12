@@ -11,9 +11,6 @@ import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
 
-import Footer from "@/components/Footer/Footer";
-import HeaderComponent from "@/components/Header/Header.component";
-
 const vazirmatn = Vazirmatn({
   subsets: ["latin", "arabic"],
   display: "swap",
@@ -73,9 +70,7 @@ export default async function RootLayout({
     >
       <body>
         <NextIntlClientProvider messages={messages}>
-          <HeaderComponent />
-          <main>{children}</main>
-          <Footer />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>
