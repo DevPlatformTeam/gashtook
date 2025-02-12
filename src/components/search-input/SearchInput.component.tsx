@@ -12,7 +12,7 @@ type Props = {
   placeholder: string;
 };
 
-export default function SearchInputComponents({
+export default function SearchInputComponent({
   id,
   label,
   placeholder,

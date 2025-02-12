@@ -1,29 +1,75 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./header-component.module.css";
 
-import { IoChevronDown } from "react-icons/io5";
+import { IoChevronDown, IoSearch } from "react-icons/io5";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 import logo from "@/assets/images/logo-english-new@2x.png";
+
 import Button from "../Button/Button";
+
 import { GoDownload } from "react-icons/go";
 import { LuUserRound } from "react-icons/lu";
-import SearchInputComponents from "../Search-comments/SearchInput.components";
-import SelectOptionComponent from "../Select-option/SelectOption.component";
+
+import SearchInputComponent from "../search-input/SearchInput.component";
+import SelectOptionComponent from "../select-option/SelectOption.component";
+
+import { HiOutlineMenu } from "react-icons/hi";
 
 export default function HeaderComponent() {
+  const pathname = usePathname();
+
   const [selectedCity, setSelectedCity] = useState<string>("تهران");
+  const [resize, setResize] = useState<number>(0);
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setResize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const activeElement = document.querySelector(`.${styles.active}`) as HTMLElement | null;
+
+    if (activeElement) {
+      const width = activeElement.offsetWidth;
+      document.documentElement.style.setProperty("--line-li", `${width}px`);
+
+      const leftOffset = activeElement.offsetLeft;
+      document.documentElement.style.setProperty(
+        "--offset-left",
+        `${leftOffset}px`,
+      );
+    }
+  }, [pathname, resize]);
 
   return (
     <header className={styles.header}>
       <div className={`${styles.container} ${styles.headerTop}`}>
+
+        <div className={styles.menu}>
+          <HiOutlineMenu />
+        </div>
         {/* Logo Section */}
         <div className={styles.logo}>
           <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
+        </div>
+
+        <div className={styles.mobileSearch}>
+          <IoSearch />
         </div>
 
         {/* Navigation Section */}
@@ -38,7 +84,7 @@ export default function HeaderComponent() {
               { id: "2", value: "مشهد" },
             ]}
           />
-          <SearchInputComponents
+          <SearchInputComponent
             id="search-header"
             placeholder="جستجوی مکان ها در تهران"
           />
@@ -62,7 +108,7 @@ export default function HeaderComponent() {
 
       {/* Menu Section */}
       <nav className={styles.navMenu}>
-        <button>تهران من</button>
+        <button className={styles.active}>تهران من</button>
         <button>
           دیدنی
           <IoChevronDown />

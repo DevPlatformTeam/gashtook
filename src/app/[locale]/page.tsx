@@ -4,7 +4,7 @@ import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
 import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
-import SearchInputComponents from "@/components/Search-comments/SearchInput.components";
+import SearchInputComponents from "@/components/search-input/SearchInput.component";
 
 export default function HomePage({
   params: { locale },
