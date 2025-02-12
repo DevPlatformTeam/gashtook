@@ -23,5 +23,20 @@
     "copyright": "© Gashtook. All rights reserved.",
     "address": "Address: Ashrafi Esfahani Highway, Tehran, Tehran Province",
     "phone": "Phone: (+98) 21 2165 4565"
+  },
+  "Auth": {
+    "signin": "login",
+    "signup": "signup",
+    "login-to-account": "Login to account",
+    "mobile": "phone number",
+    "password": "password",
+    "forgetpassword": "forget password",
+    "remember-me": "Remember Me",
+    "enter": "log in",
+    "create-account": "Create an account",
+    "register-in-gashtook": "Join Gashtook",
+    "notice-register": "If you don't have an account, you can quickly become a member of Gashtook.",
+    "notice-login": "If you already have an account, you can sign in to your account using the button below",
+    "register-rules": "I have read and agree to the terms and conditions of use of the Gashtook Website Services and agree to all its terms"
   }
 }
