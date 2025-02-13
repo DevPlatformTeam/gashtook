@@ -1,15 +1,19 @@
 /* header.module.css */
 .header {
-  @apply bg-third pt-4 shadow;
+  @apply bg-third py-4 lg:pb-0 shadow;
 
-  .container {
-    @apply mx-auto flex items-center justify-between px-12;
+  .headerTop {
+    @apply container mx-auto flex items-center justify-between;
+
+    .menu {
+      @apply flex items-center justify-center text-4xl lg:hidden hover:text-primary active:scale-90 transition-all cursor-pointer;
+    }
 
     .logo {
       @apply flex items-center;
 
       img {
-        @apply h-8 w-auto mr-2;
+        @apply size-10 w-auto mr-2;
       }
 
       span {
@@ -17,40 +21,44 @@
       }
     }
 
+    .mobileSearch {
+      @apply text-4xl lg:hidden flex-center hover:text-primary active:scale-90 transition-all cursor-pointer;
+    }
+
     .search {
-      @apply flex items-center justify-center gap-6 grow;
+      @apply hidden lg:flex-center gap-4 grow;
 
       & > div:nth-child(2) {
-        @apply w-1/3;
+        @apply w-2/3;
       }
     }
 
     .actions {
-      @apply flex items-center space-x-4 rtl:space-x-reverse;
-
-      .download {
-        @apply bg-green-500 text-white px-4 py-2 rounded-full flex items-center space-x-2 rtl:space-x-reverse;
-
-        svg {
-          @apply w-5 h-5;
-        }
-      }
-
-      .account {
-        @apply text-gray-600 flex items-center;
-
-        svg {
-          @apply w-5 h-5 ml-1;
-        }
-      }
+      @apply hidden lg:flex items-center space-x-4 rtl:space-x-reverse;
     }
   }
 
   .navMenu {
-    @apply flex items-center justify-center gap-8 py-2 mt-6;
+    @apply relative hidden lg:flex items-center justify-center gap-8 py-4 mt-6;
+
+    &::before {
+      position: absolute;
+      content: "";
+      background-color: var(--primary);
+      border-radius: 999rem 999rem 0 0;
+      width: var(--line-li);
+      height: 0.25rem;
+      bottom: 0;
+      left: var(--offset-left);
+      transition: all 0.5s ease;
+    }
+
+    .active {
+      @apply text-primary;
+    }
 
     button {
-      @apply flex items-center gap-2 hover:text-gray-800;
+      @apply flex items-center gap-2 hover:text-primary hover:font-bold transition-all duration-300;
     }
   }
 }

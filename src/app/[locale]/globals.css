@@ -4,10 +4,10 @@
 
 :root {
   --background: hsl(0, 0%, 99%);
-  --foreground: hsl(0, 0%, 44%);
+  --foreground: hsl(0, 0%, 29%);
   --primary: hsl(166, 100%, 34%);
   --primary-fade: hsla(166, 100%, 34%, 0.3);
-  --secondary: hsl(0, 0%, 44%);
+  --secondary: hsl(0, 0%, 29%);
   --third: hsl(0, 0%, 100%);
 }
 
@@ -39,11 +39,6 @@ body::-webkit-scrollbar-thumb,
 .scroll::-webkit-scrollbar-thumb {
   background: var(--sb-thumb-color);
   border-radius: 5px;
-}
-
-.inset-block-card-btn {
-  inset-inline-end: 1rem;
-  inset-block-end: 2.5rem;
 }
 
 @supports not selector(::-webkit-scrollbar) {

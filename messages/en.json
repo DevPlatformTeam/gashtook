@@ -3,6 +3,10 @@
     "title": "Hello world!",
     "about": "Go to the about page"
   },
+  "SubmitComplaintPage": {
+    "title": "Submit Complaints",
+    "complaintText": "Dear user,\nYou can follow up your complaints by one of the following methods:\n- Fill out the form available on the contact page. In the subject section, select the \"complaint\" option.\n- Contact support by phone number 02177415954\n- Send an email with the subject \"complaint\" to the address info@gashtook.com  (The email must contain the registered phone number in the user profile and the complaint subject)\n- Send an SMS to the number 30000123000724  (The SMS must contain the registered phone number in the user profile and the complaint subject)\nNote that only complaints filled out with verified information will be reviewed."
+  },
   "Footer": {
     "gashtook": "Gashtook",
     "cities": "Cities",

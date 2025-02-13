@@ -16,11 +16,17 @@ const config: Config = {
         secondary: "var(--secondary)",
         third: "var(--third)",
       },
+      screens: {
+        "3xl": "1600px",
+      },
       container: {
         center: true,
         padding: {
-          DEFAULT: "1rem",
-          lg: "0.625rem",
+          DEFAULT: "1.25rem",
+          lg: "1.5rem",
+          xl: "2.625rem",
+          "2xl": "4rem",
+          "3xl": "5rem",
         },
       },
       spacing: {
@@ -33,6 +39,9 @@ const config: Config = {
       },
       letterSpacing: {
         tightest: "-.065em",
+      },
+      borderRadius: {
+        default: "1.25rem",
       },
     },
   },
