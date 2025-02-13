@@ -1,0 +1,68 @@
+/* header.module.css */
+.header {
+  @apply bg-third py-4 lg:pb-0 shadow;
+
+  .headerTop {
+    @apply container mx-auto flex items-center justify-between;
+
+    .menu {
+      @apply flex items-center justify-center text-4xl lg:hidden hover:text-primary active:scale-90 transition-all cursor-pointer;
+    }
+
+    .logo {
+      @apply flex items-center;
+
+      img {
+        @apply size-10 w-auto mr-2;
+      }
+
+      span {
+        @apply font-bold text-gray-700;
+      }
+    }
+
+    .language {
+      @apply hidden child:max-w-20 lg:flex items-center;
+    }
+
+    .mobileSearch {
+      @apply text-4xl lg:hidden flex-center hover:text-primary active:scale-90 transition-all cursor-pointer;
+    }
+
+    .search {
+      @apply hidden lg:flex-center gap-4 grow;
+
+      & > div:nth-child(2) {
+        @apply w-2/3;
+      }
+    }
+
+    .actions {
+      @apply hidden lg:flex items-center space-x-4 rtl:space-x-reverse;
+    }
+  }
+
+  .navMenu {
+    @apply relative hidden lg:flex items-center justify-center gap-8 py-4 mt-6;
+
+    &::before {
+      position: absolute;
+      content: "";
+      background-color: var(--primary);
+      border-radius: 999rem 999rem 0 0;
+      width: var(--line-li);
+      height: 0.25rem;
+      bottom: 0;
+      left: var(--offset-left);
+      transition: all 0.5s ease;
+    }
+
+    .active {
+      @apply text-primary;
+    }
+
+    button {
+      @apply flex items-center gap-2 hover:text-primary hover:font-bold transition-all duration-300;
+    }
+  }
+}
