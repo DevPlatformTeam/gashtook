@@ -16,6 +16,10 @@ body {
   background: var(--background);
 }
 
+main {
+  background-color: var(--background);
+}
+
 body,
 .scroll {
   --sb-track-color: #d2d2d2;

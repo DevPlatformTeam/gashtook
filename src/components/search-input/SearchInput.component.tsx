@@ -39,7 +39,7 @@ export default function SearchInputComponent({
         value={searchTerm}
         onChange={handleInput}
       />
-      {searchTerm && <CiSearch onClick={handleSearch} />}
+      <CiSearch onClick={handleSearch} />
     </div>
   );
 }

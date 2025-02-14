@@ -19,6 +19,30 @@
     "title": "About Us",
     "aboutUsDescription": "Welcome to Gashtook! We aim to increase our knowledge of our country by traveling to different cities. Our team makes it easier for you to find what you are looking for by introducing the available options in the cities. With Gashtook, you can see the sights and go to the places you want.\nWe are a team of energetic and active people who strive to introduce different cities and tourist attractions of our country. Our country is very beautiful, but many of us Iranians do not have a detailed knowledge of the tourist and entertainment potential of our country. Our team is committed to showing you a view of different cities according to your needs.\nThe introduction of historical sites, parks and entertainment centers, medical and service centers, museums and galleries, restaurants and cafes, hotels, shopping centers, and... is part of our goals. In Gashtook, we travel to different places and become a guardian of the beauty and available facilities.\nWe hope that we have been able to make your work easier and your entertainment more enjoyable with this tool.\nGashtook was founded in 97 by a team of experienced and active people with the guidance of Seyed Mehdi Seyed Hajie (owner of the brand)."
   },
+  "city": [
+    { "id": "1", "value": "Tehran" },
+    { "id": "2", "value": "Tabriz" },
+    { "id": "3", "value": "Mashhad" },
+    { "id": "4", "value": "Isfahan" }
+  ],
+  "contact-us": {
+    "title": "Contact Us",
+    "tellphoneTitle": "Tellphone",
+    "emailTitle": "Email",
+    "addressTitle": "Address",
+    "exactAddress": "Tehran, Ashrafi Esfahani Highway, Tehran, Tehran Province",
+    "titleForm": "In Service",
+    "descriptionFrom": "Gashtook welcomes your suggestions, criticisms and complaints. If you want to contact Gashtook directly, please send your request through the form below or directly to the contactus.gashtook@gmail.com address",
+    "mobileInputLabel": "Phone Number",
+    "typeMessageInputLabel": "Message Type",
+    "typeMessageInputPlaceholder": "select",
+    "nameInputLabel": "Your Name",
+    "nameInputPlaceholder": "Koroush Salari",
+    "emailInputLabel": "Email Address",
+    "messageInputLabel": "Message",
+    "messageInputPlaceholder": "Type your message here",
+    "sendButton": "Send"
+  },
   "Footer": {
     "gashtook": "Gashtook",
     "cities": "Cities",

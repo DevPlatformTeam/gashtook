@@ -20,12 +20,14 @@ import SearchInputComponent from "../search-input/SearchInput.component";
 import SelectOptionComponent from "../select-option/SelectOption.component";
 
 import { HiOutlineMenu } from "react-icons/hi";
-import ToggleLanguageComponent from "../toggle-language/Togglelanguage.component";
+import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component";
+import { useTranslations } from 'next-intl';
 
 export default function Header() {
+  const t = useTranslations();
   const pathname = usePathname();
 
-  const [selectedCity, setSelectedCity] = useState<string>("تهران");
+  const [selectedCity, setSelectedCity] = useState<string>((t.raw("city") as { id: string; value: string }[])[0].value);
   const [resize, setResize] = useState<number>(0);
 
   useEffect(() => {
@@ -84,13 +86,9 @@ export default function Header() {
             className="max-w-28"
             name="city"
             id="city"
-            options={[
-              { id: "1", value: "تهران" },
-              { id: "2", value: "مشهد" },
-            ]}
+            options={t.raw("city") as { id: string; value: string }[]}
           />
           <SearchInputComponent
-            className="max-w-76"
             id="search-header"
             placeholder="جستجوی مکان ها در تهران"
           />
