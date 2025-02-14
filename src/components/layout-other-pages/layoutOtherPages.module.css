@@ -6,14 +6,14 @@
   }
 
   .content {
-    @apply flex flex-col gap-1 lg:gap-2 lg:mr-10 justify-center;
+    @apply flex flex-col gap-1 lg:gap-2 lg:px-10 justify-center;
 
     h1 {
       @apply text-2xl font-bold;
     }
 
     p {
-      @apply text-sm leading-7 font-medium text-justify;
+      @apply text-sm leading-7 font-medium text-justify whitespace-pre-line;
     }
   }
 }

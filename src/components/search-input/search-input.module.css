@@ -6,7 +6,12 @@
   position: relative;
 
   input {
-    @apply font-medium bg-gray-100 text-secondary focus:bg-third rounded-full px-6 py-2 focus:outline focus:outline-primary focus:outline-2;
+    @apply font-medium bg-gray-100 text-secondary rounded-full px-6 py-2 outline-none focus:outline focus:outline-primary focus:outline-2 focus:bg-third;
+    transition: all ease 0.1s;
+  }
+
+  input:focus ~ svg {
+    @apply text-primary;
   }
 
   svg {
@@ -15,12 +20,12 @@
     width: 2rem;
     height: 2rem;
 
-    left: 0.5rem;
-    top: 0.25rem;
+    inset-inline-end: 0.5rem;
+    inset-block-start: 0.25rem;
 
     cursor: pointer;
 
-    transition: all ease 0.2s;
+    transition: all ease 0.1s;
 
     &:hover {
       transform: rotate(90deg) scale(1.3);

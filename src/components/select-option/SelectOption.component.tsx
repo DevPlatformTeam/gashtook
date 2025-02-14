@@ -65,7 +65,6 @@ const SelectOptionComponent = React.memo(
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
           value={searchTerm || defaultValue}
-          onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
           className={styles.select}
           name={name}
@@ -73,9 +72,9 @@ const SelectOptionComponent = React.memo(
           {...props}
         />
         <IoChevronDown
-          className={`${isOpen ? "rotate-180" : ""}`}
+          className={`${isOpen ? "rotate-180" : ""} ${label ? "top-9" : "top-3"}`}
           onMouseDown={(e) => {
-            e.preventDefault(); // جلوگیری از از دست رفتن فوکوس ناخواسته
+            e.preventDefault();
             handleClickIcon();
           }}
         />

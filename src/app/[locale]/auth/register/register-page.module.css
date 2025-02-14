@@ -1,6 +1,6 @@
 .bgImage {
-    @apply w-1/2 hidden flex-col relative lg:flex md:flex;
-    background-image: url('../../../../assets/images/pol.png');
-    background-size: cover;
-    background-position: center;
+  @apply w-1/2 hidden flex-col relative lg:flex md:flex;
+  background-image: url("../../../../assets/images/pol.png");
+  background-size: cover;
+  background-position: center;
 }
