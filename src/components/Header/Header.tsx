@@ -21,13 +21,15 @@ import SelectOptionComponent from "../select-option/SelectOption.component";
 
 import { HiOutlineMenu } from "react-icons/hi";
 import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component";
-import { useTranslations } from 'next-intl';
+import { useTranslations } from "next-intl";
 
 export default function Header() {
   const t = useTranslations();
   const pathname = usePathname();
 
-  const [selectedCity, setSelectedCity] = useState<string>((t.raw("city") as { id: string; value: string }[])[0].value);
+  const [selectedCity, setSelectedCity] = useState<string>(
+    (t.raw("city") as { id: string; value: string }[])[0].value,
+  );
   const [resize, setResize] = useState<number>(0);
 
   useEffect(() => {

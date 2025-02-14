@@ -8,7 +8,6 @@
   input {
     @apply font-medium bg-gray-100 text-secondary rounded-full px-6 py-2 outline-none focus:outline focus:outline-primary focus:outline-2 focus:bg-third;
     transition: all ease 0.1s;
-  
   }
 
   input:focus ~ svg {
