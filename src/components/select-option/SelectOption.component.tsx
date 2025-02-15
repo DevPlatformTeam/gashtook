@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  ReactElement,
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-} from "react";
+import React, { ReactElement, useState, useCallback, useRef } from "react";
 
 import styles from "./select-option.module.css";
 
@@ -40,12 +34,10 @@ const SelectOptionComponent = React.memo(
     const [searchTerm, setSearchTerm] = useState("");
     const ref = useRef<HTMLInputElement>(null);
 
-    // تابع برای پاک کردن مقدار ورودی
     const handleClear = useCallback(() => {
       setSearchTerm("");
     }, []);
 
-    // تابع انتخاب مقدار از لیست
     const handleSelect = useCallback(
       (item: { id: string | number; value: string }) => {
         setSearchTerm(item.value);
@@ -54,7 +46,6 @@ const SelectOptionComponent = React.memo(
       [],
     );
 
-    // تغییر وضعیت فوکوس
     const handleClickIcon = () => {
       if (ref.current) {
         if (document.activeElement === ref.current) {
@@ -74,7 +65,6 @@ const SelectOptionComponent = React.memo(
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
           value={searchTerm || defaultValue}
-          onChange={(e) => setSearchTerm(e.target.value)}
           type="text"
           className={styles.select}
           name={name}
@@ -82,9 +72,9 @@ const SelectOptionComponent = React.memo(
           {...props}
         />
         <IoChevronDown
-          className={`${isOpen ? "rotate-180" : ""}`}
+          className={`${isOpen ? "rotate-180" : ""} ${label ? "top-9" : "top-3"}`}
           onMouseDown={(e) => {
-            e.preventDefault(); // جلوگیری از از دست رفتن فوکوس ناخواسته
+            e.preventDefault();
             handleClickIcon();
           }}
         />
@@ -110,5 +100,4 @@ const SelectOptionComponent = React.memo(
 );
 
 SelectOptionComponent.displayName = "SelectOptionComponent";
-
 export default SelectOptionComponent;

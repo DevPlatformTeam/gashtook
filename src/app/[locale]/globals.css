@@ -3,11 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: #fdfdfd;
-  --foreground: #4a4a4a;
-  --primary: #00ab84;
-  --secondary: #4a4a4a;
-  --third: #ffffff;
+  --background: hsl(0, 0%, 99%);
+  --foreground: hsl(0, 0%, 29%);
+  --primary: hsl(166, 100%, 34%);
+  --primary-fade: hsla(166, 100%, 34%, 0.3);
+  --secondary: hsl(0, 0%, 29%);
+  --third: hsl(0, 0%, 100%);
 }
 
 body {
@@ -15,7 +16,38 @@ body {
   background: var(--background);
 }
 
-.inset-block-card-btn {
-  inset-inline-end: 1rem;
-  inset-block-end: 2.5rem;
+main {
+  background-color: var(--background);
+}
+
+body,
+.scroll {
+  --sb-track-color: #d2d2d2;
+  --sb-thumb-color: var(--primary);
+  --sb-size: 4px;
+}
+
+body::-webkit-scrollbar,
+.scroll::-webkit-scrollbar {
+  width: var(--sb-size);
+  height: var(--sb-size);
+}
+
+body::-webkit-scrollbar-track,
+.scroll::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb,
+.scroll::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 5px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body,
+  .scroll {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
 }
