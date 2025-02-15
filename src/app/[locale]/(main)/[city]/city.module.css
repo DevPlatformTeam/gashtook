@@ -1,0 +1,27 @@
+.custom-swiper-button {
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    color: #007bff; /* آبی */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .custom-swiper-button:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .custom-swiper-button-prev {
+    left: -20px;
+  }
+  
+  .custom-swiper-button-next {
+    right: -20px;
+  }
+  

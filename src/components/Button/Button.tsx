@@ -49,17 +49,9 @@ const Button: React.FC<IButtonProps> = ({
       )}
       onClick={onClick}
     >
-      {isRTL ? (
-        <>
-          <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
+
           {icon && <span>{icon}</span>}
-        </>
-      ) : (
-        <>
-          {icon && <span>{icon}</span>}
-          <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
-        </>
-      )}
+          <span className={textColor ? `text-${textColor}` : ''}>{text}</span>
     </button>
   );
 };
