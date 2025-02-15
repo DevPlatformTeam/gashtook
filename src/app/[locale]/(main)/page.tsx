@@ -9,21 +9,17 @@ import Image from "next/image";
 import MainCard from "../components/MainCard/MainCard";
 import './style.css';
 
-// 📌 Import Swiper correctly
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
 
-// 📌 Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/effect-fade"; // 📌 اضافه کردن افکت fade
+import "swiper/css/effect-fade"; 
 
-// 📌 Ensure Swiper is registered
 import { register } from "swiper/element/bundle";
 register();
 
-// 📌 Import Images
 import slide1 from "@/assets/images/slider1.png";
 import slide2 from "@/assets/images/slider1.png";
 import slide3 from "@/assets/images/slider1.png";
@@ -60,14 +56,14 @@ export default function HomePage({
       <div className="w-full mt-5  justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, EffectFade]} // 📌 اضافه کردن افکت‌ها
+            modules={[Navigation, Pagination, Autoplay, EffectFade]} 
             spaceBetween={0}
-            slidesPerView={1} // 📌 نمایش یک اسلاید در لحظه
-            navigation // 📌 دکمه‌های قبلی و بعدی
-            pagination={{ clickable: true }} // 📌 نشانگر صفحات
-            autoplay={{ delay: 3000, disableOnInteraction: false }} // 📌 حرکت خودکار هر ۳ ثانیه
-            effect="fade" // 📌 تغییر نرم بین اسلایدها
-            loop // 📌 اجرای بی‌نهایت اسلایدها
+            slidesPerView={1} 
+            navigation 
+            pagination={{ clickable: true }} 
+            autoplay={{ delay: 3000, disableOnInteraction: false }} 
+            effect="fade" 
+            loop 
           >
             <SwiperSlide>
               <Image src={slide1} alt="Slide 1" className="w-full lg:h-auto " />
