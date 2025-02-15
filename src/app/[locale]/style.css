@@ -1,0 +1,21 @@
+.swiper-pagination-bullet
+{
+    width: 10px !important;
+    height:10px !important;
+    background-color: white !important;
+}
+
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal
+{
+    padding-right:15px
+}
+
+.swiper-pagination 
+{
+    text-align: right !important;
+}
+
+.swiper-button-next
+{
+   display:none !important;
+}

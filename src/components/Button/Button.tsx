@@ -51,8 +51,7 @@ const Button: React.FC<IButtonProps> = ({
     >
 
           {icon && <span>{icon}</span>}
-          <span>{text}</span>
-
+          <span className={textColor ? `text-${textColor}` : ''}>{text}</span>
     </button>
   );
 };

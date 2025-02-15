@@ -1,7 +1,13 @@
 {
   "HomePage": {
     "title": "Hello world!",
-    "about": "Go to the about page"
+    "about": "Go to About Page",
+    "showCity": "View City",
+    "guideCity": "Tourism Guide for Iranian Cities",
+    "seeAndGo": "See the sights, explore the destinations",
+    "downloadApp": "Download the App",
+    "cityList": "View City List",
+    "citiesList": "Cities List"
   },
   "Footer": {
     "gashtook": "Gashtook",
