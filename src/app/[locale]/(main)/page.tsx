@@ -6,7 +6,7 @@ import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import MainCard from "./components/MainCard/MainCard";
+import MainCard from "../components/MainCard/MainCard";
 import './style.css';
 
 // 📌 Import Swiper correctly
