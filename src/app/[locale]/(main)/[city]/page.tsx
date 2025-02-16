@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import slidImage from "@/assets/images/slider1.png";
-import Card from "./components/Card";
-import styles from "./city.module.css";
+import Card from "../../../../components/SliderCard/SliderCard";
+import SliderCard from '@/components/SliderCard/SliderCard';
 
 export default function Page() {
   const slides = [
@@ -18,7 +18,7 @@ export default function Page() {
   ];
 
   return (
-    <div className={`${styles["about-city"]} px-4 sm:px-8 md:px-12 mt-6`}>
+    <div className={"px-4 sm:px-8 md:px-12 mt-6"}>
       <Image 
         src={slidImage} 
         alt="banner" 
@@ -31,22 +31,22 @@ export default function Page() {
 
       <div className="mt-5 sm:mt-7 mb-7">
         <p className="text-sm sm:text-base text-gray-500">بهترین موزه های تهران</p>
-        <Card slides={slides} />
+        <SliderCard id="best-museums" slides={slides} />
       </div>
 
       <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
         <p className="text-sm sm:text-base">بهترین پارک های تهران</p>
-        <Card slides={slides} />
+        <SliderCard id="best-parks" slides={slides} />
       </div>
 
       <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
         <p className="text-sm sm:text-base">بهترین هتل های تهران</p>
-        <Card slides={slides} />
+        <SliderCard id="best-hotels" slides={slides} />
       </div>
 
       <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
         <p className="text-sm sm:text-base">دیدنی های تهران</p>
-        <Card slides={slides} />
+        <SliderCard id="best-attractions" slides={slides} />
       </div>
     </div>
   );
