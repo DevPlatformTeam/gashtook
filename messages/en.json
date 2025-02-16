@@ -31,6 +31,20 @@
     { "id": "3", "value": "Mashhad" },
     { "id": "4", "value": "Isfahan" }
   ],
+  "category": {
+    "title": "Collections",
+    "mapButton": "Nearest Place",
+    "filterButton": "Filter Results",
+    "categories": [
+      { "name": "attractions", "value": "attractions" },
+      { "name": "shopping", "value": "shopping" },
+      { "name": "food", "value": "food" },
+      { "name": "accommodation", "value": "accommodation" },
+      { "name": "recreation", "value": "recreation" },
+      { "name": "treatment", "value": "treatment" }
+    ],
+    "titleCategoryList": "List of Places"
+  },
   "contact-us": {
     "title": "Contact Us",
     "tellphoneTitle": "Tellphone",

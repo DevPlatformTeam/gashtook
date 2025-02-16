@@ -1,6 +1,6 @@
 /* header.module.css */
 .header {
-  @apply relative bg-third py-4 pt-8 lg:pb-0 shadow-sm;
+  @apply relative bg-third pt-8 shadow-md;
 
   .headerTop {
     @apply container mx-auto flex items-center justify-between gap-4;
@@ -46,7 +46,7 @@
   }
 
   .navMenu {
-    @apply relative hidden lg:flex items-center justify-center gap-8 py-4 mt-6;
+    @apply relative flex items-center md:justify-center container gap-8 mt-6 py-4 overflow-x-auto;
 
     &::before {
       position: absolute;
@@ -65,7 +65,7 @@
     }
 
     button {
-      @apply flex items-center gap-2 hover:text-primary hover:font-bold transition-all duration-300;
+      @apply flex items-center gap-2 shrink-0 hover:text-primary hover:font-bold transition-all duration-300;
     }
   }
 }

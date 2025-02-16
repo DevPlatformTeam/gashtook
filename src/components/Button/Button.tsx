@@ -49,9 +49,8 @@ const Button: React.FC<IButtonProps> = ({
       )}
       onClick={onClick}
     >
-
-          {icon && <span>{icon}</span>}
-          <span className={textColor ? `text-${textColor}` : ''}>{text}</span>
+      {icon && <span>{icon}</span>}
+      <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
     </button>
   );
 };

@@ -19,12 +19,11 @@ export default function Card({ src, label, alt, liked = false }: ICardProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="w-[254px] h-auto relative">
+    <div className="min-h-40 relative flex flex-col gap-2">
       {isLoading && <div>Loading...</div>}
       <Image
-        className="rounded-lg"
-        width={254}
-        height={168}
+        className="!relative rounded-lg"
+        fill
         src={src}
         alt={alt}
         onLoad={() => setIsLoading(false)}
@@ -32,12 +31,12 @@ export default function Card({ src, label, alt, liked = false }: ICardProps) {
       />
       {hasError && <div>Error loading image</div>}
       <button
-        className="bg-primary shadow-lg flex justify-center items-center text-white rounded-full w-9 h-9 absolute inset-block-card-btn"
+        className="bg-primary shadow-lg flex justify-center items-center text-white rounded-full w-9 h-9 absolute end-3 bottom-11"
         type="button"
       >
-        {liked ? <IoMdHeartEmpty size={22} /> : <IoHeart size={22} />}
+        {liked ? <IoHeart size={22} /> : <IoMdHeartEmpty size={22} />}
       </button>
-      <p className="pt-2 ps-0.5 text-start">{label}</p>
+      <p className="ps-0.5 text-start">{label}</p>
     </div>
   );
 }
