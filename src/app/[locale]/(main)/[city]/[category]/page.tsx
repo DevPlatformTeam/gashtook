@@ -14,15 +14,28 @@ import map from "@/assets/images/map-category/image-1@3x.jpg";
 import Image from "next/image";
 import Card from "@/components/Card/Card";
 
-export default function CategoryPage({ params }: { params: { city: string, category: string } }) {
+export default function CategoryPage({
+  params,
+}: {
+  params: { city: string; category: string };
+}) {
   const slides = [
-    { title: "موزه ملی ایران", imageSrc: "https://picsum.photos/id/222/300/150" },
+    {
+      title: "موزه ملی ایران",
+      imageSrc: "https://picsum.photos/id/222/300/150",
+    },
     { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "موزه هنرهای معاصر", imageSrc: "https://picsum.photos/id/222/300/150" },
+    {
+      title: "موزه هنرهای معاصر",
+      imageSrc: "https://picsum.photos/id/222/300/150",
+    },
     { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
     { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
     { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "موزه هنرهای معاصر", imageSrc: "https://picsum.photos/id/222/300/150" },
+    {
+      title: "موزه هنرهای معاصر",
+      imageSrc: "https://picsum.photos/id/222/300/150",
+    },
     { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
     { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
   ];
@@ -31,10 +44,10 @@ export default function CategoryPage({ params }: { params: { city: string, categ
 
   const { city, category } = params;
 
-  const categoryTitle = decodeURIComponent(category).replace(/-/g, ' ');
+  const categoryTitle = decodeURIComponent(category).replace(/-/g, " ");
 
   const categories = t.raw("categories") as { name: string; value: string }[];
-  const categoryFind = categories.find(c => c.value === categoryTitle);
+  const categoryFind = categories.find((c) => c.value === categoryTitle);
 
   if (!categoryFind) {
     return notFound();
@@ -54,20 +67,63 @@ export default function CategoryPage({ params }: { params: { city: string, categ
           </button>
         </div>
         <div className={styles.cardSlider}>
-          <label htmlFor={`collection-${city}-${categoryTitle}`}>{t("title") + " " + categoryFind.name}</label>
-          <SliderCard mdPerView={1.5} lgPerView={2} xlPerView={2.5} id={`collection-${city}-${category}`} slides={slides} isLike={true} />
+          <label htmlFor={`collection-${city}-${categoryTitle}`}>
+            {t("title") + " " + categoryFind.name}
+          </label>
+          <SliderCard
+            mdPerView={1.5}
+            lgPerView={2}
+            xlPerView={2.5}
+            id={`collection-${city}-${category}`}
+            slides={slides}
+            isLike={true}
+          />
         </div>
         <div className={styles.cardList}>
-          <label htmlFor={`collection-${city}-${categoryTitle}`}>{t("titleCategoryList") + " " + categoryFind.name}</label>
+          <label htmlFor={`collection-${city}-${categoryTitle}`}>
+            {t("titleCategoryList") + " " + categoryFind.name}
+          </label>
           <div className={styles.cardListGrid}>
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
-            <Card src="https://picsum.photos/id/222/300/150" label="موزه ملی ایران" alt="موزه ملی ایران" />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
+            <Card
+              src="https://picsum.photos/id/222/300/150"
+              label="موزه ملی ایران"
+              alt="موزه ملی ایران"
+            />
           </div>
         </div>
       </div>
@@ -75,5 +131,5 @@ export default function CategoryPage({ params }: { params: { city: string, categ
         <Image src={map} alt="map" />
       </div>
     </div>
-  )
+  );
 }

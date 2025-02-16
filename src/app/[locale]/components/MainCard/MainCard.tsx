@@ -20,7 +20,7 @@ interface IMainCardProps {
 
 const MainCard: React.FC<IMainCardProps> = ({ imageSrc, city, onClick }) => {
   const [hover, setHover] = useState(false);
-  const t = useTranslations("HomePage"); 
+  const t = useTranslations("HomePage");
 
   return (
     <div
@@ -48,29 +48,31 @@ const MainCard: React.FC<IMainCardProps> = ({ imageSrc, city, onClick }) => {
           <div className="pb-16">
             <p className="text-third text-3xl mb-5 font-bold">{city}</p>
             <div className="flex justify-center">
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <HiOutlineBuildingLibrary />
-            </span>
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <TbBuildingStore />
-            </span>
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <LuPizza />
-            </span>
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <TbBed />
-            </span>
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <LuTreePine />
-            </span>
-            <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
-                  <GiMedicalDrip />
-            </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <HiOutlineBuildingLibrary />
+              </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <TbBuildingStore />
+              </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <LuPizza />
+              </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <TbBed />
+              </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <LuTreePine />
+              </span>
+              <span className="text-third md:mr-2 mr-1 md:text-3xl text-lg">
+                <GiMedicalDrip />
+              </span>
             </div>
           </div>
         ) : (
           <div className="pb-16">
-            <p className="text-third text-3xl md:pb-12  mb-5 font-bold">{city}</p>
+            <p className="text-third text-3xl md:pb-12  mb-5 font-bold">
+              {city}
+            </p>
             <Button
               text={t("showCity")}
               color="third"

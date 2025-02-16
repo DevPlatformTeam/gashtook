@@ -1,6 +1,8 @@
-
-
-export default function SubCategoryPage({ params }: { params: { city: string, category: string, subCategory: string } }) {
+export default function SubCategoryPage({
+  params,
+}: {
+  params: { city: string; category: string; subCategory: string };
+}) {
   const { city, category, subCategory } = params;
   return (
     <div>
@@ -8,5 +10,5 @@ export default function SubCategoryPage({ params }: { params: { city: string, ca
       <h1>{category}</h1>
       <h1>{subCategory}</h1>
     </div>
-  )
+  );
 }
