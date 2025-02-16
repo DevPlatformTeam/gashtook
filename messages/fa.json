@@ -88,6 +88,13 @@
   "Places": {
     "favourite": "مکان مورد علاقه من",
     "onMap": "موقعیت روی نقشه",
-    "contactInfo": "اطلاعات تماس"
+    "contactInfo": "اطلاعات تماس",
+    "share": "اشتراک گذاری",
+    "writtenBy": "نوشته شده توسط",
+    "released": "انتشار در",
+    "categories": "دسته ها",
+    "tags": "برچسب ها",
+    "downloadApp": "دانلود اپلیکیشن گشتوک",
+    "allPlacesInApp": "تمام مکان های دیدنی ایران در گوشی شما"
   }
 }

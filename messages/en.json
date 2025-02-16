@@ -88,6 +88,13 @@
   "Places": {
     "favourite": "my favorite place",
     "onMap": "Position on the map",
-    "contactInfo": "Contact Information"
+    "contactInfo": "Contact Information",
+    "share": "Share",
+    "writtenBy": "Written by",
+    "released": "Release on",
+    "categories": "Categories",
+    "tags": "Tags",
+    "downloadApp": "Download the Gesture app",
+    "allPlacesInApp": "All sights of Iran On your phone"
   }
 }
