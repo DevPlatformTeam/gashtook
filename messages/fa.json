@@ -4,10 +4,10 @@
     "about": "به صفحه درباره من برو",
     "showCity": "مشاهده شهر",
     "guideCity": "راهنمای گردشگری شهرهای ایران",
-    "seeAndGo":"دیدنی هارو ببین، رفتنی هارو برو",
+    "seeAndGo": "دیدنی هارو ببین، رفتنی هارو برو",
     "downloadApp": "دانلود اپلیکیشن",
-    "cityList":"مشاهده لیست شهرها",
-    "citiesList":"لیست شهرها"
+    "cityList": "مشاهده لیست شهرها",
+    "citiesList": "لیست شهرها"
   },
   "SubmitComplaintPage": {
     "title": "ثبت شکایات",
@@ -31,6 +31,20 @@
     { "id": "3", "value": "مشهد" },
     { "id": "4", "value": "اصفهان" }
   ],
+  "category": {
+    "title": "کالکشن های",
+    "mapButton": "نزدیک ترین مکان",
+    "filterButton": "فیلتر نتایج",
+    "categories": [
+      { "name": "دیدنی", "value": "attractions" },
+      { "name": "خرید", "value": "shopping" },
+      { "name": "خوردنی", "value": "food" },
+      { "name": "اسکان", "value": "accommodation" },
+      { "name": "تفریح", "value": "recreation" },
+      { "name": "درمانی", "value": "treatment" }
+    ],
+    "titleCategoryList": "لیست مکان های"
+  },
   "contact-us": {
     "title": "تماس با ما",
     "tellphoneTitle": "شماره تماس",
