@@ -1,0 +1,24 @@
+.placesContainer {
+  @apply w-full flex;
+
+  .col1 {
+    @apply lg:w-2/3 w-full;
+
+    .Image{
+      @apply w-full;
+    }
+  }
+
+  .col2 {
+    @apply lg:w-1/3 w-full;
+
+    .contactInformation {
+      @apply w-full;
+    }
+  }
+
+
+  h1 {
+    @apply lg:text-2xl text-lg font-bold;
+  }
+}
