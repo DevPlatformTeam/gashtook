@@ -108,7 +108,10 @@
     "released": "Release on",
     "categories": "Categories",
     "tags": "Tags",
-    "downloadApp": "Download the Gesture app",
-    "allPlacesInApp": "All sights of Iran On your phone"
+    "downloadApp": "Download the Gashtook app",
+    "allPlacesInApp": "All sights of Iran On your phone",
+    "downloadBazzar": "Download From Bazzar",
+    "downloadLink": "Download APK",
+    "downloadPWA": "Download Web App"
   }
 }

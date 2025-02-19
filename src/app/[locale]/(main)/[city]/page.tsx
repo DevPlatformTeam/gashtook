@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import slidImage from "@/assets/images/slider1.png";
-import Card from "../../../../components/SliderCard/SliderCard";
 import SliderCard from "@/components/SliderCard/SliderCard";
 
 export default function Page() {

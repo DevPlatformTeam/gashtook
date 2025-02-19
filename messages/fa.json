@@ -109,6 +109,9 @@
     "categories": "دسته ها",
     "tags": "برچسب ها",
     "downloadApp": "دانلود اپلیکیشن گشتوک",
-    "allPlacesInApp": "تمام مکان های دیدنی ایران در گوشی شما"
+    "allPlacesInApp": "تمام مکان های دیدنی ایران در گوشی شما",
+    "downloadBazzar": "دریافت از کافه بازار",
+    "downloadLink": "دریافت مستقیم",
+    "downloadPWA": "دریافت وب اپلیکیشن"
   }
 }
