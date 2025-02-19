@@ -98,5 +98,20 @@
     "notice-register": "If you don't have an account, you can quickly become a member of Gashtook.",
     "notice-login": "If you already have an account, you can sign in to your account using the button below",
     "register-rules": "I have read and agree to the terms and conditions of use of the Gashtook Website Services and agree to all its terms"
+  },
+  "Places": {
+    "favourite": "my favorite place",
+    "onMap": "Position on the map",
+    "contactInfo": "Contact Information",
+    "share": "Share",
+    "writtenBy": "Written by",
+    "released": "Release on",
+    "categories": "Categories",
+    "tags": "Tags",
+    "downloadApp": "Download the Gashtook app",
+    "allPlacesInApp": "All sights of Iran On your phone",
+    "downloadBazzar": "Download From Bazzar",
+    "downloadLink": "Download APK",
+    "downloadPWA": "Download Web App"
   }
 }

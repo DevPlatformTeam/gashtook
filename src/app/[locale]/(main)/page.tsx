@@ -29,9 +29,6 @@ import mockup from "@/assets/images/mockup-1-x.png";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 
-import SelectOptionComponent from "@/components/select-option/SelectOption.component";
-import SearchInputComponents from "@/components/search-input/SearchInput.component";
-
 export default function HomePage({
   params: { locale },
 }: {

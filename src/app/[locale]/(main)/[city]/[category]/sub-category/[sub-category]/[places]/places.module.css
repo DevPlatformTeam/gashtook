@@ -1,0 +1,42 @@
+.placesContainer {
+  @apply w-full grid lg:grid-cols-[2fr_1fr] gap-8;
+
+  .col1 {
+    @apply w-full;
+
+    .Image{
+      @apply relative w-full h-full lg:max-h-[450px] mb-8;
+
+      img {
+        @apply w-full h-full object-cover;
+      }
+    }
+  }
+
+  .col2 {
+    @apply w-full;
+
+    .contactInformation {
+      @apply w-full;
+
+      h5 {
+        @apply text-lg font-medium mb-3;
+      }
+    }
+  }
+
+  h1 {
+    @apply lg:text-4xl text-xl font-bold;
+  }
+}
+
+.contentContainer {
+  @apply w-full lg:divide-x-2 rtl:divide-x-reverse lg:divide-slate-400 bg-white mt-12 p-4 grid gap-y-5 lg:grid-cols-4 md:grid-cols-2 grid-cols-1 items-center lg:child:justify-center child:flex;
+}
+
+.bgDownloadImage {
+  @apply w-full relative min-h-[344px] flex;
+  background-image: url("../../../../../../../../assets/images/download-bg.png");
+  background-size: cover;
+  background-position: bottom center;
+}

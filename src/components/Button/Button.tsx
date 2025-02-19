@@ -1,6 +1,5 @@
 import React from "react";
 import clsx from "clsx";
-import { useLocale } from "next-intl";
 
 interface IButtonProps {
   text: string;
@@ -10,6 +9,8 @@ interface IButtonProps {
   outline?: boolean;
   className?: string;
   onClick?: () => void;
+  iconFirst?: boolean;
+  iconSize?: "sm" | "md" | "lg" | "xl" | "twoXl" | "threeXl" | "fourXl";
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -20,9 +21,9 @@ const Button: React.FC<IButtonProps> = ({
   outline = false,
   className,
   onClick,
+  iconFirst = true,
+  iconSize = "md",
 }) => {
-  const locale = useLocale();
-  const isRTL = locale === "fa";
 
   const baseStyles =
     "flex items-center justify-center w-fit rounded-3xl gap-2 px-4 py-2 font-medium transition-all";
@@ -39,6 +40,16 @@ const Button: React.FC<IButtonProps> = ({
       : "bg-third text-white hover:opacity-90",
   };
 
+  const iconSizes = {
+    sm: "text-sm",
+    md: "text-base",
+    lg: "text-lg",
+    xl: "text-xl",
+    twoXl: "text-2xl", 
+    threeXl: "text-3xl",
+    fourXl: "text-4xl"
+  };
+
   return (
     <button
       className={clsx(
@@ -49,8 +60,9 @@ const Button: React.FC<IButtonProps> = ({
       )}
       onClick={onClick}
     >
-      {icon && <span>{icon}</span>}
+      {iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
       <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
+      {!iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
     </button>
   );
 };
