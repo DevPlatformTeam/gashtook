@@ -1,0 +1,7 @@
+.collectionPageContainer {
+    @apply container mt-5;
+
+    h1 {
+        @apply lg:text-3xl text-xl font-bold;
+    }
+}

@@ -3,7 +3,6 @@ import React from "react";
 import Image from "next/image";
 
 import slidImage from "@/assets/images/slider1.png";
-
 import SliderCard from "@/components/SliderCard/SliderCard";
 
 import styles from "./city.module.css";

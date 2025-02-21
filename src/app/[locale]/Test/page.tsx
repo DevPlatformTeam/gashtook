@@ -2,9 +2,11 @@ import { useTranslations } from "next-intl";
 import { Link, routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
+import CheckBox from "@/components/CheckBox/CheckBox";
+
 import { notFound } from "next/navigation";
-import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
-import SearchInputComponents from "@/components/Search-comments/SearchInput.components";
+// import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
+// import SearchInputComponents from "@/components/Search-comments/SearchInput.components";
 
 export default function HomePage({
   params: { locale },
@@ -38,7 +40,9 @@ export default function HomePage({
           color="secondary"
           className="text-lg px-6 py-3"
         />
-        <SelectOptionComponent
+        <CheckBox label="شرایط را قبول دارم" isChecked={true} />
+
+        {/* <SelectOptionComponent
           options={[
             { id: 1, value: "option 1" },
             { id: 2, value: "option 2" },
@@ -47,7 +51,7 @@ export default function HomePage({
           name="select-option"
           id="select-option"
         />
-        <SearchInputComponents id="search" placeholder="سرچ کنید...." />
+        <SearchInputComponents id="search" placeholder="سرچ کنید...." /> */}
       </div>
     </div>
   );
