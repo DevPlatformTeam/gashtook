@@ -50,7 +50,7 @@ export default function HomePage({
 
   return (
     <>
-      <div className="w-full mt-5  justify-center items-center relative block">
+      <div className="w-full mt-5 justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -86,7 +86,7 @@ export default function HomePage({
             locale === "en" ? "flex-row-reverse" : ""
           }`}
         >
-          <div className={`md:w-1/3 md:flex flex-col md:block hidden`}>
+          <div className={`md:w-1/3 md:flex flex-col hidden`}>
             <Image
               src={locationIcon}
               alt="Slide 4"

@@ -26,11 +26,19 @@
     "aboutUsDescription": "Welcome to Gashtook! We aim to increase our knowledge of our country by traveling to different cities. Our team makes it easier for you to find what you are looking for by introducing the available options in the cities. With Gashtook, you can see the sights and go to the places you want.\nWe are a team of energetic and active people who strive to introduce different cities and tourist attractions of our country. Our country is very beautiful, but many of us Iranians do not have a detailed knowledge of the tourist and entertainment potential of our country. Our team is committed to showing you a view of different cities according to your needs.\nThe introduction of historical sites, parks and entertainment centers, medical and service centers, museums and galleries, restaurants and cafes, hotels, shopping centers, and... is part of our goals. In Gashtook, we travel to different places and become a guardian of the beauty and available facilities.\nWe hope that we have been able to make your work easier and your entertainment more enjoyable with this tool.\nGashtook was founded in 97 by a team of experienced and active people with the guidance of Seyed Mehdi Seyed Hajie (owner of the brand)."
   },
   "city": [
-    { "id": "1", "value": "Tehran" },
-    { "id": "2", "value": "Tabriz" },
-    { "id": "3", "value": "Mashhad" },
-    { "id": "4", "value": "Isfahan" }
+    { "id": "tehran", "value": "Tehran" },
+    { "id": "tabriz", "value": "Tabriz" },
+    { "id": "mashhad", "value": "Mashhad" },
+    { "id": "isfahan", "value": "Isfahan" }
   ],
+  "cityPage": {
+    "allCategoryText": "all",
+    "titleCity": "Welcome to",
+    "descriptionCity": "The weather of the province is in the mountainous regions, moderate in the valleys and semi-desert areas. Rivers such as Jajarud, Lareh, Habelehroud, Shoor, and... are among the sources of water in the province.",
+    "collectionCardTitle": "Collections of",
+    "places": "Places of",
+    "moreButton": "More"
+  },
   "category": {
     "title": "Collections",
     "mapButton": "Nearest Place",
@@ -62,6 +70,19 @@
     "messageInputLabel": "Message",
     "messageInputPlaceholder": "Type your message here",
     "sendButton": "Send"
+  },
+  "Header": {
+    "downloadAppButton": "Download app",
+    "myAccountButton": "My account",
+    "searchPlaceholder" : "Search for places in ",
+    "menuListMyCity" : "My ",
+    "sightCategory": "Sight",
+    "buyCategory": "Buy",
+    "eatCategory": "Eat",
+    "HotelCategory": "Hotel",
+    "funCategory": "Fun",
+    "healthcareCategory": "Healthcare",
+    "menuListAboutCity": "About city"
   },
   "Footer": {
     "gashtook": "Gashtook",

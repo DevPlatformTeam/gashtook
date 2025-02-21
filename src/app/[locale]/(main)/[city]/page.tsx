@@ -1,67 +1,100 @@
 import React from "react";
+
 import Image from "next/image";
+
 import slidImage from "@/assets/images/slider1.png";
 import SliderCard from "@/components/SliderCard/SliderCard";
 
-export default function Page() {
+import styles from "./city.module.css";
+
+import { LuStar } from "react-icons/lu";
+import { IoIosArrowBack } from "react-icons/io";
+import Link from "next/link";
+import { FiList } from "react-icons/fi";
+import { useTranslations } from "next-intl";
+import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
+import FilterCategoryProvider from "./components/filter-category-provider/FilterCategoryProvider";
+import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
+
+export default function Page({
+  params,
+}: {
+  params: { city: string; locale: string };
+}) {
+
+  const { locale, city } = params;
+  const t = useTranslations();
+  const cityFa = t.raw(`city`).filter((item: {id: string, value: string}) => item.id === city)[0].value;
+
   const slides = [
     {
-      title: "موزه ملی ایران",
+      title: "بهترین موزه های تهران",
       imageSrc: "https://picsum.photos/id/222/300/150",
     },
-    { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
     {
-      title: "موزه هنرهای معاصر",
+      title: "بهترین مراکز درمانی تهران",
       imageSrc: "https://picsum.photos/id/222/300/150",
     },
-    { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین مراکز دیدنی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین موزه تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
     {
-      title: "موزه هنرهای معاصر",
+      title: "بهترین مراکز خرید تهران",
       imageSrc: "https://picsum.photos/id/222/300/150",
     },
-    { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
+    { title: "بهترین مراکز خرید تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
   ];
+  
 
   return (
-    <div className={"px-4 sm:px-8 md:px-12 mt-6"}>
+    <div className={styles.city}>
       <Image
         src={slidImage}
-        alt="banner"
-        className="w-full h-48 sm:h-60 md:h-72 object-cover"
+        alt=""
       />
-      <p className="text-base sm:text-lg font-semibold mt-4 mb-2 sm:mb-4 text-center sm:text-start">
-        به تهران خوش آمدید
+      <p className={styles.title}>
+        {locale === 'fa' ? `به ${cityFa} ${t('cityPage.titleCity')}` : `${t('cityPage.titleCity')} ${city}`}
       </p>
-      <p className="text-sm sm:text-lg font-normal text-center sm:text-start">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint
-        consequuntur enim nulla quibusdam possimus, qui libero sit earum eaque.
-        Assumenda, perspiciatis? At asperiores esse facere culpa ratione unde id
-        aliquam.
+      <p className={styles.description}>
+        {t('cityPage.descriptionCity')}
       </p>
 
-      <div className="mt-5 sm:mt-7 mb-7">
-        <p className="text-sm sm:text-base text-gray-500">
-          بهترین موزه های تهران
-        </p>
-        <SliderCard id="best-museums" slides={slides} />
+      <div className={styles.collectionCard}>
+        <div className={styles.cardTitles}>
+          <span>
+            <LuStar />
+            {locale === 'fa' ? `${t('cityPage.collectionCardTitle')} ${cityFa}` : `${t('cityPage.collectionCardTitle')} ${city}`}
+          </span>
+          <Link className={styles.moreButton} href={`/${locale}/${city}/collection-list`}>
+            {locale === 'fa' ? 
+              <>
+                {t('cityPage.moreButton')}
+                <IoIosArrowBack className="!size-6" />
+              </>
+            : 
+              <>
+                {t('cityPage.moreButton')}
+                <IoIosArrowBack className="!size-6 !rotate-180" />
+              </>
+            }
+          </Link>
+        </div>
+        <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={slides} textOnCard={true} />
       </div>
 
-      <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
-        <p className="text-sm sm:text-base">بهترین پارک های تهران</p>
-        <SliderCard id="best-parks" slides={slides} />
-      </div>
-
-      <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
-        <p className="text-sm sm:text-base">بهترین هتل های تهران</p>
-        <SliderCard id="best-hotels" slides={slides} />
-      </div>
-
-      <div className="mt-5 sm:mt-7 mb-7 text-gray-500">
-        <p className="text-sm sm:text-base">دیدنی های تهران</p>
-        <SliderCard id="best-attractions" slides={slides} />
+      <div className={styles.placesCard}>
+        <div className={styles.cardTitles}>
+          <span>
+            <FiList />
+            {locale === 'fa' ? `${t('cityPage.places')} ${cityFa}` : `${t('cityPage.places')} ${city}`}
+          </span>
+        </div>
+        <FilterCategoryProvider>
+          <FilterCategory />
+          <FilterCategoryResultCards />
+        </FilterCategoryProvider>
       </div>
     </div>
   );
