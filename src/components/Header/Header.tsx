@@ -30,6 +30,7 @@ export default function Header() {
   const [selectedCity, setSelectedCity] = useState<string>(
     (t.raw("city") as { id: string; value: string }[])[0].value,
   );
+  const locale = pathname.split("/")[1];
   const [resize, setResize] = useState<number>(0);
 
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+  
 
   useEffect(() => {
     const activeElement = document.querySelector(
@@ -92,7 +94,7 @@ export default function Header() {
           />
           <SearchInputComponent
             id="search-header"
-            placeholder="جستجوی مکان ها در تهران"
+            placeholder={`${t("Header.searchPlaceholder")}${selectedCity}`}
           />
         </div>
 
@@ -102,38 +104,39 @@ export default function Header() {
             color="primary"
             outline={true}
             icon={<LuUserRound className={"w-5 h-5"} />}
-            text="حساب کاربری من"
+            text={t("Header.myAccountButton")}
           />
           <Button
             color="primary"
             icon={<GoDownload className={"w-5 h-5"} />}
-            text="دانلود اپلیکیشن"
+            text={t("Header.downloadAppButton")}
           />
         </div>
       </div>
 
       {/* Menu Section */}
       <nav className={styles.navMenu}>
-        <button className={styles.active}>تهران من</button>
+        <button className={styles.active}>{locale === 'fa' ? selectedCity + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity}</button>
         <button>
-          دیدنی
-          <IoChevronDown />
+          {t("Header.sightCategory")}
         </button>
         <button>
-          خوراکی
-          <IoChevronDown />
+          {t("Header.buyCategory")}
         </button>
         <button>
-          تفریحی
-          <IoChevronDown />
+          {t("Header.eatCategory")}
         </button>
         <button>
-          درمانی
-          <IoChevronDown />
+          {t("Header.HotelCategory")}
         </button>
         <button>
-          اطلاعات شهر
-          <IoChevronDown />
+          {t("Header.funCategory")}
+        </button>
+        <button>
+          {t("Header.healthcareCategory")}
+        </button>
+        <button>
+          {t("Header.menuListAboutCity")}
         </button>
       </nav>
     </header>

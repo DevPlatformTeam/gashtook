@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 99%);
+  --background: hsl(0, 0%, 100%);
   --foreground: hsl(0, 0%, 29%);
   --primary: hsl(166, 100%, 34%);
   --primary-fade: hsla(166, 100%, 34%, 0.3);
   --secondary: hsl(0, 0%, 29%);
-  --third: hsl(0, 0%, 100%);
+  --third: hsl(0, 0%, 97%);
 }
 
 body {
@@ -19,6 +19,13 @@ body {
 main {
   background-color: var(--background);
   margin-bottom: 5rem;
+}
+
+.swiper-pagination-bullet-active {
+  width: 1.5rem !important;
+  border-radius: 999rem !important;
+  transition: all 0.2s ease;
+  background-color: var(--primary) !important;
 }
 
 body,

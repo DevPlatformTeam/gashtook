@@ -1,0 +1,28 @@
+.categoryFilter {
+    @apply relative w-full flex items-center justify-around p-2 bg-slate-200 shadow-inner rounded-full overflow-x-auto;
+    
+    & > li {
+        @apply cursor-pointer min-w-20 grow text-center;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+    }
+
+    .active-category {
+        @apply text-primary font-semibold;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset-block: 0;
+        margin: auto;
+        left: var(--active-left, 0);
+        width: var(--active-width, 0);
+        height: 1.75rem;
+        background-color: var(--primary-fade);
+        border-radius: 9999rem;
+        transition: all 0.3s ease;
+    }
+}
+

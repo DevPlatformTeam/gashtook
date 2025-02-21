@@ -63,6 +63,7 @@ const SelectOptionComponent = React.memo(
           ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
+          readOnly
           autoComplete="off"
           value={searchTerm || defaultValue}
           type="text"

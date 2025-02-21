@@ -1,0 +1,28 @@
+.filterCategoryResultCards {
+    @apply w-full h-[26rem] overflow-y-auto;
+
+    .containerCards {
+        @apply pe-4 pb-4 grid grid-cols-1 lg:grid-cols-2 gap-4;
+
+        .card {
+            @apply !relative flex flex-col gap-2;
+    
+            img {
+                @apply !relative !h-40 lg:!h-60 object-fill;
+            }
+    
+            .textContainer {
+                @apply flex justify-between items-center shrink-0;
+    
+                .title {
+                    @apply text-lg font-bold ms-4;
+                }
+                
+                .likeButton {
+                    @apply text-2xl text-secondary me-2 cursor-pointer;
+                }
+            }
+        }
+    }
+}
+
