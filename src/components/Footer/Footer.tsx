@@ -12,23 +12,23 @@ export default function Footer() {
   const t = useTranslations("Footer");
   return (
     <footer className="container">
-      <div className="flex w-full justify-between">
-        <div className="flex w-1/2 font-light">
-          <div className="flex w-1/3 flex-col space-y-2">
+      <div className="flex w-full flex-wrap justify-between">
+        <div className="flex flex-wrap md:w-1/2 gap-y-6 w-full font-light">
+          <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
             <span className="font-bold">{t("gashtook")}</span>
             <span>{t("about")}</span>
             <span>{t("contact")}</span>
             <span>{t("faq")}</span>
             <span>{t("rules")}</span>
           </div>
-          <div className="flex w-1/3 flex-col space-y-2">
+          <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
             <span className="font-bold">{t("cities")}</span>
             <span>{t("tabriz")}</span>
             <span>{t("tehran")}</span>
             <span>{t("mashhad")}</span>
             <span>{t("isfahan")}</span>
           </div>
-          <div className="flex w-1/3 flex-col space-y-2">
+          <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
             <span className="font-bold">{t("places")}</span>
             <span>{t("museum")}</span>
             <span>{t("entertainment")}</span>
@@ -36,8 +36,8 @@ export default function Footer() {
             <span>{t("tourism")}</span>
           </div>
         </div>
-        <div className="flex w-1/2 justify-end">
-          <div className="w-2/3 flex flex-col space-y-2">
+        <div className="flex md:w-1/2 w-full lg:mt-0 mt-10 lg:justify-end">
+          <div className="md:w-2/3 w-full flex flex-col space-y-2">
             <span className="font-bold">{t("contact-way")}</span>
             <span className="flex items-center">
               <MdOutlineLocationOn size={24} className="me-1 text-primary" />
@@ -53,7 +53,7 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      <div className="text-center">
+      <div className="text-center mb-6">
         <span className="w-full h-[1px] bg-slate-200 block my-4"></span>
         <p>{t("copyright")}</p>
       </div>
