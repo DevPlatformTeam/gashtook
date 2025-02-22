@@ -1,11 +1,25 @@
-import React from 'react';
+"use client"
+
+import React, { useContext } from 'react';
 
 import styles from './FilterCategoryResultCards.module.css';
 
 import Image from 'next/image';
 import { LuHeart } from 'react-icons/lu';
+import { CategoryContext } from '@/app/[locale]/(main)/[city]/components/filter-category-provider/FilterCategoryProvider';
+import { SubCategoryContext } from '../../[category]/components/filter-category-provider/FilterSubCategoryProvider';
 
-export default function FilterCategoryResultCards() {
+
+type Props = {
+    isSubCategories?: boolean;
+}
+
+export default function FilterCategoryResultCards({ isSubCategories, }: Props ) {
+
+    // const { category } = useContext(CategoryContext);
+    const { category } = useContext(SubCategoryContext);
+        
+
     const cards = [
         {
             image: 'https://picsum.photos/seed/picsum/200/300',

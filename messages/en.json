@@ -26,10 +26,22 @@
     "aboutUsDescription": "Welcome to Gashtook! We aim to increase our knowledge of our country by traveling to different cities. Our team makes it easier for you to find what you are looking for by introducing the available options in the cities. With Gashtook, you can see the sights and go to the places you want.\nWe are a team of energetic and active people who strive to introduce different cities and tourist attractions of our country. Our country is very beautiful, but many of us Iranians do not have a detailed knowledge of the tourist and entertainment potential of our country. Our team is committed to showing you a view of different cities according to your needs.\nThe introduction of historical sites, parks and entertainment centers, medical and service centers, museums and galleries, restaurants and cafes, hotels, shopping centers, and... is part of our goals. In Gashtook, we travel to different places and become a guardian of the beauty and available facilities.\nWe hope that we have been able to make your work easier and your entertainment more enjoyable with this tool.\nGashtook was founded in 97 by a team of experienced and active people with the guidance of Seyed Mehdi Seyed Hajie (owner of the brand)."
   },
   "city": [
-    { "id": "tehran", "value": "Tehran" },
-    { "id": "tabriz", "value": "Tabriz" },
-    { "id": "mashhad", "value": "Mashhad" },
-    { "id": "isfahan", "value": "Isfahan" }
+    {
+      "id": "tehran",
+      "value": "Tehran"
+    },
+    {
+      "id": "tabriz",
+      "value": "Tabriz"
+    },
+    {
+      "id": "mashhad",
+      "value": "Mashhad"
+    },
+    {
+      "id": "isfahan",
+      "value": "Isfahan"
+    }
   ],
   "cityPage": {
     "allCategoryText": "all",
@@ -40,18 +52,151 @@
     "moreButton": "More"
   },
   "category": {
-    "title": "Collections",
+    "title": "Collections of",
     "mapButton": "Nearest Place",
     "filterButton": "Filter Results",
     "categories": [
-      { "name": "attractions", "value": "attractions" },
-      { "name": "shopping", "value": "shopping" },
-      { "name": "food", "value": "food" },
-      { "name": "accommodation", "value": "accommodation" },
-      { "name": "recreation", "value": "recreation" },
-      { "name": "treatment", "value": "treatment" }
+      {
+        "name": "sight",
+        "value": "sight"
+      },
+      {
+        "name": "buy",
+        "value": "buy"
+      },
+      {
+        "name": "eat",
+        "value": "eat"
+      },
+      {
+        "name": "hotel",
+        "value": "hotel"
+      },
+      {
+        "name": "fun",
+        "value": "fun"
+      },
+      {
+        "name": "healthcare",
+        "value": "healthcare"
+      }
     ],
-    "titleCategoryList": "List of Places"
+    "subCategories": {
+      "sight": [
+        {
+          "name": "Religious Sites",
+          "value": "religious"
+        },
+        {
+          "name": "Rural",
+          "value": "rural"
+        },
+        {
+          "name": "Nature",
+          "value": "nature"
+        },
+        {
+          "name": "Museum",
+          "value": "museum"
+        },
+        {
+          "name": "Historical Sites",
+          "value": "historical"
+        }
+      ],
+      "buy": [
+        {
+          "name": "Bookstore",
+          "value": "bookstore"
+        },
+        {
+          "name": "Hypermarket",
+          "value": "hypermarket"
+        },
+        {
+          "name": "Market",
+          "value": "market"
+        },
+        {
+          "name": "Commercial Center",
+          "value": "commercialCenter"
+        }
+      ],
+      "eat": [
+        {
+          "name": "Cafe",
+          "value": "cafe"
+        },
+        {
+          "name": "Fast Food",
+          "value": "fastFood"
+        },
+        {
+          "name": "Restaurant",
+          "value": "restaurant"
+        }
+      ],
+      "hotel": [
+        {
+          "name": "Hotel",
+          "value": "hotel"
+        },
+        {
+          "name": "Guest House",
+          "value": "guestHouse"
+        },
+        {
+          "name": "Apartment Hotel",
+          "value": "apartmentHotel"
+        }
+      ],
+      "fun": [
+        {
+          "name": "Sports Complex",
+          "value": "sportsComplex"
+        },
+        {
+          "name": "Entertainment and Games",
+          "value": "entertainmentAndGames"
+        },
+        {
+          "name": "Water Activities",
+          "value": "waterActivities"
+        },
+        {
+          "name": "Cinema",
+          "value": "cinema"
+        },
+        {
+          "name": "Park",
+          "value": "park"
+        },
+        {
+          "name": "Amusement Park",
+          "value": "amusementPark"
+        },
+        {
+          "name": "Swimming",
+          "value": "swimming"
+        },
+        {
+          "name": "Sports Hall",
+          "value": "sportsHall"
+        }
+      ],
+      "healthcare": [
+        {
+          "name": "Hospital",
+          "value": "hospital"
+        },
+        {
+          "name": "Clinic",
+          "value": "clinic"
+        }
+      ]
+    },
+    "titleCategoryList": "List of Places",
+    "mapTitle": "On the Map"
   },
   "contact-us": {
     "title": "Contact Us",
@@ -74,8 +219,8 @@
   "Header": {
     "downloadAppButton": "Download app",
     "myAccountButton": "My account",
-    "searchPlaceholder" : "Search for places in ",
-    "menuListMyCity" : "My ",
+    "searchPlaceholder": "Search for places in ",
+    "menuListMyCity": "My ",
     "sightCategory": "Sight",
     "buyCategory": "Buy",
     "eatCategory": "Eat",

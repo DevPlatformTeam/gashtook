@@ -28,6 +28,29 @@ main {
   background-color: var(--primary) !important;
 }
 
+@layer base {
+  .scroll {
+    --sb-track-color: #d2d2d2;
+    --sb-thumb-color: var(--primary);
+    --sb-size: 4px;
+
+    &::-webkit-scrollbar {
+      width: var(--sb-size);
+      height: var(--sb-size);
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--sb-track-color);
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb-color);
+      border-radius: 5px;
+    }
+  }
+}
+
 body,
 .scroll {
   --sb-track-color: #d2d2d2;
@@ -54,6 +77,7 @@ body::-webkit-scrollbar-thumb,
 }
 
 @supports not selector(::-webkit-scrollbar) {
+
   body,
   .scroll {
     scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);

@@ -77,8 +77,8 @@ const SliderCard = ({
           1280: { slidesPerView: xlPerView },
         }}
         navigation={{
-          prevEl: `#${uniqueId}-prev`,
-          nextEl: `#${uniqueId}-next`,
+          nextEl: `#${uniqueId}-prev`,
+          prevEl: `#${uniqueId}-next`,
         }}
         pagination={
           showPagination
@@ -88,7 +88,7 @@ const SliderCard = ({
               }
             : false
         }
-        // autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 3000 }}
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}

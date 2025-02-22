@@ -26,10 +26,22 @@
     "aboutUsDescription": "به گشتوک خوش آمدید! ما قصد داریم با سیر و سیاحت در شهرهای مختلف، شناخت بیشتری از کشورمان به دست بیاوریم. تیم ما با معرفی امکانات موجود در شهرهای کشور، کار شما را در پیدا کردن آن چیزی که دنبالش هستید راحت کرده است. با گشتوک همراه باشید تا دیدنی ها را ببینید و رفتنی ها را بروید.\nما در گشتوک یک تیم پرانرژی و فعال هستیم که تلاش می کنیم به معرفی شهرهای مختلف کشور و جاذبه های گردشگری آن ها بپردازیم. کشور ما بسیار زیباست ولی بسیاری از ما ایرانیان شناخت دقیقی از ظرفیت های گردشگری و تفریحی کشورمان نداریم. تیم ما در نظر دارد متناسب با نیازهای شما، چشم اندازی از شهرهای مختلف این سرزمین را به شما نشان بدهد.\nمعرفی اماکن تاریخی، پارک ها و مراکز تفریحی، مراکز درمانی و خدماتی، موزه ها و گالری ها، رستوران ها و کافه ها، هتل ها، مراکز خرید و... بخشی از اهداف ماست. در گشتوک به مکان های مختلف سفر می کنیم و نظاره گر زیبایی ها و امکانات موجود می شویم. امیدواریم به این وسیله توانسته باشیم کار را برای شما راحت و تفریح را برایتان لذت بخش تر کرده باشیم.\nگشتوک توسط تیمی مجرب و فعال با محوریت سیدمهدی سیدحاجی (صاحب امتیاز) در سال 97 فعالیت خود را آغاز کرد."
   },
   "city": [
-    { "id": "tehran", "value": "تهران" },
-    { "id": "tabriz", "value": "تبریز" },
-    { "id": "mashhad", "value": "مشهد" },
-    { "id": "isfahan", "value": "اصفهان" }
+    {
+      "id": "tehran",
+      "value": "تهران"
+    },
+    {
+      "id": "tabriz",
+      "value": "تبریز"
+    },
+    {
+      "id": "mashhad",
+      "value": "مشهد"
+    },
+    {
+      "id": "isfahan",
+      "value": "اصفهان"
+    }
   ],
   "cityPage": {
     "allCategoryText": "همه",
@@ -44,14 +56,147 @@
     "mapButton": "نزدیک ترین مکان",
     "filterButton": "فیلتر نتایج",
     "categories": [
-      { "name": "دیدنی", "value": "attractions" },
-      { "name": "خرید", "value": "shopping" },
-      { "name": "خوردنی", "value": "food" },
-      { "name": "اسکان", "value": "accommodation" },
-      { "name": "تفریح", "value": "recreation" },
-      { "name": "درمانی", "value": "treatment" }
+      {
+        "name": "دیدنی",
+        "value": "sight"
+      },
+      {
+        "name": "خرید",
+        "value": "buy"
+      },
+      {
+        "name": "خوردنی",
+        "value": "eat"
+      },
+      {
+        "name": "اسکان",
+        "value": "hotel"
+      },
+      {
+        "name": "تفریحی",
+        "value": "fun"
+      },
+      {
+        "name": "درمانی",
+        "value": "healthcare"
+      }
     ],
-    "titleCategoryList": "لیست مکان های"
+    "subCategories": {
+      "sight": [
+        {
+          "name": "اماکن مذهبی",
+          "value": "religious"
+        },
+        {
+          "name": "روستا",
+          "value": "rural"
+        },
+        {
+          "name": "طبیعت",
+          "value": "nature"
+        },
+        {
+          "name": "موزه",
+          "value": "museum"
+        },
+        {
+          "name": "آثار تاریخی",
+          "value": "historical"
+        }
+      ],
+      "buy": [
+        {
+          "name": "کتاب فروشی",
+          "value": "bookstore"
+        },
+        {
+          "name": "هایپر مارکت",
+          "value": "hypermarket"
+        },
+        {
+          "name": "بازار",
+          "value": "market"
+        },
+        {
+          "name": "مرکز تجاری",
+          "value": "commercialCenter"
+        }
+      ],
+      "eat": [
+        {
+          "name": "کافه",
+          "value": "cafe"
+        },
+        {
+          "name": "فست فود",
+          "value": "fastFood"
+        },
+        {
+          "name": "رستوران",
+          "value": "restaurant"
+        }
+      ],
+      "hotel": [
+        {
+          "name": "هتل",
+          "value": "hotel"
+        },
+        {
+          "name": "مهمانپذیر",
+          "value": "guestHouse"
+        },
+        {
+          "name": "هتل آپارتمان",
+          "value": "apartmentHotel"
+        }
+      ],
+      "fun": [
+        {
+          "name": "مجموعه ورزشی",
+          "value": "sportsComplex"
+        },
+        {
+          "name": "بازی و سرگرمی",
+          "value": "entertainmentAndGames"
+        },
+        {
+          "name": "تفریحات دریایی",
+          "value": "waterActivities"
+        },
+        {
+          "name": "سینما",
+          "value": "cinema"
+        },
+        {
+          "name": "پارک",
+          "value": "park"
+        },
+        {
+          "name": "شهربازی",
+          "value": "amusementPark"
+        },
+        {
+          "name": "شنا",
+          "value": "swimming"
+        },
+        {
+          "name": "سالن ورزشی",
+          "value": "sportsHall"
+        }
+      ],
+      "healthcare": [
+        {
+          "name": "بیمارستان",
+          "value": "hospital"
+        },
+        {
+          "name": "درمانگاه",
+          "value": "clinic"
+        }
+      ]
+    },
+    "titleCategoryList": "لیست مکان های",
+    "mapTitle": "روی نقشه"
   },
   "contact-us": {
     "title": "تماس با ما",
@@ -74,13 +219,13 @@
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
     "myAccountButton": "حساب کاربری من",
-    "searchPlaceholder" : "جستجوی مکان ها در ",
-    "menuListMyCity" : " من",
+    "searchPlaceholder": "جستجوی مکان ها در ",
+    "menuListMyCity": " من",
     "sightCategory": "دیدنی",
-    "buyCategory": "خریدنی",
-    "eatCategory": "خوردنی",
+    "buyCategory": "خرید",
+    "eatCategory": "خوردن",
     "HotelCategory": "اسکان",
-    "funCategory": "تفریح",
+    "funCategory": "تفریحی",
     "healthcareCategory": "درمانی",
     "menuListAboutCity": "اطلاعات شهر"
   },

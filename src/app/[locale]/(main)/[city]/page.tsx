@@ -13,8 +13,8 @@ import Link from "next/link";
 import { FiList } from "react-icons/fi";
 import { useTranslations } from "next-intl";
 import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
-import FilterCategoryProvider from "./components/filter-category-provider/FilterCategoryProvider";
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
+import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
 
 export default function Page({
   params,
@@ -46,7 +46,7 @@ export default function Page({
     { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
     { title: "بهترین مراکز خرید تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
   ];
-  
+
 
   return (
     <div className={styles.city}>
@@ -68,12 +68,12 @@ export default function Page({
             {locale === 'fa' ? `${t('cityPage.collectionCardTitle')} ${cityFa}` : `${t('cityPage.collectionCardTitle')} ${city}`}
           </span>
           <Link className={styles.moreButton} href={`/${locale}/${city}/collection-list`}>
-            {locale === 'fa' ? 
+            {locale === 'fa' ?
               <>
                 {t('cityPage.moreButton')}
                 <IoIosArrowBack className="!size-6" />
               </>
-            : 
+              :
               <>
                 {t('cityPage.moreButton')}
                 <IoIosArrowBack className="!size-6 !rotate-180" />
