@@ -1,4 +1,3 @@
 export type Categories = {
-    category: "all" | "sight" | "buy" | "eat" | "hotel" | "fun" | "healthcare";
-  };
-  
+  category: "sight" | "buy" | "eat" | "hotel" | "fun" | "healthcare";
+}

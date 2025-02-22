@@ -12,7 +12,12 @@ import { notFound } from "next/navigation";
 
 import map from "@/assets/images/map-category/image-1@3x.jpg";
 import Image from "next/image";
-import Card from "@/components/Card/Card";
+import { LuStar, LuMapPin } from "react-icons/lu";
+import FilterCategory from "../components/filter-category-tubular/FilterCategoryTubular";
+import FilterCategoryResultCards from "../components/filter-category-result/FilterCategoryResultCards";
+import { FiList } from "react-icons/fi";
+import { FilterSubCategoryProvider } from "./components/filter-category-provider/FilterSubCategoryProvider";
+import { Categories } from "../types/categories";
 
 export default function CategoryPage({
   params,
@@ -48,7 +53,7 @@ export default function CategoryPage({
 
   const categories = t.raw("categories") as { name: string; value: string }[];
   const categoryFind = categories.find((c) => c.value === categoryTitle);
-
+  
   if (!categoryFind) {
     return notFound();
   }
@@ -59,76 +64,49 @@ export default function CategoryPage({
         <div className={styles.topButtons}>
           <button className={styles.topButton}>
             <MdOutlineLocationOn size={24} />
-            <span>نزدیک من</span>
+            <span>{t("mapButton")}</span>
           </button>
           <button className={styles.topButton}>
             <PiSliders size={24} />
-            <span>فیلتر نتایج</span>
+            <span>{t("filterButton")}</span>
           </button>
         </div>
-        <div className={styles.cardSlider}>
+        <div className={styles.collectionSlider}>
           <label htmlFor={`collection-${city}-${categoryTitle}`}>
+            <LuStar />
             {t("title") + " " + categoryFind.name}
           </label>
           <SliderCard
-            mdPerView={1.5}
+            slidesPerView={1.3}
+            mdPerView={2}
             lgPerView={2}
             xlPerView={2.5}
             id={`collection-${city}-${category}`}
             slides={slides}
-            isLike={true}
+            textOnCard={true}
+            showPagination={true}
           />
         </div>
-        <div className={styles.cardList}>
-          <label htmlFor={`collection-${city}-${categoryTitle}`}>
-            {t("titleCategoryList") + " " + categoryFind.name}
-          </label>
-          <div className={styles.cardListGrid}>
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
-            <Card
-              src="https://picsum.photos/id/222/300/150"
-              label="موزه ملی ایران"
-              alt="موزه ملی ایران"
-            />
+        <div className={styles.placesWithMap}>
+          <div className={styles.placesCard}>
+            <label className={styles.cardTitles}>
+              <FiList />
+              {t('titleCategoryList') + " " + categoryFind.name}
+            </label>
+            <FilterSubCategoryProvider initialCategory={categoryTitle as Categories["category"]}>
+              <FilterCategory isSubCategories={true} />
+              <FilterCategoryResultCards isSubCategories={true} />
+            </FilterSubCategoryProvider>
+          </div>
+
+          <div className={styles.map}>
+            <label htmlFor="map">
+              <LuMapPin />
+              {t("titleCategoryList") + " " + categoryFind.name + " " + t("mapTitle")}
+            </label>
+            <Image src={map} alt="map" />
           </div>
         </div>
-      </div>
-      <div className={styles.map}>
-        <Image src={map} alt="map" />
       </div>
     </div>
   );

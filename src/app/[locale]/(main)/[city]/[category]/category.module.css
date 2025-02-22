@@ -6,7 +6,7 @@
   }
 
   .categories {
-    @apply flex flex-col gap-4 lg:w-3/5;
+    @apply w-full flex flex-col gap-6;
 
     .topButtons {
       @apply flex gap-2 pb-4;
@@ -24,28 +24,64 @@
       }
     }
 
-    .cardSlider {
-      @apply flex flex-col;
-    }
+    .collectionSlider {
+      @apply bg-third py-4 rounded-[1.75rem] pb-0;
 
-    .cardList {
-      @apply flex flex-col gap-4 mt-6;
+      box-shadow: 0px 1px 12px -8px black;
 
-      .cardListGrid {
-        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+      label {
+        @apply flex items-center gap-2 text-primary lg:text-xl ms-6;
+
+        svg {
+          @apply size-6 lg:size-8;
+        }
       }
 
-      .card {
-        @apply w-full;
+      .moreButton {
+        @apply flex items-center gap-2 text-primary;
       }
     }
-  }
 
-  .map {
-    @apply hidden lg:block lg:w-2/5 rounded-lg;
+    .placesWithMap {
+      @apply w-full flex flex-col gap-6;
 
-    img {
-      @apply w-full;
+      .placesCard {
+        @apply bg-third flex flex-col justify-between gap-6 pt-4 px-4 lg:px-6 rounded-[1.75rem];
+
+        img {
+          @apply w-full h-48 sm:h-60 md:h-72 object-cover rounded-3xl;
+        }
+
+        .cardTitles {
+          @apply flex items-center gap-2 text-primary lg:text-xl;
+
+          svg {
+            @apply size-6 lg:size-8;
+          }
+        }
+
+        &>div:first-child {
+          @apply px-0;
+        }
+
+        box-shadow: 0px 1px 12px -8px black;
+      }
+
+      .map {
+        @apply flex flex-col gap-4 w-full h-96 rounded-lg;
+
+        label {
+          @apply flex items-center gap-2 text-primary lg:text-xl shrink-0;
+
+          svg {
+            @apply size-6 lg:size-8;
+          }
+        }
+
+        img {
+          @apply w-full h-full object-cover rounded-xl;
+        }
+      }
     }
   }
 }
