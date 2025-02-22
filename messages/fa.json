@@ -134,5 +134,9 @@
     "downloadBazzar": "دریافت از کافه بازار",
     "downloadLink": "دریافت مستقیم",
     "downloadPWA": "دریافت وب اپلیکیشن"
+  },
+  "Search": {
+    "resultPlaces": "نتایج جستجوی مکان",
+    "resultCollections": "نتایج جستجوی کالکشن"
   }
 }

@@ -134,5 +134,9 @@
     "downloadBazzar": "Download From Bazzar",
     "downloadLink": "Download APK",
     "downloadPWA": "Download Web App"
+  },
+  "Search": {
+    "resultPlaces": "Search results Place",
+    "resultCollections": "Search results Collection"
   }
 }
