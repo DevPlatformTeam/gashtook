@@ -1,12 +1,13 @@
 "use client"
+
 import React from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import { TbLogin } from "react-icons/tb";
+import { TbDeviceMobileMessage, TbLogin } from "react-icons/tb";
 import { useForm, FormProvider } from "react-hook-form";
-import styles from "./login-page.module.css";
+import styles from "../login/login-page.module.css";
 import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
@@ -52,26 +53,25 @@ export default function LoginPage() {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.loginHeader}>
-              <TbLogin size={26} className={styles.loginIcon} />
-              <h2 className={styles.loginTitle}>{t("login-to-account")}</h2>
+              <TbDeviceMobileMessage size={32} className={styles.loginIcon} />
+              <h2 className={styles.loginTitle}>{t("otp-title")}</h2>
             </div>
             <TextInput
-              type={locale === 'fa' ? "tel" : "email"}
-              inputMode={locale === 'fa' ? "numeric" : "email"}
-              label={locale === 'fa' ? t("mobile") : t("email")}
-              name={locale === 'fa' ? "mobile" : "email"}
-              id={locale === 'fa' ? "mobile" : "email"}
-              placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
-              validation={locale === 'fa' ? 
-                {required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" }}
-                :
-                {required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" }}
-              }
+              type="text"
+              inputMode="numeric"
+              label={t("otp-label-input")}
+              name="otp"
+              id="otp"
+              placeHolder="****"
+              className="child:text-center"
+              validation={{required: "کد تایید الزامی است", pattern: { value: /^\d{4}$/, message: "کد تایید نامعتبر است" }}}
+              minLength={4}
+              maxLength={4}
             />
             <div className={styles.submitButtonContainer}>
               <Button
                 type="submit"
-                text={t("enter")}
+                text={t("otp-text-btn")}
                 color="primary"
                 className={styles.submitButton}
               />
