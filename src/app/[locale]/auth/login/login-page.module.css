@@ -1,6 +1,111 @@
-.bgImage {
-  @apply w-1/2 hidden flex-col relative lg:flex md:flex;
-  background-image: url("../../../../assets/images/pol.png");
-  background-size: cover;
-  background-position: center;
+.loginPage {
+  @apply flex justify-center rounded-md w-full h-full lg:w-2/3 lg:h-4/5 xl:w-1/2;
+
+  .bgImage {
+    @apply hidden lg:flex md:flex flex-col relative w-1/2;
+    background-image: url("../../../../assets/images/pol.png");
+    background-size: cover;
+    background-position: center;
+
+    .overlay {
+      @apply absolute bg-[#21a788c4] top-0 left-0 w-full h-full;
+    }
+
+    .bgContent {
+      @apply flex flex-col relative z-50 w-full h-full;
+
+      .logoContainer {
+        @apply flex pt-6 px-6 items-start w-full;
+      }
+
+      .registerSection {
+        @apply flex-center flex-col text-third px-6 w-full h-full;
+        
+        .registerTitle {
+          @apply text-2xl font-bold mb-4;
+        }
+        
+        .registerNotice {
+          @apply text-base min-h-12;
+        }
+        
+        .registerButtonContainer {
+          @apply w-full flex justify-end mt-5;
+          
+          .registerButton {
+            @apply px-8 py-2 font-normal;
+          }
+        }
+      }
+    }
+  }
+
+  .formContainer {
+    @apply bg-white flex flex-col justify-center px-12 w-full lg:w-1/2 md:w-1/2;
+  }
+
+  .form {
+    @apply flex flex-col;
+  }
+
+  .loginHeader {
+    @apply flex items-center gap-x-1 mb-6 text-slate-700;
+    
+    .loginIcon {
+      /* در صورت نیاز استایل‌های اضافی برای آیکون */
+    }
+    
+    .loginTitle {
+      @apply font-semibold text-xl;
+    }
+  }
+
+  .forgotRemember {
+    @apply flex justify-between items-center;
+    
+    .forgotPassword {
+      @apply text-sm;
+      
+      .forgotLink {
+        @apply text-secondary;
+      }
+      
+      .underline {
+        @apply w-full h-[1.5px] mt-0.5 bg-secondary block;
+      }
+    }
+    
+    .rememberMe {
+      @apply text-sm;
+    }
+  }
+
+  .submitButtonContainer {
+    @apply flex justify-center mt-12;
+    
+    .submitButton {
+      @apply px-12 py-2 font-normal;
+    }
+  }
+
+  .mobileSignup {
+    @apply md:hidden flex flex-col justify-center text-center mt-12;
+    
+    .signupNotice {
+      @apply text-sm mb-6;
+    }
+    
+    .signupLink {
+      @apply text-primary;
+    }
+  }
+
+  /* کلاس‌های مربوط به حاشیه‌های گرد بسته به جهت صفحه (RTL / LTR) */
+  .roundedL {
+    @apply rounded-l-xl;
+  }
+  
+  .roundedR {
+    @apply rounded-r-xl;
+  }
 }
