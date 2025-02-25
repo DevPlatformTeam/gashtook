@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import React, { MouseEvent, useState, useRef, useEffect, useContext } from 'react';
 
 import styles from "./FilterCategoryTubular.module.css"
+
 import { SubCategoryContext } from '../../[category]/components/filter-category-provider/FilterSubCategoryProvider';
 import { SubCategories } from '../../[category]/types/subcategories';
 import { CategoryContext } from '../filter-category-provider/FilterCategoryProvider';
