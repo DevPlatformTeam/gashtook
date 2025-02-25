@@ -1,6 +1,6 @@
 /* header.module.css */
 .header {
-  @apply relative bg-third pt-8 shadow-md;
+  @apply relative bg-background pt-8 shadow-md;
 
   .headerTop {
     @apply container mx-auto flex items-center justify-between gap-4;

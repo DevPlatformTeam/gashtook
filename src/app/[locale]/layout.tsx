@@ -2,19 +2,12 @@ import type { Metadata, Viewport } from "next";
 
 import "./globals.css";
 
-import { Vazirmatn } from "next/font/google";
-
 import { NextIntlClientProvider } from "next-intl";
 
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 import { routing } from "@/i18n/routing";
-
-const vazirmatn = Vazirmatn({
-  subsets: ["latin", "arabic"],
-  display: "swap",
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -66,8 +59,14 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={locale === "fa" ? "rtl" : "ltr"}
-      className={vazirmatn.className}
     >
+      <head>
+        <link
+          href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+      </head>
       <body>
         <NextIntlClientProvider messages={messages}>
           {children}
