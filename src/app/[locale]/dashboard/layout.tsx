@@ -34,7 +34,7 @@ export default function DashboardLayout({ children, params }: Props) {
         <div>
             <Header />
             <div className="flex flex-col gap-4 h-[44rem] lg:flex-row lg:p-4 bg-third child:bg-background child:border child:border-gray-200">
-                <aside className="w-full h-fit grow-0 lg:w-4/12 xl:w-3/12 overflow-hidden lg:shadow-sm lg:rounded-2xl">
+                <aside className="w-full h-fit grow-0 lg:w-4/12 xl:w-3/12 overflow-hidden lg:shadow-sm lg:rounded-2xl shrink-0">
                     {/* اطلاعات کاربر */}
                     <div className="flex flex-col p-4 border-b border-gray-100">
                         <div className="flex items-center gap-2 text-right">
@@ -71,7 +71,7 @@ export default function DashboardLayout({ children, params }: Props) {
                     </div>
 
                     {/* منو/ناوبری */}
-                    <nav className="flex items-center justify-around lg:flex-col text-right overflow-x-auto child:flex child:items-center child:gap-2 child:px-6 child:py-2 child:lg:p-4 child-hover:text-primary child:min-w-fit child:w-full child:rounded-lg child-hover:bg-gray-100 child:text-center child:lg:text-start child:transition child:duration-200">
+                    <nav className="flex items-center justify-around p-2 gap-2 lg:flex-col text-right overflow-x-auto child:flex child:items-center child:gap-2 child:px-6 child:py-2 child:lg:p-4 child-hover:text-primary child:min-w-fit child:w-full child:rounded-lg child-hover:bg-gray-100 child:text-center child:lg:text-start child:transition child:duration-200 scroll">
                         <Link href={`/${locale}/dashboard/notifications`} className={`${lastSegment === "notifications" && "bg-primaryfade/10 hover:!bg-primaryfade/20 text-primary"}`}>
                             <IoIosNotificationsOutline className='size-7 text-primary' />
                             <span className="font-medium rounded">اعلانات</span>
@@ -92,7 +92,7 @@ export default function DashboardLayout({ children, params }: Props) {
                 </aside>
 
                 {/* محتوای اصلی داشبورد */}
-                <main className="w-full max-h-full p-4 pe-2 mb-4 lg:mb-0 grow shadow-sm rounded-2xl overflow-hidden">
+                <main className="w-full max-h-full p-4 px-2 mb-4 lg:mb-0 grow shadow-sm rounded-2xl overflow-hidden">
                     {children}
                 </main>
             </div>

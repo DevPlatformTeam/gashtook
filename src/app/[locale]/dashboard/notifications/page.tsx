@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from "@/public/images/logo-white.svg";
 import Image from 'next/image';
 import ToggleBox from '@/components/Toggle-box/ToggleBox.component';
+import NoDataSvg from '@/icons/NoDataSvg';
 
 
 const notifications = [
@@ -31,15 +32,15 @@ const notifications = [
 export default function Page() {
   return (
     <div className="h-full text-right">
-      <h1 className="text-2xl font-bold pb-4 border-b border-gray-200">اعلانات</h1>
-      <ul className="h-full overflow-y-auto scroll pe-3 divide-y child:!mb-2 child:pb-2 divide-gray-100">
+      <h1 className="text-xl font-bold mx-4 pb-4 border-b border-gray-200">اعلانات</h1>
+      {notifications.length > 0 ? <ul className="h-full overflow-y-auto scroll px-4 pt-4 divide-y child:!mb-2 child:pb-2 divide-gray-100">
         {notifications.map((notification) => (
           <ToggleBox
             key={notification.id}
-            className="flex gap-2 first:mt-2 hover:bg-gray-100"
+            className="flex gap-2 hover:bg-gray-100"
           >
             <div className='size-8 rounded-full bg-primary p-1.5 shrink-0'>
-              <Image className="size-full" src={Logo} alt="Gashtook" />
+              <Image className="size-full" src={Logo} objectFit='contain' loading='lazy' alt="Gashtook" />
             </div>
             <div className='flex flex-col'>
               <p className="font-semibold">{notification.message}</p>
@@ -47,7 +48,12 @@ export default function Page() {
             </div>
           </ToggleBox>
         ))}
-      </ul>
+      </ul> :
+        <div className={"w-full h-full flex-center flex-col gap-4"}>
+          <NoDataSvg className="max-w-48 h-48" />
+          <p className="text-center text-gray-500">هیچ اعلانی یافت نشد</p>
+        </div>
+      }
     </div>
   );
 }
