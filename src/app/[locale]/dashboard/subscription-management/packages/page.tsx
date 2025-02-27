@@ -2,50 +2,52 @@ import React from 'react'
 
 import styles from './packages.module.css'
 import Button from '@/components/Button/Button'
+import { useTranslations } from 'next-intl';
 
-export default function page() {
+export default function Page() {
+  const t = useTranslations();
   return (
     <div className={styles.packages}>
-      <h1 className={styles.title}>خرید اشتراک</h1>
+      <h1 className={styles.title}>{t("Dashboard.packages")}</h1>
       <div className={styles.cardsContainer}>
         <div className={styles.card}>
             <div className={styles.cardHeader}>
-                <span>اشتراک روزانه</span>
-                <span>3,0000 تومان</span>
+                <span>{t("Dashboard.dailySubscription")}</span>
+                <span>{`3,000 ${t("Dashboard.rial")}`}</span>
             </div>
             <ul>
-                <li>مکان ها بدون محدودیت</li>
-                <li>دسته ها بدون محدودیت</li>
-                <li>شهرها بدون محدودیت</li>
-                <li>همه امکانات</li>
+                <li>{t("Dashboard.placesWithoutLimit")}</li>
+                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
+                <li>{t("Dashboard.citiesWithoutLimit")}</li>
+                <li>{t("Dashboard.allFeatures")}</li>
             </ul>
-            <Button className={styles.cardButton} text='خرید اشتراک' outline />
+            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
         </div>
         <div className={styles.card}>
             <div className={styles.cardHeader}>
-                <span>اشتراک ماهانه</span>
-                <span>30,0000 تومان</span>
+                <span>{t("Dashboard.monthlySubscription")}</span>
+                <span>{`30,000 ${t("Dashboard.rial")}`}</span>
             </div>
             <ul>
-                <li>مکان ها بدون محدودیت</li>
-                <li>دسته ها بدون محدودیت</li>
-                <li>شهرها بدون محدودیت</li>
-                <li>همه امکانات</li>
+                <li>{t("Dashboard.placesWithoutLimit")}</li>
+                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
+                <li>{t("Dashboard.citiesWithoutLimit")}</li>
+                <li>{t("Dashboard.allFeatures")}</li>
             </ul>
-            <Button className={styles.cardButton} text='خرید اشتراک' outline />
+            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
         </div>
         <div className={styles.card}>
             <div className={styles.cardHeader}>
-                <span>اشتراک سالیانه</span>
-                <span>100,0000 تومان</span>
+                <span>{t("Dashboard.yearlySubscription")}</span>
+                <span>{`100,000 ${t("Dashboard.rial")}`}</span>
             </div>
             <ul>
-                <li>مکان ها بدون محدودیت</li>
-                <li>دسته ها بدون محدودیت</li>
-                <li>شهرها بدون محدودیت</li>
-                <li>همه امکانات</li>
+                <li>{t("Dashboard.placesWithoutLimit")}</li>
+                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
+                <li>{t("Dashboard.citiesWithoutLimit")}</li>
+                <li>{t("Dashboard.allFeatures")}</li>
             </ul>
-            <Button className={styles.cardButton} text='خرید اشتراک' outline />
+            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
         </div>
       </div>
     </div>

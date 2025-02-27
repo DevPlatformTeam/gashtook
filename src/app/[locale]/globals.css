@@ -11,7 +11,7 @@
   --third: hsl(0, 0%, 97%);
 }
 
-html {
+html[dir="rtl"] {
   font-family: "Vazirmatn", system-ui;
   font-feature-settings: "ss01";
 }

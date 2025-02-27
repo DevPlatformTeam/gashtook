@@ -3,6 +3,7 @@ import Logo from "@/public/images/logo-white.svg";
 import Image from 'next/image';
 import ToggleBox from '@/components/Toggle-box/ToggleBox.component';
 import NoDataSvg from '@/icons/NoDataSvg';
+import { useLocale, useTranslations } from 'next-intl';
 
 
 const notifications = [
@@ -30,9 +31,12 @@ const notifications = [
 ];
 
 export default function Page() {
+
+  const t = useTranslations();
+  const locale = useLocale();
   return (
-    <div className="h-full text-right">
-      <h1 className="text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">اعلانات</h1>
+    <div className="h-full text-start">
+      <h1 className="text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">{t("Dashboard.notifications")}</h1>
       {notifications.length > 0 ? <ul className="h-full overflow-y-auto scroll px-6 pt-4 divide-y child:!mb-2 child:pb-2 divide-gray-100">
         {notifications.map((notification) => (
           <ToggleBox
@@ -51,7 +55,7 @@ export default function Page() {
       </ul> :
         <div className={"w-full h-full flex-center flex-col gap-4"}>
           <NoDataSvg className="max-w-48 h-48" />
-          <p className="text-center text-gray-500">هیچ اعلانی یافت نشد</p>
+          <p className="text-center text-gray-500">{t("Dashboard.notFound", { type: locale === "fa" ? "اعلانی" : "notification" })}</p>
         </div>
       }
     </div>

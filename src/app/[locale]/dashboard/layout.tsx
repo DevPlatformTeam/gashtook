@@ -14,7 +14,7 @@ import { IoIosNotificationsOutline, IoIosPerson } from 'react-icons/io';
 import { PiBriefcaseLight } from 'react-icons/pi';
 
 import { usePathname } from 'next/navigation';
-
+import { useTranslations } from 'next-intl';
 type Props = {
     children: React.ReactNode;
     params: {
@@ -26,6 +26,7 @@ export default function DashboardLayout({ children, params }: Props) {
 
     const { locale } = params;
     const pathname = usePathname();
+    const t = useTranslations('Dashboard');
     const lastSegment = pathname.split('/').pop();
 
     const expireSubscription = Math.round(28 * 100 / 30);
@@ -62,7 +63,7 @@ export default function DashboardLayout({ children, params }: Props) {
                                 <span className={`absolute h-full left-0 rounded-full bg-primary`} style={{ width: expireSubscription && expireSubscription + "%" }}></span>
                             </div>
                             <div className='flex items-center justify-between text-gray-500 text-sm'>
-                                <span>مهلت اشتراک ویژه</span>
+                                <span>{t("expireSubscription")}</span>
                                 <Link href={"/"} className='flex items-center gap-1'>
                                     {locale === 'fa' ?
                                         <>
@@ -73,7 +74,7 @@ export default function DashboardLayout({ children, params }: Props) {
                                         <>
 
                                             <FaChevronRight />
-                                            <span className='text-primary'>28 روز</span>
+                                            <span className='text-primary'>28 days</span>
                                         </>
                                     }
                                 </Link>
@@ -85,19 +86,19 @@ export default function DashboardLayout({ children, params }: Props) {
                     <nav ref={navRef} className="flex items-center justify-around p-2 gap-2 lg:flex-col text-right overflow-x-auto child:flex child:items-center child:gap-2 child:px-6 child:py-2 child:lg:p-4 child-hover:text-primary child:min-w-fit child:w-full child:rounded-lg child-hover:bg-gray-100 child:text-center child:lg:text-start child:transition child:duration-200 scroll">
                         <Link data-active={lastSegment === "notifications" ? "true" : undefined} href={`/${locale}/dashboard/notifications`} className={`${lastSegment === "notifications" && "bg-primaryfade/10 hover:!bg-primaryfade/20 text-primary"}`}>
                             <IoIosNotificationsOutline className='size-7 text-primary' />
-                            <span className="font-medium rounded">اعلانات</span>
+                            <span className="font-medium rounded">{t('notifications')}</span>
                         </Link>
                         <Link data-active={lastSegment === "favorites" ? "true" : undefined} href={`/${locale}/dashboard/favorites`} className={`${lastSegment === "favorites" && "bg-primaryfade/10 hover:!bg-primaryfade/20 text-primary"}`}>
                             <CiHeart className='size-7 text-primary' />
-                            <span className="font-medium rounded">علاقه مندی ها</span>
+                            <span className="font-medium rounded">{t('favorites')}</span>
                         </Link>
                         <Link data-active={lastSegment === "subscription-management" ? "true" : undefined} href={`/${locale}/dashboard/subscription-management`} className={`${lastSegment === "subscription-management" && "bg-primaryfade/10 hover:!bg-primaryfade/20 text-primary"}`}>
                             <PiBriefcaseLight className='size-7 text-primary' />
-                            <span className="font-medium rounded">مدیریت اشتراک</span>
+                            <span className="font-medium rounded">{t('subscriptionManagement')}</span>
                         </Link>
                         <Link data-active={lastSegment === "settings" ? "true" : undefined} href={`/${locale}/dashboard/settings`} className={`${lastSegment === "settings" && "bg-primaryfade/10 hover:!bg-primaryfade/20 text-primary"}`}>
                             <CiSettings className='size-7 text-primary' />
-                            <span className="font-medium rounded">تنظیمات کاربری</span>
+                            <span className="font-medium rounded">{t('settings')}</span>
                         </Link>
                     </nav>
                 </aside>

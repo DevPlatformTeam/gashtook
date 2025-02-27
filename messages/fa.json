@@ -287,5 +287,30 @@
   "Search": {
     "resultPlaces": "نتایج جستجوی مکان",
     "resultCollections": "نتایج جستجوی کالکشن"
+  },
+  "Dashboard": {
+    "dashboard": "داشبورد",
+    "expireSubscription": "مهلت اشتراک ویژه",
+    "notifications": "اعلانات",
+    "favorites": "علاقه مندی ها",
+    "subscriptionManagement": "مدیریت اشتراک",
+    "settings": "تنظیمات کاربری",
+    "packages": "پکیج ها",
+    "notFound": "هیچ {type} یافت نشد",
+    "subscriptionType": "نوع اشتراک",
+    "price": "قیمت",
+    "orderNumber": "شماره سفارش",
+    "status": "وضعیت",
+    "referenceCode": "کد مرجع",
+    "dailySubscription": "اشتراک روزانه",
+    "monthlySubscription": "اشتراک ماهانه",
+    "yearlySubscription": "اشتراک سالانه",
+    "buySubscription": "خرید اشتراک",
+    "placesWithoutLimit": "مکان ها بدون محدودیت",
+    "categoriesWithoutLimit": "دسته ها بدون محدودیت",
+    "citiesWithoutLimit": "شهرها بدون محدودیت",
+    "allFeatures": "همه امکانات",
+    "rial": "تومان",
+    "logout": "خروج از حساب"
   }
 }

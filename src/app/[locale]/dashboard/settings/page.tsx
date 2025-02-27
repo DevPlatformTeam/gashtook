@@ -23,8 +23,8 @@ export default function Page() {
 
 
   return (
-    <div className="h-full text-right">
-      <h1 className="text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">تنظیمات کاربری</h1>
+    <div className="h-full text-start">
+      <h1 className="text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">{t("Dashboard.settings")}</h1>
       <div className={styles.containerForms}>
         <FormProvider {...methods}>
           <form className={styles.form}>

@@ -1,7 +1,7 @@
 "use client"
 
 import Button from '@/components/Button/Button';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import React from 'react'
 import { PiBriefcaseLight } from 'react-icons/pi';
@@ -18,98 +18,99 @@ export default function Page() {
 
   const locale = useLocale();
   const router = useRouter();
+  const t = useTranslations();
 
   const data: Subscription[] = [
     {
-      type: "اشتراک سالانه",
-      price: "100,000 تومان",
+      type: t("Dashboard.yearlySubscription"),
+      price: `100,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: false,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: false,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
     {
-      type: "اشتراک روزانه",
-      price: "3,000 تومان",
+      type: t("Dashboard.dailySubscription"),
+      price: `3,000 ${t("Dashboard.rial")}`,
       orderNumber: "159",
       status: true,
       Referencecode: "1234567890",
     },
   ];
   return (
-    <div className="h-full text-right">
-      <h1 className="text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">مدیریت اشتراک</h1>
+    <div className="h-full text-start">
+      <h1 className="text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">{t("Dashboard.subscriptionManagement")}</h1>
       {data.length > 0 ? <table className="flex flex-col w-full h-full px-6 overflow-y-auto scroll pt-4 pb-10">
-        <thead className='w-full flex justify-between items-center child:w-1/5 child:text-gray-400 pb-4 child:text-right border-b border-gray-100'>
+        <thead className='w-full flex justify-between items-center child:w-1/5 child:text-gray-400 pb-4 child:text-start border-b border-gray-100'>
           <th>
-            <span>نوع اشتراک</span>
+            <span>{t("Dashboard.subscriptionType")}</span>
           </th>
           <th>
-            <span>قیمت</span>
+            <span>{t("Dashboard.price")}</span>
           </th>
           <th>
-            <span>شماره سفارش</span>
+            <span>{t("Dashboard.orderNumber")}</span>
           </th>
           <th>
-            <span>وضعیت</span>
+            <span>{t("Dashboard.status")}</span>
           </th>
           <th>
-            <span>کد مرجع</span>
+            <span>{t("Dashboard.referenceCode")}</span>
           </th>
         </thead>
         <tbody className='w-full flex flex-col gap-3 divide-y divide-gray-100 child:pt-3'>
@@ -118,7 +119,7 @@ export default function Page() {
               <td>{card.type}</td>
               <td>{card.price}</td>
               <td>{card.orderNumber}</td>
-              <td>{card.status ? <span className='text-primary'>فعال</span> : <span className='text-red-400'>غیرفعال</span>}</td>
+              <td>{card.status ? <span className='text-primary'>{locale === 'fa' ? 'فعال' : 'Active'}</span> : <span className='text-red-400'>{locale === 'fa' ? 'غیرفعال' : 'Inactive'}</span>}</td>
               <td>{card.Referencecode}</td>
             </tr>
           ))}
@@ -129,8 +130,8 @@ export default function Page() {
       </table> :
         <div className={"w-full h-full flex-center flex-col"}>
           <PiBriefcaseLight className="size-20 text-gray-500" />
-          <p className="text-center text-gray-500">شما تاکنون اشتراکی خریداری نکرده اید</p>
-          <Button text="خرید اشتراک" color='primary' textColor='background' className='font-normal mt-8 px-8' />
+          <p className="text-center text-gray-500">{t("Dashboard.notFound", { type: locale === "fa" ? "اشتراکی" : "subscription" })}</p>
+          <Button text={locale === 'fa' ? "خرید اشتراک" : "Buy Subscription"} color='primary' textColor='background' className='font-normal mt-8 px-8' />
         </div>
       }
     </div>
