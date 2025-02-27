@@ -32,8 +32,8 @@ const notifications = [
 export default function Page() {
   return (
     <div className="h-full text-right">
-      <h1 className="text-xl font-bold mx-4 pb-4 border-b border-gray-200">اعلانات</h1>
-      {notifications.length > 0 ? <ul className="h-full overflow-y-auto scroll px-4 pt-4 divide-y child:!mb-2 child:pb-2 divide-gray-100">
+      <h1 className="text-xl font-bold mx-6 pb-4 border-b border-gray-200">اعلانات</h1>
+      {notifications.length > 0 ? <ul className="h-full overflow-y-auto scroll px-6 pt-4 divide-y child:!mb-2 child:pb-2 divide-gray-100">
         {notifications.map((notification) => (
           <ToggleBox
             key={notification.id}

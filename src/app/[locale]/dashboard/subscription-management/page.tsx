@@ -50,8 +50,8 @@ export default function Page() {
   ];
   return (
     <div className="h-full text-right">
-      <h1 className="text-xl font-bold pb-2 mx-4 border-b border-gray-200">مدیریت اشتراک</h1>
-      {data.length > 0 ? <table className="flex flex-col w-full h-full px-4 overflow-y-auto scroll pt-4">
+      <h1 className="text-xl font-bold pb-4 mx-6 border-b border-gray-200">مدیریت اشتراک</h1>
+      {data.length > 0 ? <table className="flex flex-col w-full h-full px-6 overflow-y-auto scroll pt-4">
         <thead className='w-full flex justify-between items-center child:w-1/5 child:text-gray-400 pb-4 child:text-right border-b border-gray-100'>
           <th>
             <span>نوع اشتراک</span>

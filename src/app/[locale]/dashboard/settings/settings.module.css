@@ -1,0 +1,15 @@
+.containerForms {
+    @apply h-full px-4 pt-8 pb-20 mb-8 overflow-y-auto scroll divide-y-2 divide-dashed;
+
+  .form {
+    @apply flex flex-col items-center first:mb-8 last:pt-8;
+
+    label {
+      @apply text-gray-500 font-medium mt-0;
+    }
+
+    input {
+      @apply h-10 !rounded-md !border-none outline outline-1 outline-gray-200 focus:outline-2 focus:outline-primary focus:bg-background;
+    }
+  }
+}
