@@ -33,8 +33,8 @@ const cards: Card[] = [
 export default function Page() {
   return (
     <div className="h-full text-right">
-      <h1 className="text-xl font-bold pb-4 mx-6 border-b border-gray-200">علاقه مندی ها</h1>
-      {cards.length > 0 ? <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto scroll px-3 pt-4">
+      <h1 className="text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">علاقه مندی ها</h1>
+      {cards.length > 0 ? <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-full overflow-y-auto scroll px-6 pt-4">
         {cards.map((card, index) => (
           <li key={index}>
             <Card

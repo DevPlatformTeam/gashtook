@@ -1,4 +1,8 @@
+"use client"
+
 import Button from '@/components/Button/Button';
+import { useLocale } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import React from 'react'
 import { PiBriefcaseLight } from 'react-icons/pi';
 
@@ -11,6 +15,10 @@ interface Subscription {
 }
 
 export default function Page() {
+
+  const locale = useLocale();
+  const router = useRouter();
+
   const data: Subscription[] = [
     {
       type: "اشتراک سالانه",
@@ -47,11 +55,46 @@ export default function Page() {
       status: true,
       Referencecode: "1234567890",
     },
+    {
+      type: "اشتراک روزانه",
+      price: "3,000 تومان",
+      orderNumber: "159",
+      status: true,
+      Referencecode: "1234567890",
+    },
+    {
+      type: "اشتراک روزانه",
+      price: "3,000 تومان",
+      orderNumber: "159",
+      status: true,
+      Referencecode: "1234567890",
+    },
+    {
+      type: "اشتراک روزانه",
+      price: "3,000 تومان",
+      orderNumber: "159",
+      status: true,
+      Referencecode: "1234567890",
+    },
+    {
+      type: "اشتراک روزانه",
+      price: "3,000 تومان",
+      orderNumber: "159",
+      status: true,
+      Referencecode: "1234567890",
+    },
+    {
+      type: "اشتراک روزانه",
+      price: "3,000 تومان",
+      orderNumber: "159",
+      status: true,
+      Referencecode: "1234567890",
+    },
   ];
   return (
     <div className="h-full text-right">
-      <h1 className="text-xl font-bold pb-4 mx-6 border-b border-gray-200">مدیریت اشتراک</h1>
-      {data.length > 0 ? <table className="flex flex-col w-full h-full px-6 overflow-y-auto scroll pt-4">
+      <h1 className="text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">مدیریت اشتراک</h1>
+      {data.length > 0 ? <table className="flex flex-col w-full h-full px-6 overflow-y-auto scroll pt-4 pb-10">
         <thead className='w-full flex justify-between items-center child:w-1/5 child:text-gray-400 pb-4 child:text-right border-b border-gray-100'>
           <th>
             <span>نوع اشتراک</span>
@@ -80,6 +123,9 @@ export default function Page() {
             </tr>
           ))}
         </tbody>
+        <div className='mt-10 w-full flex-center'>
+          <Button onClick={() => router.push('subscription-management/packages')} text={locale === 'fa' ? "خرید اشتراک" : "Buy Subscription"} color='primary' textColor='background' />
+        </div>
       </table> :
         <div className={"w-full h-full flex-center flex-col"}>
           <PiBriefcaseLight className="size-20 text-gray-500" />
