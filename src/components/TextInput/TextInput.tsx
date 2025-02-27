@@ -1,6 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import styles from "./textinput.module.css";
-import { Attributes, InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
+import { useLocale } from "next-intl";
 
 interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -38,8 +39,10 @@ export default function TextInput({
     formState: { errors },
   } = useFormContext();
 
+  const locale = useLocale();
+
   return (
-    <div className={`block w-full mb-6 ${className}`}>
+    <div className={`block w-full mb-6 ${className ?? ""}`}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
@@ -51,6 +54,7 @@ export default function TextInput({
         id={id}
         placeholder={placeHolder}
         {...props}
+        dir={locale === "fa" ? "rtl" : "ltr"}
       />
       {errors[name] && (
         <p className={styles.error}>{(errors[name]?.message as string) || "خطای نامعتبر"}</p>

@@ -287,5 +287,30 @@
   "Search": {
     "resultPlaces": "Search results Place",
     "resultCollections": "Search results Collection"
+  },
+  "Dashboard": {
+    "dashboard": "Dashboard",
+    "expireSubscription": "Expire Subscription",
+    "notifications": "Notifications",
+    "favorites": "Favorites",
+    "subscriptionManagement": "Subscription Management",
+    "settings": "Settings",
+    "packages": "Packages",
+    "notFound": "No {type} found",
+    "subscriptionType": "Subscription Type",
+    "price": "Price",
+    "orderNumber": "Order Number",
+    "status": "Status",
+    "referenceCode": "Reference Code",
+    "dailySubscription": "Daily Subscription",
+    "monthlySubscription": "Monthly Subscription",
+    "yearlySubscription": "Yearly Subscription",
+    "buySubscription": "Buy Subscription",
+    "placesWithoutLimit": "Places without limit",
+    "categoriesWithoutLimit": "Categories without limit",
+    "citiesWithoutLimit": "Cities without limit",
+    "allFeatures": "All Features",
+    "rial": "Rial",
+    "logout": "Logout"
   }
 }

@@ -33,7 +33,7 @@
       @apply hidden lg:flex-center gap-4 grow;
 
       & > div:nth-child(1) > input {
-        @apply text-primary outline outline-1 outline-primary focus:outline-2 focus:outline-primary bg-third;
+        @apply text-primary outline outline-1 outline-primary focus:outline-2 focus:outline-primary;
       }
       & > div:nth-child(2) {
         @apply w-2/3;

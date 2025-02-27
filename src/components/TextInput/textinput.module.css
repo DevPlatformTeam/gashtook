@@ -1,5 +1,5 @@
-.lable {
-  @apply text-xs font-medium text-secondary block my-2;
+.label {
+  @apply text-base font-medium text-secondary block my-2;
 }
 
 .input {

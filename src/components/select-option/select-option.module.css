@@ -6,15 +6,14 @@
   position: relative;
 
   label {
-    @apply text-xs font-semibold;
+    @apply text-base font-semibold;
   }
 
   input.select {
-    @apply font-medium bg-gray-100 text-secondary rounded-full focus:bg-third focus:outline focus:outline-primary focus:outline-2;
+    @apply font-medium bg-gray-50 text-secondary rounded-full outline outline-1 outline-gray-200 focus:outline focus:outline-primary focus:outline-2 focus:bg-background;
 
     padding: 0.5rem 1rem;
 
-    outline: none;
     border: none;
   }
 
@@ -44,7 +43,7 @@
   }
 
   .container-list {
-    @apply bg-third outline outline-2 outline-gray-200 rounded-xl shadow-md;
+    @apply bg-background outline outline-2 outline-gray-200 rounded-xl shadow-md;
 
     width: 100%;
 
