@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./headerStyle.module.css";
 
-import { IoChevronDown, IoSearch } from "react-icons/io5";
+import { IoCallOutline, IoSearch } from "react-icons/io5";
 
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -14,18 +14,24 @@ import logo from "@/assets/images/logo-english-new@2x.png";
 import Button from "../Button/Button";
 
 import { GoDownload } from "react-icons/go";
-import { LuUserRound } from "react-icons/lu";
+import { LuShieldQuestion, LuUserRound, LuUsersRound } from "react-icons/lu";
+import { PiBriefcase } from "react-icons/pi";
+import { HiOutlineMenu } from "react-icons/hi";
 
 import SearchInputComponent from "../search-input/SearchInput.component";
 import SelectOptionComponent from "../select-option/SelectOption.component";
 
-import { HiOutlineMenu } from "react-icons/hi";
+import Sidebar from "../sidbar/SidebarComponent";
 import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component";
+
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function Header() {
   const t = useTranslations();
   const pathname = usePathname();
+
+  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
   const [selectedCity, setSelectedCity] = useState<string>(
     (t.raw("city") as { id: string; value: string }[])[0].value,
@@ -45,7 +51,7 @@ export default function Header() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  
+
 
   useEffect(() => {
     const activeElement = document.querySelector(
@@ -65,80 +71,141 @@ export default function Header() {
   }, [pathname, resize]);
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerTop}>
-        <div className={styles.menu}>
-          <HiOutlineMenu />
+    <>
+      <Sidebar isOpen={openSidebar} setIsOpen={setOpenSidebar}>
+        <div className={styles.sidebarContainer}>
+          <div className={styles.logo}>
+            <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
+          </div>
+          <div className={styles.selectOptionButtons}>
+            <div className={styles.language}>
+              <ToggleLanguageComponent />
+            </div>
+            <div>
+              <SelectOptionComponent
+                defaultValue={selectedCity}
+                className="max-w-28"
+                name="city"
+                id="city"
+                options={t.raw("city") as { id: string; value: string }[]}
+              />
+            </div>
+          </div>
+          <ul className={styles.actions}>
+            <li>
+              <Link href={`/${locale}/dashboard`}>
+                <LuUserRound className={"size-7"} />
+                {t("Header.myAccountButton")}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/download`}>
+                <GoDownload className={"size-7"} />
+                {t("Header.downloadAppButton")}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/download`}>
+                <IoCallOutline className={"size-7"} />
+                {t("contact-us.title")}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/download`}>
+                <LuUsersRound className={"size-7"} />
+                {t("about-us.title")}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/download`}>
+                <LuShieldQuestion className={"size-7"} />
+                {t("faq.title")}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/download`}>
+                <PiBriefcase className={"size-7"} />
+                {t("rules.title")}
+              </Link>
+            </li>
+          </ul>
         </div>
-        {/* Logo Section */}
-        <div className={styles.logo}>
-          <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
+      </Sidebar>
+      <header className={styles.header}>
+        <div className={styles.headerTop}>
+          <div className={styles.menu} onClick={() => setOpenSidebar(!openSidebar)}>
+            <HiOutlineMenu />
+          </div>
+          {/* Logo Section */}
+          <div className={styles.logo}>
+            <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
+          </div>
+
+          <div className={styles.language}>
+            <ToggleLanguageComponent />
+          </div>
+
+          <div className={styles.mobileSearch}>
+            <IoSearch />
+          </div>
+
+          {/* Navigation Section */}
+          <div className={styles.search}>
+            <SelectOptionComponent
+              defaultValue={selectedCity}
+              className="max-w-28"
+              name="city"
+              id="city"
+              options={t.raw("city") as { id: string; value: string }[]}
+            />
+            <SearchInputComponent
+              id="search-header"
+              placeholder={`${t("Header.searchPlaceholder")}${selectedCity}`}
+            />
+          </div>
+
+          {/* Actions Section */}
+          <div className={styles.actions}>
+            <Button
+              color="primary"
+              outline={true}
+              icon={<LuUserRound className={"w-5 h-5"} />}
+              text={t("Header.myAccountButton")}
+            />
+            <Button
+              color="primary"
+              icon={<GoDownload className={"w-5 h-5"} />}
+              text={t("Header.downloadAppButton")}
+            />
+          </div>
         </div>
 
-        <div className={styles.language}>
-          <ToggleLanguageComponent />
-        </div>
-
-        <div className={styles.mobileSearch}>
-          <IoSearch />
-        </div>
-
-        {/* Navigation Section */}
-        <div className={styles.search}>
-          <SelectOptionComponent
-            defaultValue={selectedCity}
-            className="max-w-28"
-            name="city"
-            id="city"
-            options={t.raw("city") as { id: string; value: string }[]}
-          />
-          <SearchInputComponent
-            id="search-header"
-            placeholder={`${t("Header.searchPlaceholder")}${selectedCity}`}
-          />
-        </div>
-
-        {/* Actions Section */}
-        <div className={styles.actions}>
-          <Button
-            color="primary"
-            outline={true}
-            icon={<LuUserRound className={"w-5 h-5"} />}
-            text={t("Header.myAccountButton")}
-          />
-          <Button
-            color="primary"
-            icon={<GoDownload className={"w-5 h-5"} />}
-            text={t("Header.downloadAppButton")}
-          />
-        </div>
-      </div>
-
-      {/* Menu Section */}
-      <nav className={styles.navMenu}>
-        <button className={styles.active}>{locale === 'fa' ? selectedCity + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity}</button>
-        <button>
-          {t("Header.sightCategory")}
-        </button>
-        <button>
-          {t("Header.buyCategory")}
-        </button>
-        <button>
-          {t("Header.eatCategory")}
-        </button>
-        <button>
-          {t("Header.HotelCategory")}
-        </button>
-        <button>
-          {t("Header.funCategory")}
-        </button>
-        <button>
-          {t("Header.healthcareCategory")}
-        </button>
-        <button>
-          {t("Header.menuListAboutCity")}
-        </button>
-      </nav>
-    </header>
+        {/* Menu Section */}
+        <nav className={styles.navMenu}>
+          <button className={styles.active}>{locale === 'fa' ? selectedCity + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity}</button>
+          <button>
+            {t("Header.sightCategory")}
+          </button>
+          <button>
+            {t("Header.buyCategory")}
+          </button>
+          <button>
+            {t("Header.eatCategory")}
+          </button>
+          <button>
+            {t("Header.HotelCategory")}
+          </button>
+          <button>
+            {t("Header.funCategory")}
+          </button>
+          <button>
+            {t("Header.healthcareCategory")}
+          </button>
+          <button>
+            {t("Header.menuListAboutCity")}
+          </button>
+        </nav>
+      </header>
+    </>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import styles from "./contact-us.module.css";
@@ -14,9 +16,16 @@ import TextInput from "@/components/TextInput/TextInput";
 import SelectOptionComponent from "@/components/select-option/SelectOption.component";
 import Button from "@/components/Button/Button";
 import TextareaInputComponent from "@/components/text-area/TextareaInput.component";
+import { FormProvider, useForm } from "react-hook-form";
 
 export default function Page() {
   const t = useTranslations();
+  const form = useForm();
+
+  const handleSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div className={styles["contact-us"]}>
       <LayoutOtherPagesComponent
@@ -56,9 +65,10 @@ export default function Page() {
                 {t("contact-us.descriptionFrom")}
               </span>
             </div>
-            <div className={styles.formInputs}>
-              <div>
-                <TextInput
+            <FormProvider {...form}>
+              <form onSubmit={form.handleSubmit(handleSubmit)} className={styles.formInputs}>
+                <div>
+                  <TextInput
                   type={"text"}
                   inputMode={"numeric"}
                   label={t("contact-us.mobileInputLabel")}
@@ -107,8 +117,9 @@ export default function Page() {
                   textColor="third"
                   color="primary"
                 />
-              </div>
-            </div>
+                </div>
+              </form>
+            </FormProvider>
           </div>
         </div>
       </LayoutOtherPagesComponent>
