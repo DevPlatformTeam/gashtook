@@ -118,25 +118,25 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/contact-us`}>
                 <IoCallOutline className={"size-7"} />
                 {t("contact-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/about-us`}>
                 <LuUsersRound className={"size-7"} />
                 {t("about-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/faq`}>
                 <LuShieldQuestion className={"size-7"} />
                 {t("faq.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/rules`}>
                 <PiBriefcase className={"size-7"} />
                 {t("rules.title")}
               </Link>

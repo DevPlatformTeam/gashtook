@@ -1,6 +1,7 @@
-import { useTranslations } from "next-intl";
 import React from "react";
-
+import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import logoFooter from "@/public/images/logo_footer.svg";
 
 import { MdOutlineLocationOn } from "react-icons/md";
@@ -10,6 +11,7 @@ import Image from "next/image";
 
 export default function Footer() {
   const t = useTranslations("Footer");
+  const locale = useLocale();
   return (
     <footer className="bg-background relative w-full">
       <div className="container pt-10">
@@ -17,10 +19,10 @@ export default function Footer() {
           <div className="flex flex-wrap md:w-1/2 gap-y-6 w-full font-light">
             <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
               <span className="font-bold">{t("gashtook")}</span>
-              <span>{t("about")}</span>
-              <span>{t("contact")}</span>
-              <span>{t("faq")}</span>
-              <span>{t("rules")}</span>
+              <Link href={`/${locale}/about-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("about")}</Link>
+              <Link href={`/${locale}/contact-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("contact")}</Link>
+              <Link href={`/${locale}/faq`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("faq")}</Link>
+              <Link href={`/${locale}/rules`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("rules")}</Link>
             </div>
             <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
               <span className="font-bold">{t("cities")}</span>
