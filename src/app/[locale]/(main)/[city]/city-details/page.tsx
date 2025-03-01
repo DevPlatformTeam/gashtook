@@ -102,7 +102,7 @@ const CityDetails = ({ params }: { params?: { [key: string]: any } }) => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-16 px-4">
+    <div className="w-full max-w-3xl mx-auto mt-16 px-4 mb-10">
       <div className="relative w-full border-b border-gray-300 pb-3">
         <div className="flex justify-center gap-x-12 flex-wrap mx-auto">
           {[

@@ -217,7 +217,7 @@ export default function Header() {
           <button className={`${activeNav === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
             {t("Header.healthcareCategory")}
           </button>
-          <button className={`${activeNav === "about" ? styles.active : ""}`} onClick={() => handleCategoryClick("about")}>
+          <button className={`${activeNav === "about" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
             {t("Header.menuListAboutCity")}
           </button>
         </nav>
