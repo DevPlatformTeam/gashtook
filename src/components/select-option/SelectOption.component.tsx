@@ -73,7 +73,7 @@ const SelectOptionComponent = React.memo(
           {...props}
         />
         <IoChevronDown
-          className={`${isOpen ? "rotate-180" : ""} ${label ? "top-9" : "top-3"}`}
+          className={`${isOpen ? "rotate-180" : ""} ${label ? "top-11" : "top-3"}`}
           onMouseDown={(e) => {
             e.preventDefault();
             handleClickIcon();

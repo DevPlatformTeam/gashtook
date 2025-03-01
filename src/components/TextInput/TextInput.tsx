@@ -1,13 +1,14 @@
-import React from "react";
-
+import { useFormContext } from "react-hook-form";
 import styles from "./textinput.module.css";
+import { InputHTMLAttributes } from "react";
+import { useLocale } from "next-intl";
 
-interface ITextInputProps {
+interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
   id: string;
   placeHolder: string;
-  type: string;
+  type: "text" | "password" | "number" | "tel" | "email";
   inputMode?:
     | "text"
     | "search"
@@ -19,6 +20,7 @@ interface ITextInputProps {
     | "decimal"
     | undefined;
   className?: string;
+  validation?: object;
 }
 
 export default function TextInput({
@@ -28,21 +30,35 @@ export default function TextInput({
   placeHolder,
   type,
   inputMode = "text",
+  validation = {},
+  className,
+  ...props
 }: ITextInputProps) {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  const locale = useLocale();
+
   return (
-    <div className={`block w-full mb-6 ${styles.className}`}>
-      <label className={styles.lable} htmlFor="">
-        {" "}
-        {label}{" "}
+    <div className={`block w-full mb-6 ${className ?? ""}`}>
+      <label className={styles.label} htmlFor={id}>
+        {label}
       </label>
       <input
+        {...register(name, validation)}
         type={type}
         inputMode={inputMode}
-        className={styles.input}
-        name={name}
+        className={`${styles.input} ${errors[name] && "!outline-red-500 focus:!outline-red-500"}`}
         id={id}
         placeholder={placeHolder}
+        {...props}
+        dir={locale === "fa" ? "rtl" : "ltr"}
       />
+      {errors[name] && (
+        <p className={styles.error}>{(errors[name]?.message as string) || "خطای نامعتبر"}</p>
+      )}
     </div>
   );
 }

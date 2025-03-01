@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import SpinLoadingComponent from "../Loadings/spin-loading/SpinLoading.component";
 
 interface IButtonProps {
   text: string;
@@ -9,8 +10,10 @@ interface IButtonProps {
   outline?: boolean;
   className?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
   iconFirst?: boolean;
   iconSize?: "sm" | "md" | "lg" | "xl" | "twoXl" | "threeXl" | "fourXl";
+  loading?: boolean;
 }
 
 const Button: React.FC<IButtonProps> = ({
@@ -21,8 +24,10 @@ const Button: React.FC<IButtonProps> = ({
   outline = false,
   className,
   onClick,
+  type,
   iconFirst = true,
   iconSize = "md",
+  loading
 }) => {
 
   const baseStyles =
@@ -45,7 +50,7 @@ const Button: React.FC<IButtonProps> = ({
     md: "text-base",
     lg: "text-lg",
     xl: "text-xl",
-    twoXl: "text-2xl", 
+    twoXl: "text-2xl",
     threeXl: "text-3xl",
     fourXl: "text-4xl"
   };
@@ -57,12 +62,18 @@ const Button: React.FC<IButtonProps> = ({
         colors[color],
         textColor ? `text-${textColor}` : "",
         className,
+        "min-w-24 min-h-10 active:scale-95"
       )}
+      type={type || "button"}
       onClick={onClick}
     >
-      {iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
-      <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
-      {!iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
+      {loading ? <SpinLoadingComponent /> :
+        <>
+          {iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
+          <span className={textColor ? `text-${textColor}` : ""}>{text}</span>
+          {!iconFirst && icon && <span className={iconSizes[iconSize]}>{icon}</span>}
+        </>
+      }
     </button>
   );
 };

@@ -1,6 +1,6 @@
 /* header.module.css */
 .header {
-  @apply relative bg-third pt-8 shadow-md;
+  @apply relative bg-background pt-8 shadow-md;
 
   .headerTop {
     @apply container mx-auto flex items-center justify-between gap-4;
@@ -33,7 +33,7 @@
       @apply hidden lg:flex-center gap-4 grow;
 
       & > div:nth-child(1) > input {
-        @apply text-primary outline outline-1 outline-primary focus:outline-2 focus:outline-primary bg-third;
+        @apply text-primary outline outline-1 outline-primary focus:outline-2 focus:outline-primary;
       }
       & > div:nth-child(2) {
         @apply w-2/3;
@@ -66,6 +66,30 @@
 
     button {
       @apply flex items-center gap-2 shrink-0 hover:text-primary hover:font-bold transition-all duration-300;
+    }
+  }
+}
+
+.sidebarContainer {
+  @apply h-screen mt-20 flex flex-col gap-6 text-xl font-semibold;
+
+  .logo {
+    @apply w-32 mx-auto;
+  }
+
+  .selectOptionButtons {
+    @apply flex items-center justify-between;
+
+    .language {
+      @apply child:outline child:outline-1 child:outline-gray-200 child:rounded-full;
+    }
+  }
+
+  .actions {
+    @apply flex flex-col gap-2 child:w-full border-t border-gray-200 pt-2;
+
+    li a {
+      @apply flex items-center gap-2 p-3 rounded-lg hover:bg-primaryfade/10 hover:text-primary active:scale-110 transition-all duration-300;
     }
   }
 }
