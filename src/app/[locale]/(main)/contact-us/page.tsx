@@ -22,7 +22,7 @@ export default function Page() {
   const t = useTranslations();
   const form = useForm();
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: unknown) => {
     console.log(data);
   };
 

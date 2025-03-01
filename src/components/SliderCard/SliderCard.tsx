@@ -7,7 +7,6 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styles from "./slidercardStyle.module.css";
-import { useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 import { IoHeart } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward, IoMdHeartEmpty } from "react-icons/io";
@@ -42,7 +41,6 @@ const SliderCard = ({
   textOnCard = false,
   showPagination = false,
 }: Props) => {
-  const locale = useLocale();
   const [uniqueId, setUniqueId] = useState<string>("");
 
   useEffect(() => {

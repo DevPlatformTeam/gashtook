@@ -34,9 +34,9 @@ const SelectOptionComponent = React.memo(
     const [searchTerm, setSearchTerm] = useState("");
     const ref = useRef<HTMLInputElement>(null);
 
-    const handleClear = useCallback(() => {
-      setSearchTerm("");
-    }, []);
+    // const handleClear = useCallback(() => {
+    //   setSearchTerm("");
+    // }, []);
 
     const handleSelect = useCallback(
       (item: { id: string | number; value: string }) => {

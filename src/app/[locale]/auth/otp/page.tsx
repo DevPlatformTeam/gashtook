@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import Image from "next/image";
-import { TbDeviceMobileMessage, TbLogin } from "react-icons/tb";
+import { TbDeviceMobileMessage } from "react-icons/tb";
 import { useForm, FormProvider } from "react-hook-form";
 import styles from "../login/login-page.module.css";
 import TextInput from "@/components/TextInput/TextInput";
@@ -20,7 +20,7 @@ export default function LoginPage() {
   const isRtl = locale === "fa";
 
   const methods = useForm();
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log(data);
     
   };  

@@ -2,9 +2,9 @@ import styles from './collection.module.css';
 import map from "@/assets/images/map-category/image-1@3x.jpg";
 import Collection from './components/Collection';
 
-export default function CollectionPage({ params }: { params?: { [key: string]: any } }) {
+export default function CollectionPage({ params }: { params?: { [key: string]: string } }) {
   let collection = params?.collection_slug;
-  collection = decodeURIComponent(collection).replace(/-/g, ' ');
+  collection = decodeURIComponent(collection ?? '').replace(/-/g, ' ');
 
   const collections = [
     {
@@ -49,7 +49,7 @@ export default function CollectionPage({ params }: { params?: { [key: string]: a
       <div className="w-full flex flex-col lg:flex-row">
         {/* متن توضیحات */}
         <div className="lg:w-2/3 lg:p-6 p-2 md:p-4">
-          <h1 className="text-secondary text-2xl font-bold ">منتخب موزه های تهران</h1>
+          <h1 className="text-secondary text-2xl font-bold ">منتخب {collection}</h1>
           <p className="mt-2 text-gray-600 ">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus quaerat et fugiat. Totam perspiciatis odit consectetur at quam, culpa enim aliquid ducimus non deserunt est, dolores a, alias suscipit fugit.
           </p>

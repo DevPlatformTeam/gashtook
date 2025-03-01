@@ -27,8 +27,10 @@ main {
 
 footer {
   --tw-shadow: 0 -2px 8px -1px rgb(0 0 0 / 0.1), 0 0 6px -2px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 -2px 8px -1px var(--tw-shadow-color), 0 0 6px -2px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-shadow-colored: 0 -2px 8px -1px var(--tw-shadow-color),
+    0 0 6px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .swiper-pagination-bullet-active {
@@ -38,7 +40,7 @@ footer {
   background-color: var(--primary) !important;
 }
 
-@layer base {
+@layer utilities {
   .scroll {
     --sb-track-color: #d2d2d2;
     --sb-thumb-color: var(--primary);
@@ -87,7 +89,6 @@ body::-webkit-scrollbar-thumb,
 }
 
 @supports not selector(::-webkit-scrollbar) {
-
   body,
   .scroll {
     scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);

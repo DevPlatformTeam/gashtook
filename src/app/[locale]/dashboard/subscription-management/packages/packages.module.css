@@ -6,7 +6,7 @@
     }
 
     .cardsContainer {
-        @apply w-full flex flex-col items-center md:flex-row md:justify-center lg:flex-col lg:justify-start xl:flex-row xl:justify-center gap-4 px-6 pb-10 pt-4 h-full overflow-y-auto scroll;
+        @apply w-full flex flex-col items-center md:flex-row md:justify-center lg:flex-col lg:justify-start xl:flex-row xl:justify-center gap-4 px-6 pb-10 pt-4 h-full overflow-y-auto;
 
         .card {
             @apply w-72 aspect-square flex flex-col items-center rounded-xl border border-gray-200 transition-all;

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Button from "@/components/Button/Button";
 
-import { IoHeart } from "react-icons/io5";
+// import { IoHeart } from "react-icons/io5";
 import { TbDeviceMobileDown, TbDeviceMobileCode } from "react-icons/tb";
 import { FaLink } from "react-icons/fa6";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -29,8 +29,11 @@ import { Link } from "@/i18n/routing";
 export default function PlacesPage({
   params,
 }: {
-  params?: { [key: string]: any };
+  params?: { [key: string]: string };
 }) {
+  const { city, category, subCategory, places } = params ?? {};
+  console.log(city, category, subCategory, places);
+  
   const t = useTranslations("Places");
   const slides = [
     {
