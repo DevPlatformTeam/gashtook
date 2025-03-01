@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, ReactNode, useState, Dispatch, SetStateAction } from "react";
+import React, { createContext, ReactNode, useState, Dispatch, SetStateAction, useContext } from "react";
 import { Categories } from "@/app/[locale]/(main)/[city]/types/categories";
 
 type CategoryValue = Categories["category"] | "all";
@@ -12,7 +12,7 @@ type CategoryContextType = {
 
 export const CategoryContext = createContext<CategoryContextType>({
   mainCategory: "all",
-  setMainCategory: () => {},
+  setMainCategory: () => { },
 });
 
 type CategoryProviderProps = {
@@ -21,10 +21,14 @@ type CategoryProviderProps = {
 
 export function FilterCategoryProvider({ children }: CategoryProviderProps) {
   const [mainCategory, setMainCategory] = useState<CategoryValue>("all");
-  
+
   return (
     <CategoryContext.Provider value={{ mainCategory, setMainCategory }}>
       {children}
     </CategoryContext.Provider>
   );
 }
+
+export const useCategoryContext = () => {
+  return useContext(CategoryContext);
+};

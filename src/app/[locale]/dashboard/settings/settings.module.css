@@ -1,5 +1,5 @@
 .containerForms {
-    @apply h-full px-6 pt-8 pb-30 mb-8 overflow-y-auto scroll divide-y-2 divide-dashed;
+    @apply h-full px-6 pt-8 pb-30 mb-8 overflow-y-auto divide-y-2 divide-dashed;
 
   .form {
     @apply flex flex-col items-center first:mb-8 last:pt-8;

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Button from "@/components/Button/Button";
-import { FaCoffee } from "react-icons/fa";
 import { useTranslations } from "next-intl";
 import { TbBuildingStore } from "react-icons/tb";
 import { HiOutlineBuildingLibrary } from "react-icons/hi2";

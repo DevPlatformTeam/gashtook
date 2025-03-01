@@ -9,7 +9,7 @@ export default function Page() {
   return (
     <div className={styles.packages}>
       <h1 className={styles.title}>{t("Dashboard.packages")}</h1>
-      <div className={styles.cardsContainer}>
+      <div className={`${styles.cardsContainer} scroll`}>
         <div className={styles.card}>
             <div className={styles.cardHeader}>
                 <span>{t("Dashboard.dailySubscription")}</span>

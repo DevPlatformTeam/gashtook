@@ -26,7 +26,7 @@ export default function RegisterPage() {
 
 
   const methods = useForm();
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: unknown) => {
     console.log(data);
 
   };

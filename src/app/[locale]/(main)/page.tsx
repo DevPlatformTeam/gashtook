@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
@@ -21,7 +21,6 @@ import { register } from "swiper/element/bundle";
 register();
 
 import slide1 from "@/assets/images/slider1.png";
-import slide2 from "@/assets/images/slider1.png";
 import slide3 from "@/assets/images/slider1.png";
 import slide4 from "@/assets/images/slider1.png";
 

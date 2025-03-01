@@ -1,6 +1,5 @@
 import React from "react";
 
-import styles from "./spinLoading.module.css";
 
 const SpinLoadingComponent = () => {
   return (
