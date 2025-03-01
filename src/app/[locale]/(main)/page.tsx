@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { routing } from "@/i18n/routing";
+import { routing, Link } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import { notFound } from "next/navigation";
@@ -116,12 +116,16 @@ export default function HomePage({
               {t("guideCity")}
             </h3>
             <div className="flex mt-4 w-full justify-center gap-x-3">
-              <Button
-                text={t("downloadApp")}
-                color="primary"
-                icon={<FaCoffee />}
-              />
-              <Button text={t("cityList")} color="primary" outline />
+              <Link href={`/download`}>
+                <Button
+                  text={t("downloadApp")}
+                  color="primary"
+                  icon={<FaCoffee />}
+                />
+              </Link>
+              <a href="#citiesList">
+                <Button text={t("cityList")} color="primary" outline />
+              </a>
             </div>
           </div>
 
@@ -131,7 +135,7 @@ export default function HomePage({
         </div>
 
         <div className="flex w-full justify-center text-center items-center flex-col">
-          <h1 className="text-gray-500 text-3xl font-bold">
+          <h1 id="citiesList" className="text-gray-500 text-3xl font-bold">
             {t("citiesList")}
           </h1>
           <div className=" bg-primary w-[120px] h-1 mt-2"></div>
