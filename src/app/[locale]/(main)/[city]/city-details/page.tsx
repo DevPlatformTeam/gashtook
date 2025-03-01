@@ -4,8 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import Map from "@/assets/images/map-category/image-1@3x.jpg";
 
-const CityDetails = ({ params }: { params?: { [key: string]: any } }) => {
+const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
   const [activeTab, setActiveTab] = useState("tehran");
+
+  console.log(params);
 
   const data = {
     success: true,
