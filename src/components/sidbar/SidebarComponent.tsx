@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useCallback } from 'react';
 import styles from './sidebar.module.css';
 import { IoCloseOutline } from 'react-icons/io5';
 
@@ -11,15 +11,19 @@ interface Props {
 }
 
 const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
-    
+
   const overlayRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  const handleOverlayClick = (e: MouseEvent) => {
+  const closeSidebar = useCallback(() => {
+    setIsOpen(false);
+  }, [setIsOpen]);
+
+  const handleOverlayClick = useCallback((e: MouseEvent) => {
     if (overlayRef.current && e.target === overlayRef.current) {
       closeSidebar();
     }
-  };
+  }, [closeSidebar]);
 
   useEffect(() => {
     if (isOpen) {
@@ -31,12 +35,7 @@ const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
     return () => {
       document.removeEventListener('click', handleOverlayClick);
     };
-  }, [isOpen]);
-
-
-  const closeSidebar = () => {
-    setIsOpen(false);
-  }
+  }, [isOpen, handleOverlayClick]);
 
   return (
     <div
@@ -49,7 +48,7 @@ const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles['sidebar-content']}>
-            <IoCloseOutline className={styles["close-icon"]} size={40} onClick={closeSidebar} />
+          <IoCloseOutline className={styles["close-icon"]} size={40} onClick={closeSidebar} />
           {children}
         </div>
       </div>

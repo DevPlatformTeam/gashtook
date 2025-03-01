@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Button from "@/components/Button/Button";
+import Image from "next/image";
 
 interface CollectionProps {
     imageSrc: string;
@@ -18,7 +19,7 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
     return (
         <div className="w-full flex flex-col lg:flex-row  overflow-hidden ">
             <div className="w-full lg:w-1/2 relative">
-                <img src={imageSrc} alt={title} className="w-full h-full object-cover" />
+                <Image src={imageSrc} alt={title} className="w-full h-full object-cover" />
                 <button
                     className="absolute bottom-3 left-3 bg-primary p-2 rounded-full shadow-lg"
                     onClick={() => setLiked(!liked)}

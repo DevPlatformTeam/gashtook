@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import React, { MouseEvent, useState, useRef, useEffect, useContext } from 'react';
+import React, { MouseEvent, useState, useRef, useEffect, useContext, useCallback } from 'react';
 
 import styles from "./FilterCategoryTubular.module.css"
 
@@ -21,22 +21,12 @@ export default function FilterCategory({ isSubCategories }: Props) {
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
 
-    const {setMainCategory} = useContext(CategoryContext);
-    const {category, setSubCategory} = useContext(SubCategoryContext);
+    const { setMainCategory } = useContext(CategoryContext);
+    const { category, setSubCategory } = useContext(SubCategoryContext);
 
     const subCategoriesList = isSubCategories && t.raw(`category.subCategories.${category}`);
 
-    useEffect(() => {
-        updateIndicatorPosition();
-    }, [activeIndex]);
-
-    useEffect(() => {
-        const handleResize = () => updateIndicatorPosition();
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [activeIndex]);
-
-    const updateIndicatorPosition = () => {
+    const updateIndicatorPosition = useCallback(() => {
         if (ulRef.current) {
             const items = ulRef.current.querySelectorAll('li');
             const activeItem = items[activeIndex];
@@ -47,7 +37,17 @@ export default function FilterCategory({ isSubCategories }: Props) {
                 });
             }
         }
-    };
+    }, [activeIndex]);
+
+    useEffect(() => {
+        updateIndicatorPosition();
+    }, [updateIndicatorPosition]);
+
+    useEffect(() => {
+        const handleResize = () => updateIndicatorPosition();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [updateIndicatorPosition]);
 
     const handleClick = (ev: MouseEvent<HTMLLIElement>) => {
         const index = +ev.currentTarget.id;
@@ -70,19 +70,19 @@ export default function FilterCategory({ isSubCategories }: Props) {
             } as React.CSSProperties}
         >
             <li id='0' data-name={"all"} className={`${activeIndex === 0 && styles['active-category']}`} onClick={handleClick}>{t("cityPage.allCategoryText")}</li>
-            
-            {subCategoriesList ? subCategoriesList.map((subcategory: {name: string; value: string}, index: number) => (
-                <li key={index} id={String(index + 1)} data-name={subcategory.value} className={`${activeIndex === index+1 && styles['active-category']}`} onClick={handleClick}>{subcategory.name}</li>
+
+            {subCategoriesList ? subCategoriesList.map((subcategory: { name: string; value: string }, index: number) => (
+                <li key={index} id={String(index + 1)} data-name={subcategory.value} className={`${activeIndex === index + 1 && styles['active-category']}`} onClick={handleClick}>{subcategory.name}</li>
             ))
-            :
-            <>
-                <li id='1' data-name={t.raw(`category.categories`)[0].name} className={`${activeIndex === 1 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[0].name}</li>
-                <li id='2' data-name={t.raw(`category.categories`)[1].name} className={`${activeIndex === 2 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[1].name}</li>
-                <li id='3' data-name={t.raw(`category.categories`)[2].name} className={`${activeIndex === 3 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[2].name}</li>
-                <li id='4' data-name={t.raw(`category.categories`)[3].name} className={`${activeIndex === 4 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[3].name}</li>
-                <li id='5' data-name={t.raw(`category.categories`)[4].name} className={`${activeIndex === 5 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[4].name}</li>
-                <li id='6' data-name={t.raw(`category.categories`)[5].name} className={`${activeIndex === 6 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[5].name}</li>
-            </>
+                :
+                <>
+                    <li id='1' data-name={t.raw(`category.categories`)[0].name} className={`${activeIndex === 1 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[0].name}</li>
+                    <li id='2' data-name={t.raw(`category.categories`)[1].name} className={`${activeIndex === 2 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[1].name}</li>
+                    <li id='3' data-name={t.raw(`category.categories`)[2].name} className={`${activeIndex === 3 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[2].name}</li>
+                    <li id='4' data-name={t.raw(`category.categories`)[3].name} className={`${activeIndex === 4 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[3].name}</li>
+                    <li id='5' data-name={t.raw(`category.categories`)[4].name} className={`${activeIndex === 5 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[4].name}</li>
+                    <li id='6' data-name={t.raw(`category.categories`)[5].name} className={`${activeIndex === 6 && styles['active-category']}`} onClick={handleClick}>{t.raw(`category.categories`)[5].name}</li>
+                </>
             }
         </ul>
     );
