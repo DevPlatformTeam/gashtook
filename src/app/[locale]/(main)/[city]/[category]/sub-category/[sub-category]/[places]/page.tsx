@@ -22,7 +22,7 @@ import { MdOutlineLocationOn, MdPhone } from "react-icons/md";
 
 import SliderCard from "@/components/SliderCard/SliderCard";
 
-import downloadApp from "@/assets/images/aownloadapp.png";
+import downloadApp from "@/assets/images/downloadapp.png";
 import styles from "./places.module.css";
 import { Link } from "@/i18n/routing";
 
