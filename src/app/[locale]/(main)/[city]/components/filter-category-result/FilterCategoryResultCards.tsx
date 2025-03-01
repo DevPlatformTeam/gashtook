@@ -2,11 +2,11 @@
 
 import React, { useContext } from 'react';
 
-import styles from './FilterCategoryResultCards.module.css';
+import styles from './filterCategoryResultCards.module.css';
 
 import Image from 'next/image';
 import { LuHeart } from 'react-icons/lu';
-import { CategoryContext } from '@/app/[locale]/(main)/[city]/components/filter-category-provider/FilterCategoryProvider';
+// import { CategoryContext } from '@/app/[locale]/(main)/[city]/components/filter-category-provider/FilterCategoryProvider';
 import { SubCategoryContext } from '../../[category]/components/filter-category-provider/FilterSubCategoryProvider';
 
 
@@ -14,10 +14,10 @@ type Props = {
     isSubCategories?: boolean;
 }
 
-export default function FilterCategoryResultCards({ isSubCategories, }: Props ) {
+export default function FilterCategoryResultCards({ isSubCategories }: Props ) {
 
     // const { category } = useContext(CategoryContext);
-    const { category } = useContext(SubCategoryContext);
+    // const { category } = useContext(SubCategoryContext);
         
 
     const cards = [
