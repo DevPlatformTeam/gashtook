@@ -36,10 +36,10 @@ export default function Header() {
 
   const [selectedCity, setSelectedCity] = useState<{ id: string; value: string }>((t.raw("city") as { id: string; value: string }[])[0]);
   const locale = pathname.split("/")[1];
+  const lastPath = pathname.split("/").pop();
   const [resize, setResize] = useState<number>(0);
   
   const categories = t.raw("category.categories") as { value: string }[];
-  const [activeNav, setActiveNav] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -74,13 +74,10 @@ export default function Header() {
 
   const handleCategoryClick = (nav: string) => {
     if (nav === selectedCity.id) {
-      setActiveNav(selectedCity.id);
       router.push(`/${locale}/${selectedCity.id}`);
     } else if (nav === "city-details") {
-      setActiveNav(nav);
       router.push(`/${locale}/${selectedCity.id}/${nav}`);
     } else {
-      setActiveNav(nav);
       router.push(`/${locale}/${selectedCity.id}/${nav}`);
     }
   };
@@ -201,26 +198,26 @@ export default function Header() {
 
         {/* Menu Section */}
         <nav className={styles.navMenu}>
-          <button className={`${activeNav === selectedCity.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity.id)}>{locale === 'fa' ? selectedCity.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity.value}</button>
-          <button className={`${activeNav === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
+          <button className={`${lastPath === selectedCity.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity.id)}>{locale === 'fa' ? selectedCity.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity.value}</button>
+          <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
             {t("Header.sightCategory")}
           </button>
-          <button className={`${activeNav === categories[1].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[1].value)}>
+          <button className={`${lastPath === categories[1].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[1].value)}>
             {t("Header.buyCategory")}
           </button>
-          <button className={`${activeNav === categories[2].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[2].value)}>
+          <button className={`${lastPath === categories[2].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[2].value)}>
             {t("Header.eatCategory")}
           </button>
-          <button className={`${activeNav === categories[3].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[3].value)}>
+          <button className={`${lastPath === categories[3].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[3].value)}>
             {t("Header.HotelCategory")}
           </button>
-          <button className={`${activeNav === categories[4].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[4].value)}>
+          <button className={`${lastPath === categories[4].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[4].value)}>
             {t("Header.funCategory")}
           </button>
-          <button className={`${activeNav === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
+          <button className={`${lastPath === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
             {t("Header.healthcareCategory")}
           </button>
-          <button className={`${activeNav === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
+          <button className={`${lastPath === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
             {t("Header.menuListAboutCity")}
           </button>
         </nav>
