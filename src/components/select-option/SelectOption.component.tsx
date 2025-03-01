@@ -16,7 +16,7 @@ type Props = {
   defaultValue?: string;
   label?: string;
   className?: string;
-  setSelectedCity?: (city: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.ComponentPropsWithoutRef<"input">;
 
 const SelectOptionComponent = React.memo(
@@ -27,7 +27,7 @@ const SelectOptionComponent = React.memo(
     label,
     className,
     defaultValue,
-    setSelectedCity,
+    onChange,
     ...props
   }: Props): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,6 +63,7 @@ const SelectOptionComponent = React.memo(
           ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
+          onChange={onChange}
           readOnly
           autoComplete="off"
           value={searchTerm || defaultValue}

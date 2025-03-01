@@ -62,27 +62,6 @@ export default function Page() {
             <Button className='w-full md:w-1/4 xl:w-1/6 mt-8 text-lg' text={locale === 'fa' ? 'ذخیره اطلاعات' : 'Save'} color='primary' textColor='background' />
           </form>
         </FormProvider>
-        <FormProvider {...methods}>
-          <form className={styles.form}>
-            <div className='w-full md:w-2/3 xl:w-1/2 flex flex-col items-center md:child:w-1/2 md:flex-row md:gap-10'>
-              <TextInput
-                label={locale === 'fa' ? 'رمز عبور' : 'password'}
-                name='password'
-                id='password'
-                placeHolder={locale === 'fa' ? 'رمز عبور خود را وارد کنید' : 'Enter your password'}
-                type={'password'}
-              />
-              <TextInput
-                label={locale === 'fa' ? 'تکرار رمز عبور' : 'Confirm Password'}
-                name={locale === 'fa' ? 'confirmPassword' : 'confirmPassword'}
-                id={locale === 'fa' ? 'confirmPassword' : 'confirmPassword'}
-                placeHolder={locale === 'fa' ? 'تکرار رمز عبور خود را وارد کنید' : 'Enter your password again'}
-                type={'password'}
-              />
-            </div>
-            <Button className='w-full md:w-1/4 xl:w-1/6 mt-8 md:mt-4 text-lg' text={locale === 'fa' ? 'ذخیره اطلاعات' : 'Save'} color='primary' textColor='background' />
-          </form>
-        </FormProvider>
       </div>
     </div>
   );
