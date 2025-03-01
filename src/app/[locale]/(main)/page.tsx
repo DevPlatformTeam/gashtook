@@ -130,7 +130,7 @@ export default function HomePage({
           </div>
 
           <div className="md:w-1/3 md:-mt-64 z-10">
-            <Image src={mockup} alt="Slide 4" className="w-full h-auto" />
+            <Image src={mockup} alt="Slide 4" />
           </div>
         </div>
 
