@@ -76,6 +76,9 @@ export default function Header() {
     if (nav === selectedCity.id) {
       setActiveNav(selectedCity.id);
       router.push(`/${locale}/${selectedCity.id}`);
+    } else if (nav === "city-details") {
+      setActiveNav(nav);
+      router.push(`/${locale}/${selectedCity.id}/${nav}`);
     } else {
       setActiveNav(nav);
       router.push(`/${locale}/${selectedCity.id}/${nav}`);
@@ -217,7 +220,7 @@ export default function Header() {
           <button className={`${activeNav === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
             {t("Header.healthcareCategory")}
           </button>
-          <button className={`${activeNav === "about" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
+          <button className={`${activeNav === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
             {t("Header.menuListAboutCity")}
           </button>
         </nav>

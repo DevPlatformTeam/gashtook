@@ -14,7 +14,7 @@ export default function DownloadPage() {
 
   return (
     <div className="bg-slate-50 py-12 rounded-lg">
-      <h2 className="w-full lg:w-1/4 md:w-1/2 flex-center gap-x-0.5 bg-primary text-xl font-bold text-white rounded-e-full py-2 rounded-s-sm">
+      <h2 className="w-[90%] lg:w-1/4 md:w-1/2 flex-center gap-x-0.5 bg-primary text-xl font-bold text-white rounded-e-full py-2 rounded-s-sm">
         <TbDeviceMobileDown size={46} />
         <span>{t("Places.downloadApp")}</span>
       </h2>
@@ -31,21 +31,21 @@ export default function DownloadPage() {
             icon={<BsBasket3Fill />}
             iconFirst={false}
             iconSize="threeXl"
-            className="!w-[240px]"
+            className="!w-[240px] !justify-between"
           />
           <Button
             text={t("Places.downloadLink")}
             icon={<DiAndroid />}
             iconFirst={false}
             iconSize="threeXl"
-            className="!w-[240px]"
+            className="!w-[240px] !justify-between"
           />
           <Button
             text={t("Places.downloadPWA")}
             icon={<TbDeviceMobileCode />}
             iconFirst={false}
             iconSize="fourXl"
-            className="!w-[240px]"
+            className="!w-[240px] !justify-between"
           />
         </div>
       </div>

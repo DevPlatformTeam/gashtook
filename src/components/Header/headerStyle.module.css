@@ -70,14 +70,14 @@
 }
 
 .sidebarContainer {
-  @apply h-screen mt-20 flex flex-col gap-6 text-xl font-semibold;
+  @apply h-screen mt-20 flex flex-col gap-6 font-semibold;
 
   .logo {
     @apply w-32 mx-auto;
   }
 
   .selectOptionButtons {
-    @apply flex items-center justify-between;
+    @apply flex items-center justify-around;
 
     .language {
       @apply child:outline child:outline-1 child:outline-gray-200 child:rounded-full;

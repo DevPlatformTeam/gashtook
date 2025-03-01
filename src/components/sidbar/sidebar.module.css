@@ -8,14 +8,14 @@
     height: calc(100% + 70px);
 
     .sidebar {
-      @apply fixed top-0 -start-full w-2/3 bg-background z-50 transition-all;
+      @apply fixed top-0 -start-full w-3/4 bg-background z-50 transition-all;
 
       transition: all 0.5s ease;
       height: calc(100% + 70px);
     }
 
     .sidebar-content {
-        @apply relative p-4;
+        @apply relative p-1;
 
         .close-icon {
             @apply absolute top-4 end-6 transition-all hover:scale-125 hover:rotate-90 hover:text-primary;

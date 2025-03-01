@@ -106,7 +106,7 @@ const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
   return (
     <div className="w-full max-w-3xl mx-auto mt-16 px-4 mb-10">
       <div className="relative w-full border-b border-gray-300 pb-3">
-        <div className="flex justify-center gap-x-12 flex-wrap mx-auto">
+        <div className="flex justify-center sm:gap-x-12 gap-x-5 flex-wrap mx-auto h-fit">
           {[
             { key: "tehran", label: "درباره تهران" },
             { key: "areas", label: "مناطق شهری" },
@@ -116,7 +116,7 @@ const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`text-[14px] font-medium relative transition-colors duration-300 ${
+              className={`text-[14px] font-medium relative transition-colors duration-300 w-fit ${
                 activeTab === key ? "text-primary" : "text-secondary"
               }`}
             >

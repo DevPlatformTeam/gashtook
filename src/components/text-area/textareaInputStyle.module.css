@@ -6,6 +6,6 @@
   }
 
   textarea {
-    @apply w-full min-h-32 p-2 bg-gray-100 border-none outline outline-1 outline-gray-200 focus:outline-2 focus:outline-primary focus:bg-third rounded-lg;
+    @apply w-full min-h-32 p-2 bg-gray-50 border-none outline outline-1 outline-gray-200 focus:outline-2 focus:outline-primary focus:bg-background rounded-lg;
   }
 }
