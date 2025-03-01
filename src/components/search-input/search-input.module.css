@@ -6,7 +6,7 @@
   position: relative;
 
   input {
-    @apply font-medium bg-gray-100 text-secondary rounded-full px-6 py-2 outline-none focus:outline focus:outline-primary focus:outline-2 focus:bg-third;
+    @apply font-medium bg-gray-50 text-secondary rounded-full px-6 py-2 outline-none focus:outline focus:outline-primary focus:outline-2 focus:bg-background;
     transition: all ease 0.1s;
   }
 
@@ -33,4 +33,15 @@
       color: var(--primary);
     }
   }
+
+  &:dir(ltr) {
+    svg {
+      transform: rotate(90deg);
+    
+      &:hover {
+        transform: rotate(0) scale(1.3);
+      }
+    }
+  }
+  
 }

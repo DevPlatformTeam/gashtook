@@ -1,5 +1,5 @@
 .city {
-    @apply container mt-6;
+    @apply container mt-6 pb-8;
 
     img {
         @apply w-full h-48 sm:h-60 md:h-72 object-cover rounded-3xl;

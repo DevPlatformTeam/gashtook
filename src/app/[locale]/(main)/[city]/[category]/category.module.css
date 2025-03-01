@@ -1,5 +1,5 @@
 .category {
-  @apply flex flex-col pt-4 lg:pt-8 lg:flex-row lg:gap-6 min-h-screen container;
+  @apply flex flex-col pt-4 lg:pt-8 lg:flex-row lg:gap-6 min-h-screen container pb-16;
 
   label {
     @apply text-sm lg:text-base font-bold text-gray-500 -mb-2;

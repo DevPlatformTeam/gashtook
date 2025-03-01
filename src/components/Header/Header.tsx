@@ -7,7 +7,7 @@ import styles from "./headerStyle.module.css";
 import { IoCallOutline, IoSearch } from "react-icons/io5";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import logo from "@/assets/images/logo-english-new@2x.png";
 
@@ -30,14 +30,16 @@ import Link from "next/link";
 export default function Header() {
   const t = useTranslations();
   const pathname = usePathname();
+  const router = useRouter();
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
-  const [selectedCity, setSelectedCity] = useState<string>(
-    (t.raw("city") as { id: string; value: string }[])[0].value,
-  );
+  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string }>((t.raw("city") as { id: string; value: string }[])[0]);
   const locale = pathname.split("/")[1];
   const [resize, setResize] = useState<number>(0);
+  
+  const categories = t.raw("category.categories") as { value: string }[];
+  const [activeNav, setActiveNav] = useState<string | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,6 +72,16 @@ export default function Header() {
     }
   }, [pathname, resize]);
 
+  const handleCategoryClick = (nav: string) => {
+    if (nav === selectedCity.id) {
+      setActiveNav(selectedCity.id);
+      router.push(`/${locale}/${selectedCity.id}`);
+    } else {
+      setActiveNav(nav);
+      router.push(`/${locale}/${selectedCity.id}/${nav}`);
+    }
+  };
+
   return (
     <>
       <Sidebar isOpen={openSidebar} setIsOpen={setOpenSidebar}>
@@ -83,7 +95,8 @@ export default function Header() {
             </div>
             <div>
               <SelectOptionComponent
-                defaultValue={selectedCity}
+                defaultValue={selectedCity.value}
+                onChange={(e) => setSelectedCity(t.raw("city").find((city: { id: string; value: string }) => city.value === e.target.value) as { id: string; value: string })}
                 className="max-w-28"
                 name="city"
                 id="city"
@@ -105,25 +118,25 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/contact-us`}>
                 <IoCallOutline className={"size-7"} />
                 {t("contact-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/about-us`}>
                 <LuUsersRound className={"size-7"} />
                 {t("about-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/faq`}>
                 <LuShieldQuestion className={"size-7"} />
                 {t("faq.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/rules`}>
                 <PiBriefcase className={"size-7"} />
                 {t("rules.title")}
               </Link>
@@ -152,7 +165,8 @@ export default function Header() {
           {/* Navigation Section */}
           <div className={styles.search}>
             <SelectOptionComponent
-              defaultValue={selectedCity}
+              defaultValue={selectedCity.value}
+              onChange={(e) => setSelectedCity(t.raw("city").find((city: { id: string; value: string }) => city.value === e.target.value) as { id: string; value: string })}
               className="max-w-28"
               name="city"
               id="city"
@@ -160,7 +174,7 @@ export default function Header() {
             />
             <SearchInputComponent
               id="search-header"
-              placeholder={`${t("Header.searchPlaceholder")}${selectedCity}`}
+              placeholder={`${t("Header.searchPlaceholder")}${selectedCity.value}`}
             />
           </div>
 
@@ -171,37 +185,39 @@ export default function Header() {
               outline={true}
               icon={<LuUserRound className={"w-5 h-5"} />}
               text={t("Header.myAccountButton")}
+              onClick={() => router.push(`/${locale}/dashboard`)}
             />
             <Button
               color="primary"
               icon={<GoDownload className={"w-5 h-5"} />}
               text={t("Header.downloadAppButton")}
+              onClick={() => router.push(`/${locale}/download`)}
             />
           </div>
         </div>
 
         {/* Menu Section */}
         <nav className={styles.navMenu}>
-          <button className={styles.active}>{locale === 'fa' ? selectedCity + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity}</button>
-          <button>
+          <button className={`${activeNav === selectedCity.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity.id)}>{locale === 'fa' ? selectedCity.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity.value}</button>
+          <button className={`${activeNav === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
             {t("Header.sightCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === categories[1].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[1].value)}>
             {t("Header.buyCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === categories[2].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[2].value)}>
             {t("Header.eatCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === categories[3].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[3].value)}>
             {t("Header.HotelCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === categories[4].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[4].value)}>
             {t("Header.funCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
             {t("Header.healthcareCategory")}
           </button>
-          <button>
+          <button className={`${activeNav === "about" ? styles.active : ""}`} onClick={() => handleCategoryClick("about")}>
             {t("Header.menuListAboutCity")}
           </button>
         </nav>
