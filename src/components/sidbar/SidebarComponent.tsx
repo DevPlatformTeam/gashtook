@@ -3,6 +3,7 @@
 import React, { ReactNode, useEffect, useRef, useCallback } from 'react';
 import styles from './sidebar.module.css';
 import { IoCloseOutline } from 'react-icons/io5';
+import { usePathname } from 'next/navigation';
 
 interface Props {
   children: ReactNode;
@@ -14,6 +15,11 @@ const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  const pathname = usePathname();
+  const locale = pathname.split("/")[2];
+
+
 
   const closeSidebar = useCallback(() => {
     setIsOpen(false);
@@ -37,6 +43,10 @@ const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
     };
   }, [isOpen, handleOverlayClick]);
 
+  useEffect(() => {
+    setIsOpen(false);
+  }, [locale, setIsOpen]);
+
   return (
     <div
       ref={overlayRef}
@@ -48,7 +58,7 @@ const Sidebar: React.FC<Props> = ({ children, isOpen, setIsOpen }) => {
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles['sidebar-content']}>
-          <IoCloseOutline className={styles["close-icon"]} size={40} onClick={closeSidebar} />
+          <IoCloseOutline id='closeIcon' className={styles["close-icon"]} size={40} onClick={closeSidebar} />
           {children}
         </div>
       </div>
