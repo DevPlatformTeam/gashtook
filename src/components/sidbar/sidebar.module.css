@@ -1,17 +1,17 @@
 .overlay {
     @apply sm:hidden fixed flex-center w-full top-0 start-0 z-40 opacity-0 invisible;
-    
-    background-color: rgba(0,0,0,0.55);
+
+    background-color: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(10px);
     transition: opacity 0.3s ease, visibility 0.3s ease;
     transition-delay: 0.5s;
     height: calc(100% + 70px);
 
     .sidebar {
-      @apply fixed top-0 -start-full w-3/4 bg-background z-50 transition-all;
+        @apply fixed top-0 -start-full w-3/4 bg-background z-50 transition-all;
 
-      transition: all 0.5s ease;
-      height: calc(100% + 70px);
+        transition: all 0.5s ease;
+        height: calc(100% + 70px);
     }
 
     .sidebar-content {
@@ -21,7 +21,7 @@
             @apply absolute top-4 end-6 transition-all hover:scale-125 hover:rotate-90 hover:text-primary;
         }
     }
-    
+
     &.open {
         @apply opacity-100 visible transition-all;
         transition-delay: 0s;
