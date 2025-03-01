@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Map from "@/assets/images/map-category/image-1@3x.jpg";
 
 const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
   const [activeTab, setActiveTab] = useState("tehran");
+  const [activeTabWidth, setActiveTabWidth] = useState(0);
+  const [activeTabLeft, setActiveTabLeft] = useState(0);
+  const [resize, setResize] = useState<number>(0);
 
   console.log(params);
 
@@ -56,6 +59,42 @@ const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
     },
   };
 
+  const updateOffset = useCallback((tab: HTMLElement | null) => {
+    if (tab) {
+      setActiveTabWidth(tab.clientWidth);
+      setActiveTabLeft(tab.offsetLeft);
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setResize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    const tab = document.querySelector(".active-tab") as HTMLElement | null;
+    if (tab) {
+      updateOffset(tab);
+    }
+  }, [activeTab, resize, updateOffset]);
+
+  const tabs = useMemo(
+    () => [
+      { key: "tehran", label: "درباره تهران" },
+      { key: "areas", label: "مناطق شهری" },
+      { key: "transport", label: "حمل و نقل" },
+      { key: "budget", label: "بودجه" },
+    ],
+    [],
+  );
+
   const renderContent = () => {
     switch (activeTab) {
       case "tehran":
@@ -104,28 +143,24 @@ const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-16 px-4 mb-10">
+    <div className="w-full min-h-96 max-w-3xl mx-auto mt-16 container mb-10 transition-all">
       <div className="relative w-full border-b border-gray-300 pb-3">
-        <div className="flex justify-center sm:gap-x-12 gap-x-5 flex-wrap mx-auto h-fit">
-          {[
-            { key: "tehran", label: "درباره تهران" },
-            { key: "areas", label: "مناطق شهری" },
-            { key: "transport", label: "حمل و نقل" },
-            { key: "budget", label: "بودجه" },
-          ].map(({ key, label }) => (
+        <div className="flex justify-evenly flex-wrap mx-auto h-fit">
+          {tabs.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`text-[14px] font-medium relative transition-colors duration-300 w-fit ${
-                activeTab === key ? "text-primary" : "text-secondary"
+              className={`grow text-[14px] lg:text-lg font-medium relative transition-all w-fit ${
+                activeTab === key ? "text-primary active-tab" : "text-secondary"
               }`}
             >
               {label}
-              {activeTab === key && (
-                <span className="absolute -bottom-[13px] left-0 w-full h-[3px] bg-primary"></span>
-              )}
             </button>
           ))}
+          <span
+            className={"absolute bottom-0 left-0 h-[3px] bg-primary transition-all rounded-t-full"}
+            style={{width: activeTabWidth, left: activeTabLeft}}
+          ></span>
         </div>
       </div>
 

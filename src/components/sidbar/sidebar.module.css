@@ -15,7 +15,7 @@
     }
 
     .sidebar-content {
-        @apply relative p-1;
+        @apply relative p-2;
 
         .close-icon {
             @apply absolute top-4 end-6 transition-all hover:scale-125 hover:rotate-90 hover:text-primary;
