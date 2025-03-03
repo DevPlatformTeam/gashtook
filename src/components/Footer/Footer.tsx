@@ -2,12 +2,13 @@ import React from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
-import logoFooter from "@/public/images/logo_footer.svg";
+import logoFooter from "@/assets/images/logo-english-new.png";
 
-import { MdOutlineLocationOn } from "react-icons/md";
+import { MdOutlineEmail } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 
 import Image from "next/image";
+import { FaFacebookSquare, FaInstagram, FaLinkedin, FaTelegram } from "react-icons/fa";
 
 export default function Footer() {
   const t = useTranslations("Footer");
@@ -15,46 +16,41 @@ export default function Footer() {
   return (
     <footer className="bg-background relative w-full">
       <div className="container pt-10">
-        <div className="flex w-full flex-wrap justify-between">
-          <div className="flex flex-wrap md:w-1/2 gap-y-6 w-full font-light">
-            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
+        <div className="flex w-full flex-wrap gap-y-8">
+            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2 child:w-fit">
               <span className="font-bold">{t("gashtook")}</span>
               <Link href={`/${locale}/about-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("about")}</Link>
               <Link href={`/${locale}/contact-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("contact")}</Link>
               <Link href={`/${locale}/faq`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("faq")}</Link>
               <Link href={`/${locale}/rules`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("rules")}</Link>
             </div>
-            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
+            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2 child:w-fit">
               <span className="font-bold">{t("cities")}</span>
-              <span>{t("tabriz")}</span>
-              <span>{t("tehran")}</span>
-              <span>{t("mashhad")}</span>
-              <span>{t("isfahan")}</span>
+              <Link href={`/${locale}/tabriz`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("tabriz")}</Link>
+              <Link href={`/${locale}/tehran`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("tehran")}</Link>
+              <Link href={`/${locale}/mashhad`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("mashhad")}</Link>
+              <Link href={`/${locale}/isfahan`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("isfahan")}</Link>
             </div>
-            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2">
-              <span className="font-bold">{t("places")}</span>
-              <span>{t("museum")}</span>
-              <span>{t("entertainment")}</span>
-              <span>{t("business")}</span>
-              <span>{t("tourism")}</span>
-            </div>
-          </div>
-          <div className="flex md:w-1/2 w-full lg:mt-0 mt-10 lg:justify-end">
-            <div className="md:w-2/3 w-full flex flex-col space-y-2">
-              <span className="font-bold">{t("contact-way")}</span>
-              <span className="flex items-center">
-                <MdOutlineLocationOn size={24} className="me-1 text-primary" />
-                {t("address")}
-              </span>
-              <span className="flex items-center">
+            <div className="flex flex-col space-y-2">
+              <span className="font-bold inline grow-0">{t("contact-way")}</span>
+              <a href={`mailto:${t("email")}`} className="flex items-center">
+                <MdOutlineEmail size={24} className="me-1 text-primary" />
+                {t("email")}
+              </a>
+              <a href={`tel:${t("phone")}`} className="flex items-center">
                 <AiOutlinePhone size={24} className="me-1 text-primary" />
                 {t("phone")}
-              </span>
-              <div className="h-20 w-full flex justify-end">
-                <Image src={logoFooter} alt={t("gashtook")} />
+              </a>
+              <div className="w-full flex items-center justify-center gap-4 child:text-primary child:text-2xl">
+                <span><FaInstagram /></span>
+                <span><FaTelegram /> </span>
+                <span><FaLinkedin /></span>
+                <span><FaFacebookSquare /></span>
               </div>
             </div>
-          </div>
+              <div className="w-full flex justify-center !mt-8">
+                <Image src={logoFooter} alt={t("gashtook")} />
+              </div>
         </div>
         <div className="text-center pb-4">
           <span className="w-full h-[1px] bg-slate-200 block my-4"></span>

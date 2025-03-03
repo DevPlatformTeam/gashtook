@@ -219,7 +219,9 @@
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
     "myAccountButton": "حساب کاربری من",
+    "mainSearchPlaceholder": "جست و جو در شهر ها",
     "searchPlaceholder": "جستجوی مکان ها در ",
+    "selectCityPlaceholder": "انتخاب شهر",
     "menuListMyCity": " من",
     "sightCategory": "دیدنی",
     "buyCategory": "خرید",
@@ -232,7 +234,6 @@
   "Footer": {
     "gashtook": "گشتوک",
     "cities": "شهرها",
-    "places": "مکان ها",
     "contact-way": "راه های ارتباطی",
     "about": "درباره ما",
     "contact": "تماس با ما",
@@ -242,12 +243,8 @@
     "tehran": "تهران",
     "mashhad": "مشهد",
     "isfahan": "اصفهان",
-    "museum": "موزه ها",
-    "entertainment": "مکان های تفریحی",
-    "business": "مکان های تجاری",
-    "tourism": "مکان های توریستی",
     "copyright": "کلیه حقوق نشر و تکثیر در اختیار گشتوک می باشد",
-    "address": "آدرس: استان تهران، تهران، بزرگراه اشرفی اصفهانی",
+    "email": "info@gashtook.com",
     "phone": "تلفن: ۲۱۶۵۴۵۶۵ ۰۲۱"
   },
   "Auth": {

@@ -16,6 +16,11 @@ type Props = {
   defaultValue?: string;
   label?: string;
   className?: string;
+  selectValue: {
+    id: string;
+    value: string;
+  };
+  setSelectValue: (value: { id: string; value: string }) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.ComponentPropsWithoutRef<"input">;
 
@@ -28,6 +33,8 @@ const SelectOptionComponent = React.memo(
     className,
     defaultValue,
     onChange,
+    selectValue,
+    setSelectValue,
     ...props
   }: Props): ReactElement => {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,11 +46,15 @@ const SelectOptionComponent = React.memo(
     // }, []);
 
     const handleSelect = useCallback(
-      (item: { id: string | number; value: string }) => {
-        setSearchTerm(item.value);
-        setIsOpen(false);
+      (value: string) => {
+        const selectedItem = options.find(option => option.value === value);
+        if (selectedItem) {
+          setSearchTerm(selectedItem.value);
+          setIsOpen(false);
+          onChange?.({ target: { value: selectedItem.id } } as React.ChangeEvent<HTMLInputElement>);
+        }
       },
-      [],
+      [options, onChange]
     );
 
     const handleClickIcon = () => {
@@ -63,10 +74,10 @@ const SelectOptionComponent = React.memo(
           ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
-          onChange={onChange}
+          onChange={(e) => handleSelect(e.target.value)}
           readOnly
           autoComplete="off"
-          value={searchTerm || defaultValue}
+          value={selectValue.value || searchTerm || defaultValue}
           type="text"
           className={styles.select}
           name={name}
@@ -85,7 +96,7 @@ const SelectOptionComponent = React.memo(
             <ul className={styles.list + " scroll"}>
               {options.map((item) => (
                 <li
-                  onMouseDown={() => handleSelect(item)}
+                  onMouseDown={() => setSelectValue({ id: item.id.toString(), value: item.value })}
                   className={styles.item}
                   key={item.id}
                   value={item.value}

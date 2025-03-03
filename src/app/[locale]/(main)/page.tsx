@@ -98,10 +98,9 @@ export default function HomePage({
             />
           </div>
 
-          <div className="md:w-1/3 w-full flex flex-col justify-center text-center items-center md:-mt-32 mt-16">
+          <div className="md:w-1/3 w-full flex flex-col justify-center text-center items-center md:mt-0 mt-16">
             <p
-              className={`text-gray-500 md:text-lg text-sm -mb-10
-            ${locale === "en" ? "ml-32" : "ml-10"}  font-semibold`}
+              className={`text-gray-500 lg:text-lg text-sm mb-4 font-semibold`}
             >
               {t("seeAndGo")}
             </p>
@@ -115,7 +114,7 @@ export default function HomePage({
             <h3 className="text-gray-500 text-xl mt-3 font-bold">
               {t("guideCity")}
             </h3>
-            <div className="flex mt-4 w-full justify-center gap-x-3">
+            <div className="flex flex-wrap mt-4 w-full justify-center gap-3">
               <Link href={`/download`}>
                 <Button
                   text={t("downloadApp")}
@@ -142,7 +141,7 @@ export default function HomePage({
         </div>
 
         <div className="container mx-auto w-full px-4 mt-12 mb-24">
-          <div className="grid  grid-cols-2 lg:grid-cols-3 gap-6 justify-center lg:px-52 sm:px-10 ">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 justify-center lg:px-14 xl:px-56">
             {cards.map((card, index) => (
               <MainCard key={index} imageSrc={card.imageSrc} city={card.city} />
             ))}
