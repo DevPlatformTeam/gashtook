@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "./contact-us.module.css";
 
@@ -21,6 +21,7 @@ import { FormProvider, useForm } from "react-hook-form";
 export default function Page() {
   const t = useTranslations();
   const form = useForm();
+  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
 
   const handleSubmit = (data: unknown) => {
     console.log(data);
@@ -95,6 +96,8 @@ export default function Page() {
               </div>
               <div>
                 <SelectOptionComponent
+                  selectValue={selectedCity || { id: "", value: "" }}
+                  setSelectValue={setSelectedCity}
                   label={t("contact-us.typeMessageInputLabel")}
                   placeholder={t("contact-us.typeMessageInputPlaceholder")}
                   id="select-type-message"
