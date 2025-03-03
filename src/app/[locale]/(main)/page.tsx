@@ -142,7 +142,7 @@ export default function HomePage({
         </div>
 
         <div className="container mx-auto w-full px-4 mt-12 mb-24">
-          <div className="grid  grid-cols-2 lg:grid-cols-3 gap-6 justify-center lg:px-52 sm:px-10 ">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
             {cards.map((card, index) => (
               <MainCard key={index} imageSrc={card.imageSrc} city={card.city} />
             ))}

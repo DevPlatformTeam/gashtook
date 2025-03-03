@@ -232,7 +232,6 @@
   "Footer": {
     "gashtook": "Gashtook",
     "cities": "Cities",
-    "places": "Places",
     "contact-way": "Contact Methods",
     "about": "About Us",
     "contact": "Contact Us",
@@ -242,12 +241,8 @@
     "tehran": "Tehran",
     "mashhad": "Mashhad",
     "isfahan": "Isfahan",
-    "museum": "Museums",
-    "entertainment": "Entertainment",
-    "business": "Business",
-    "tourism": "Tourism",
     "copyright": "© Gashtook. All rights reserved.",
-    "address": "Address: Ashrafi Esfahani Highway, Tehran, Tehran Province",
+    "email": "info@gashtook.com",
     "phone": "Phone: (+98) 21 2165 4565"
   },
   "Auth": {
