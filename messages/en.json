@@ -219,7 +219,9 @@
   "Header": {
     "downloadAppButton": "Download app",
     "myAccountButton": "My account",
+    "mainSearchPlaceholder": "Search in cities",
     "searchPlaceholder": "Search for places in ",
+    "selectCityPlaceholder": "Select City",
     "menuListMyCity": "My ",
     "sightCategory": "Sight",
     "buyCategory": "Buy",

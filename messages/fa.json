@@ -219,7 +219,9 @@
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
     "myAccountButton": "حساب کاربری من",
+    "mainSearchPlaceholder": "جست و جو در شهر ها",
     "searchPlaceholder": "جستجوی مکان ها در ",
+    "selectCityPlaceholder": "انتخاب شهر",
     "menuListMyCity": " من",
     "sightCategory": "دیدنی",
     "buyCategory": "خرید",

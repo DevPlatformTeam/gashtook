@@ -34,7 +34,7 @@ export default function Header() {
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
-  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string }>((t.raw("city") as { id: string; value: string }[])[0]);
+  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
   const locale = pathname.split("/")[1];
   const lastPath = pathname.split("/").pop();
   const [resize, setResize] = useState<number>(0);
@@ -54,7 +54,6 @@ export default function Header() {
     };
   }, []);
 
-
   useEffect(() => {
     const activeElement = document.querySelector(
       `.${styles.active}`,
@@ -73,13 +72,18 @@ export default function Header() {
   }, [pathname, resize]);
 
   const handleCategoryClick = (nav: string) => {
-    if (nav === selectedCity.id) {
+    if (nav === selectedCity?.id) {
       router.push(`/${locale}/${selectedCity.id}`);
     } else if (nav === "city-details") {
-      router.push(`/${locale}/${selectedCity.id}/${nav}`);
+      router.push(`/${locale}/${selectedCity?.id}/${nav}`);
     } else {
-      router.push(`/${locale}/${selectedCity.id}/${nav}`);
+      router.push(`/${locale}/${selectedCity?.id}/${nav}`);
     }
+  };
+
+  const handleSelectCity = (cityObj: { id: string; value: string }) => {
+    setSelectedCity(cityObj);
+    router.push(`/${locale}/${cityObj.id}`);
   };
 
   return (
@@ -91,15 +95,16 @@ export default function Header() {
           </div>
           <div className={styles.selectOptionButtons}>
             <div className={styles.language}>
-              <ToggleLanguageComponent />
+              <ToggleLanguageComponent className="w-32 flex-center" />
             </div>
             <div>
               <SelectOptionComponent
-                defaultValue={selectedCity.value}
-                onChange={(e) => setSelectedCity(t.raw("city").find((city: { id: string; value: string }) => city.value === e.target.value) as { id: string; value: string })}
-                className="max-w-28"
+                selectValue={selectedCity || { id: "", value: "" }}
+                setSelectValue={handleSelectCity}
+                className="max-w-32"
                 name="city"
                 id="city"
+                placeholder={t("Header.selectCityPlaceholder")}
                 options={t.raw("city") as { id: string; value: string }[]}
               />
             </div>
@@ -165,16 +170,17 @@ export default function Header() {
           {/* Navigation Section */}
           <div className={styles.search}>
             <SelectOptionComponent
-              defaultValue={selectedCity.value}
-              onChange={(e) => setSelectedCity(t.raw("city").find((city: { id: string; value: string }) => city.value === e.target.value) as { id: string; value: string })}
-              className="max-w-28"
+              selectValue={selectedCity || { id: "", value: "" }}
+              setSelectValue={handleSelectCity}
+              className="max-w-32"
               name="city"
               id="city"
+              placeholder={t("Header.selectCityPlaceholder")}
               options={t.raw("city") as { id: string; value: string }[]}
             />
             <SearchInputComponent
               id="search-header"
-              placeholder={`${t("Header.searchPlaceholder")}${selectedCity.value}`}
+              placeholder={t("Header.mainSearchPlaceholder")}
             />
           </div>
 
@@ -197,8 +203,9 @@ export default function Header() {
         </div>
 
         {/* Menu Section */}
+        {selectedCity && 
         <nav className={styles.navMenu}>
-          <button className={`${lastPath === selectedCity.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity.id)}>{locale === 'fa' ? selectedCity.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity.value}</button>
+          <button className={`${lastPath === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
           <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
             {t("Header.sightCategory")}
           </button>
@@ -219,8 +226,9 @@ export default function Header() {
           </button>
           <button className={`${lastPath === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
             {t("Header.menuListAboutCity")}
-          </button>
-        </nav>
+            </button>
+          </nav>
+        }
       </header>
     </>
   );

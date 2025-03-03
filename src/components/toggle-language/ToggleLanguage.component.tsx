@@ -8,7 +8,11 @@ import styles from "./toggleLanguageStyle.module.css";
 import IranFlagSvg from "@/icons/IranFlagSvg";
 import EnglishFlagSvg from "@/icons/EnglishFlagSvg";
 
-export default function ToggleLanguageComponent() {
+type Props = {
+  className?: string;
+}
+
+export default function ToggleLanguageComponent({className}: Props) {
   const { locale } = useParams<{ locale: "fa" | "en" }>();
   const router = useRouter();
   const pathname = usePathname();
@@ -42,7 +46,7 @@ export default function ToggleLanguageComponent() {
   }, []);
 
   return (
-    <div ref={containerRef} className={styles.language}>
+    <div ref={containerRef} className={styles.language + " " + className}>
       <button onClick={toggleDropdown} className={styles["button-language"]}>
         {locale === "fa" ? "فارسی" : "English"}
         {locale === "fa" ? <IranFlagSvg /> : <EnglishFlagSvg />}
