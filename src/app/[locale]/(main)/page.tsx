@@ -24,7 +24,7 @@ import slide1 from "@/assets/images/slider1.png";
 import slide3 from "@/assets/images/slider1.png";
 import slide4 from "@/assets/images/slider1.png";
 
-import mockup from "@/assets/images/mockup-1-x.png";
+import mockup from "@/assets/images/mockup.svg";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 
@@ -129,7 +129,7 @@ export default function HomePage({
             </div>
           </div>
 
-          <div className="md:w-1/3 md:-mt-64 z-10">
+          <div className="md:w-1/3 md:-mt-64 z-10 flex-center">
             <Image src={mockup} alt="Slide 4" />
           </div>
         </div>
