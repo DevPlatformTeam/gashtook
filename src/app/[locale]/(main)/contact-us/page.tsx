@@ -96,7 +96,7 @@ export default function Page() {
               </div>
               <div>
                 <SelectOptionComponent
-                  selectValue={selectedCity || { id: "", value: "" }}
+                  selectValue={selectedCity}
                   setSelectValue={setSelectedCity}
                   label={t("contact-us.typeMessageInputLabel")}
                   placeholder={t("contact-us.typeMessageInputPlaceholder")}

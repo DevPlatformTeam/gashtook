@@ -38,7 +38,7 @@ export default function Header() {
   const locale = pathname.split("/")[1];
   const lastPath = pathname.split("/").pop();
   const [resize, setResize] = useState<number>(0);
-  
+
   const categories = t.raw("category.categories") as { value: string }[];
 
   useEffect(() => {
@@ -81,10 +81,12 @@ export default function Header() {
     }
   };
 
-  const handleSelectCity = (cityObj: { id: string; value: string }) => {
-    setSelectedCity(cityObj);
-    router.push(`/${locale}/${cityObj.id}`);
-  };
+  console.log(selectedCity);
+
+  // const handleSelectCity = (cityObj: { id: string; value: string }) => {
+  //   setSelectedCity(cityObj);
+  //   router.push(`/${locale}/${cityObj.id}`);
+  // };
 
   return (
     <>
@@ -99,8 +101,8 @@ export default function Header() {
             </div>
             <div>
               <SelectOptionComponent
-                selectValue={selectedCity || { id: "", value: "" }}
-                setSelectValue={handleSelectCity}
+                selectValue={selectedCity}
+                setSelectValue={setSelectedCity}
                 className="max-w-32"
                 name="city"
                 id="city"
@@ -170,8 +172,8 @@ export default function Header() {
           {/* Navigation Section */}
           <div className={styles.search}>
             <SelectOptionComponent
-              selectValue={selectedCity || { id: "", value: "" }}
-              setSelectValue={handleSelectCity}
+              selectValue={selectedCity}
+              setSelectValue={setSelectedCity}
               className="max-w-32"
               name="city"
               id="city"
@@ -203,29 +205,29 @@ export default function Header() {
         </div>
 
         {/* Menu Section */}
-        {selectedCity && 
-        <nav className={styles.navMenu}>
-          <button className={`${lastPath === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
-          <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
-            {t("Header.sightCategory")}
-          </button>
-          <button className={`${lastPath === categories[1].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[1].value)}>
-            {t("Header.buyCategory")}
-          </button>
-          <button className={`${lastPath === categories[2].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[2].value)}>
-            {t("Header.eatCategory")}
-          </button>
-          <button className={`${lastPath === categories[3].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[3].value)}>
-            {t("Header.HotelCategory")}
-          </button>
-          <button className={`${lastPath === categories[4].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[4].value)}>
-            {t("Header.funCategory")}
-          </button>
-          <button className={`${lastPath === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
-            {t("Header.healthcareCategory")}
-          </button>
-          <button className={`${lastPath === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
-            {t("Header.menuListAboutCity")}
+        {selectedCity &&
+          <nav className={styles.navMenu}>
+            <button className={`${lastPath === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
+            <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
+              {t("Header.sightCategory")}
+            </button>
+            <button className={`${lastPath === categories[1].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[1].value)}>
+              {t("Header.buyCategory")}
+            </button>
+            <button className={`${lastPath === categories[2].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[2].value)}>
+              {t("Header.eatCategory")}
+            </button>
+            <button className={`${lastPath === categories[3].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[3].value)}>
+              {t("Header.HotelCategory")}
+            </button>
+            <button className={`${lastPath === categories[4].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[4].value)}>
+              {t("Header.funCategory")}
+            </button>
+            <button className={`${lastPath === categories[5].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[5].value)}>
+              {t("Header.healthcareCategory")}
+            </button>
+            <button className={`${lastPath === "city-details" ? styles.active : ""}`} onClick={() => handleCategoryClick("city-details")}>
+              {t("Header.menuListAboutCity")}
             </button>
           </nav>
         }
