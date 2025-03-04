@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './settings.module.css';
 
@@ -17,6 +17,8 @@ export default function Page() {
 
   const locale = useLocale();
   const methods = useForm();
+
+  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
 
   const t = useTranslations();
   const cities = t.raw("city");
@@ -51,6 +53,8 @@ export default function Page() {
                 type={locale === 'fa' ? 'tel' : 'email'}
               />
               <SelectOptionComponent
+                selectValue={selectedCity}
+                setSelectValue={setSelectedCity}
                 className='w-full'
                 label={locale === 'fa' ? 'شهر' : 'City'}
                 name='city'

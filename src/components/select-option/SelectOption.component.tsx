@@ -1,26 +1,24 @@
 "use client";
 
 import React, { ReactElement, useState, useCallback, useRef } from "react";
-
 import styles from "./select-option.module.css";
-
 import { IoChevronDown } from "react-icons/io5";
+import { useLocale, useTranslations } from "next-intl";
+
+type Option = {
+  id: string | number;
+  value: string;
+};
 
 type Props = {
   name: string;
   id: string;
-  options: {
-    id: string | number;
-    value: string;
-  }[];
+  options: Option[];
   defaultValue?: string;
   label?: string;
-  className?: string;
-  selectValue: {
-    id: string;
-    value: string;
-  };
-  setSelectValue: (value: { id: string; value: string }) => void;
+  className?: string; 
+  selectValue: { id: string; value: string } | null;
+  setSelectValue: (value: { id: string; value: string } | null) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.ComponentPropsWithoutRef<"input">;
 
@@ -32,30 +30,32 @@ const SelectOptionComponent = React.memo(
     label,
     className,
     defaultValue,
-    onChange,
     selectValue,
     setSelectValue,
     ...props
   }: Props): ReactElement => {
+    const t = useTranslations();
+    const locale = useLocale();
+
     const [isOpen, setIsOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(selectValue?.value || defaultValue || "");
     const ref = useRef<HTMLInputElement>(null);
-
-    // const handleClear = useCallback(() => {
-    //   setSearchTerm("");
-    // }, []);
-
     const handleSelect = useCallback(
       (value: string) => {
         const selectedItem = options.find(option => option.value === value);
         if (selectedItem) {
           setSearchTerm(selectedItem.value);
           setIsOpen(false);
-          onChange?.({ target: { value: selectedItem.id } } as React.ChangeEvent<HTMLInputElement>);
+          setSelectValue({ id: selectedItem.id.toString(), value: selectedItem.value });
         }
       },
-      [options, onChange]
+      [options, setSelectValue]
     );
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+      setIsOpen(true);
+    };
 
     const handleClickIcon = () => {
       if (ref.current) {
@@ -67,6 +67,20 @@ const SelectOptionComponent = React.memo(
       }
     };
 
+    // فیلتر گزینه‌ها براساس searchTerm
+    const filteredOptions = options.filter(option =>
+      option.value.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const handleClear = () => {
+      setSearchTerm("");
+      setSelectValue(null);
+      setIsOpen(false);
+    };
+
+    console.log(searchTerm);
+    
+
     return (
       <div className={`${styles.container} ${className}`}>
         {label && <label htmlFor={id}>{label}</label>}
@@ -74,10 +88,9 @@ const SelectOptionComponent = React.memo(
           ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
-          onChange={(e) => handleSelect(e.target.value)}
-          readOnly
+          onChange={handleInputChange}
           autoComplete="off"
-          value={selectValue.value || searchTerm || defaultValue}
+          value={searchTerm}
           type="text"
           className={styles.select}
           name={name}
@@ -93,17 +106,20 @@ const SelectOptionComponent = React.memo(
         />
         {isOpen && (
           <div className={styles["container-list"]}>
-            <ul className={styles.list + " scroll"}>
-              {options.map((item) => (
+            <ul className={`${styles.list} scroll`}>
+              {filteredOptions.length > 0 ? filteredOptions.map((item) => (
                 <li
-                  onMouseDown={() => setSelectValue({ id: item.id.toString(), value: item.value })}
+                  onMouseDown={() => handleSelect(item.value)}
                   className={styles.item}
                   key={item.id}
-                  value={item.value}
                 >
                   {item.value}
                 </li>
-              ))}
+              )) : (
+                <li className={`${styles.item} text-sm`} onMouseDown={()=>handleClear()}>
+                  {t("Dashboard.notFound", { type: locale === "fa" ? "شهری" : "city" })}
+                </li>
+              )}
             </ul>
           </div>
         )}
