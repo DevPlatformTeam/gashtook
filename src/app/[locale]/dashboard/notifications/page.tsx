@@ -36,7 +36,7 @@ export default function Page() {
   const locale = useLocale();
   return (
     <div className="h-full text-start">
-      <h1 className="text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">{t("Dashboard.notifications")}</h1>
+      <h1 className="hidden lg:block text-xl font-bold mx-6 pb-4 border-b-2 border-gray-200">{t("Dashboard.notifications")}</h1>
       {notifications.length > 0 ? <ul className="h-full overflow-y-auto scroll px-6 pt-4 pb-8 divide-y child:!mb-2 child:pb-2 divide-gray-100">
         {notifications.map((notification) => (
           <ToggleBox
