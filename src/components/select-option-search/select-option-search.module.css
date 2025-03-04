@@ -10,7 +10,7 @@
   }
 
   input.select {
-    @apply caret-transparent font-medium bg-gray-50 text-secondary rounded-full outline outline-1 outline-gray-200 focus:outline focus:outline-primary focus:outline-2 focus:bg-background;
+    @apply font-medium bg-gray-50 text-secondary rounded-full outline outline-1 outline-gray-200 focus:outline focus:outline-primary focus:outline-2 focus:bg-background;
 
     padding: 0.5rem 1rem;
 

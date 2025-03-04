@@ -27,6 +27,11 @@ import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+type City = {
+  id: string;
+  value: string;
+}
+
 export default function Header() {
   const t = useTranslations();
   const pathname = usePathname();
@@ -34,8 +39,9 @@ export default function Header() {
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
 
-  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
+  const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const locale = pathname.split("/")[1];
+  const city = pathname.split("/")[2];
   const lastPath = pathname.split("/").pop();
   const [resize, setResize] = useState<number>(0);
 
@@ -69,7 +75,24 @@ export default function Header() {
         `${leftOffset}px`,
       );
     }
-  }, [pathname, resize]);
+  }, [pathname, resize, selectedCity]);
+
+  useEffect(() => {
+    if (city !== selectedCity?.id) {
+      const selectedItem = t.raw("city").find((option: City) => option.id === city);
+      setSelectedCity(selectedItem);
+    }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
+  useEffect(() => {
+    if (selectedCity && selectedCity?.id !== city) {
+      router.push(`/${locale}/${selectedCity?.id}`);
+    }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCity]);
 
   const handleCategoryClick = (nav: string) => {
     if (nav === selectedCity?.id) {
@@ -105,7 +128,7 @@ export default function Header() {
                 name="city"
                 id="city"
                 placeholder={t("Header.selectCityPlaceholder")}
-                options={t.raw("city") as { id: string; value: string }[]}
+                options={t.raw("city") as City[]}
               />
             </div>
           </div>
@@ -176,7 +199,7 @@ export default function Header() {
               name="city"
               id="city"
               placeholder={t("Header.selectCityPlaceholder")}
-              options={t.raw("city") as { id: string; value: string }[]}
+              options={t.raw("city") as City[]}
             />
             <SearchInputComponent
               id="search-header"
@@ -205,7 +228,7 @@ export default function Header() {
         {/* Menu Section */}
         {selectedCity &&
           <nav className={styles.navMenu}>
-            <button className={`${lastPath === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
+            <button className={`${city === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
             <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
               {t("Header.sightCategory")}
             </button>

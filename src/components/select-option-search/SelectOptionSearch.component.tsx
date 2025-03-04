@@ -1,10 +1,9 @@
 "use client";
 
 import React, { ReactElement, useState, useCallback, useRef, useEffect } from "react";
-
 import styles from "./select-option.module.css";
-
 import { IoChevronDown } from "react-icons/io5";
+import { useLocale, useTranslations } from "next-intl";
 
 type Option = {
   id: string | number;
@@ -17,13 +16,13 @@ type Props = {
   options: Option[];
   defaultValue?: string;
   label?: string;
-  className?: string;
+  className?: string; 
   selectValue: { id: string; value: string } | null;
   setSelectValue: (value: { id: string; value: string } | null) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 } & React.ComponentPropsWithoutRef<"input">;
 
-const SelectOptionComponent = React.memo(
+const SelectOptionSearchComponent = React.memo(
   ({
     name,
     id,
@@ -35,15 +34,17 @@ const SelectOptionComponent = React.memo(
     setSelectValue,
     ...props
   }: Props): ReactElement => {
+    const t = useTranslations();
+    const locale = useLocale();
 
     const [isOpen, setIsOpen] = useState(false);
-    const [inputValue, setInputValue] = useState(selectValue?.value || defaultValue || "");
+    const [searchTerm, setSearchTerm] = useState(selectValue?.value || defaultValue || "");
     const ref = useRef<HTMLInputElement>(null);
     const handleSelect = useCallback(
       (value: string) => {
         const selectedItem = options.find(option => option.value === value);
         if (selectedItem) {
-          setInputValue(selectedItem.value);
+          setSearchTerm(selectedItem.value);
           setIsOpen(false);
           setSelectValue({ id: selectedItem.id.toString(), value: selectedItem.value });
         }
@@ -51,13 +52,16 @@ const SelectOptionComponent = React.memo(
       [options, setSelectValue]
     );
 
-    useEffect(() => {
-      if (selectValue?.value && selectValue.value !== inputValue) {
-        setInputValue(selectValue.value);
+    useEffect(()=>{
+      if (selectValue?.value && selectValue.value !== searchTerm) {
+        setSearchTerm(selectValue.value);
       }
+    },[selectValue])
 
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectValue]);
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+      setIsOpen(true);
+    };
 
     const handleClickIcon = () => {
       if (ref.current) {
@@ -69,7 +73,17 @@ const SelectOptionComponent = React.memo(
       }
     };
 
-    console.log(inputValue);
+    // فیلتر گزینه‌ها براساس searchTerm
+    const filteredOptions = options.filter(option =>
+      option.value.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const handleClear = () => {
+      setSearchTerm("");
+      setSelectValue(null);
+      setIsOpen(false);
+    };    
+    console.log(searchTerm);
 
     return (
       <div className={`${styles.container} ${className}`}>
@@ -78,8 +92,9 @@ const SelectOptionComponent = React.memo(
           ref={ref}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setIsOpen(false)}
+          onChange={handleInputChange}
           autoComplete="off"
-          value={inputValue}
+          value={searchTerm}
           type="text"
           className={styles.select}
           name={name}
@@ -96,7 +111,7 @@ const SelectOptionComponent = React.memo(
         {isOpen && (
           <div className={styles["container-list"]}>
             <ul className={`${styles.list} scroll`}>
-              {options.map((item) => (
+              {filteredOptions.length > 0 ? filteredOptions.map((item) => (
                 <li
                   onMouseDown={() => handleSelect(item.value)}
                   className={styles.item}
@@ -104,7 +119,11 @@ const SelectOptionComponent = React.memo(
                 >
                   {item.value}
                 </li>
-              ))}
+              )) : (
+                <li className={`${styles.item} text-sm`} onMouseDown={()=>handleClear()}>
+                  {t("Dashboard.notFound", { type: locale === "fa" ? "شهری" : "city" })}
+                </li>
+              )}
             </ul>
           </div>
         )}
@@ -113,5 +132,5 @@ const SelectOptionComponent = React.memo(
   },
 );
 
-SelectOptionComponent.displayName = "SelectOptionComponent";
-export default SelectOptionComponent;
+SelectOptionSearchComponent.displayName = "SelectOptionSearchComponent";
+export default SelectOptionSearchComponent;
