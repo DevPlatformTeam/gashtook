@@ -94,7 +94,7 @@ export default function Page() {
   ];
   return (
     <div className="h-full text-start">
-      <h1 className="text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">{t("Dashboard.subscriptionManagement")}</h1>
+      <h1 className="hidden lg:block text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">{t("Dashboard.subscriptionManagement")}</h1>
       {data.length > 0 ? <table className="flex flex-col w-full h-full px-6 overflow-y-auto scroll pt-4 pb-10">
         <thead className='w-full flex justify-between items-center child:w-1/5 child:text-gray-400 pb-4 child:text-start border-b border-gray-100'>
           <th>

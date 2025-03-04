@@ -1,39 +1,40 @@
-"use client";
-
-import { useTranslations } from "next-intl";
-import { routing, Link } from "@/i18n/routing";
-import { FaCoffee } from "react-icons/fa";
-import Button from "@/components/Button/Button";
-import { notFound } from "next/navigation";
-import Image from "next/image";
-import MainCard from "../components/MainCard/MainCard";
 import "./style.css";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade } from "swiper/modules";
+import { routing } from "@/i18n/routing";
+
+import { FaCoffee } from "react-icons/fa";
+
+import Button from "@/components/Button/Button";
+import MainCard from "../components/MainCard/MainCard";
+import SliderCardDefaultComponent from "@/components/SliderCardDefault/SliderCardDefault.component";
+
+import { notFound } from "next/navigation";
+import Image from "next/image";
+import Link from "next/link";
+
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import { register } from "swiper/element/bundle";
-register();
-
 import slide1 from "@/assets/images/slider1.png";
-import slide3 from "@/assets/images/slider1.png";
-import slide4 from "@/assets/images/slider1.png";
+import slide2 from "@/assets/images/roozbeh-eslami-o-2-e-9-zgo-r-fgc-unsplash@3x.jpg";
 
 import mockup from "@/assets/images/mockup.svg";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
+import { getTranslations, getLocale } from "next-intl/server";
 
-export default function HomePage({
-  params: { locale },
-}: {
-  params: { locale: string };
-}) {
-  const t = useTranslations("HomePage");
+
+export default async function HomePage() {
+
+  const t = await getTranslations("HomePage");
+  const locale = await getLocale();
+
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+  const data = await res.json();
+
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return notFound();
   }
@@ -47,43 +48,24 @@ export default function HomePage({
     { imageSrc: "https://picsum.photos/id/222/200/300", city: "کیش" },
   ];
 
+  const slides = [
+    { image: slide1, title: "تیاتل الکییی" },
+    { image: slide2, title: "تیاتل الکییی" },
+    { image: slide1, title: "تیاتل الکییی" },
+    { image: slide2, title: "تیاتل الکییی" },
+    { image: slide1, title: "تیاتل الکییی" },
+    { image: slide2, title: "تیاتل الکییی" },
+  ];
+
   return (
     <>
       <div className="w-full mt-5 justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay, EffectFade]}
-            spaceBetween={0}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            autoplay={{ delay: 3000, disableOnInteraction: false }}
-            effect="fade"
-            loop
-          >
-            <SwiperSlide>
-              <Image src={slide1} alt="Slide 1" className="w-full lg:h-auto " />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image
-                fill
-                src={"https://picsum.photos/id/237/200/300"}
-                alt="Slide 2"
-                className="w-full lg:h-auto"
-              />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image src={slide3} alt="Slide 3" className="w-full lg:h-auto " />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Image src={slide4} alt="Slide 4" className="w-full lg:h-auto " />
-            </SwiperSlide>
-          </Swiper>
+          <SliderCardDefaultComponent slides={slides} />
         </div>
         <div
-          className={`md:flex md:justify-between w-full ${
-            locale === "en" ? "flex-row-reverse" : ""
-          }`}
+          className={`md:flex md:justify-between w-full ${locale === "en" ? "flex-row-reverse" : ""
+            }`}
         >
           <div className={`md:w-1/3 md:flex flex-col hidden`}>
             <Image
@@ -147,6 +129,12 @@ export default function HomePage({
             ))}
           </div>
         </div>
+        {data?.map((item: { id: number, title: string, body: string }) => (
+          <div key={item.id}>
+            <h1>{item.title}</h1>
+            <p>{item.body}</p>
+          </div>
+        ))}
       </div>
     </>
   );
