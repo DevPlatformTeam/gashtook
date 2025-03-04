@@ -81,8 +81,6 @@ export default function Header() {
     }
   };
 
-  console.log(selectedCity);
-
   // const handleSelectCity = (cityObj: { id: string; value: string }) => {
   //   setSelectedCity(cityObj);
   //   router.push(`/${locale}/${cityObj.id}`);
@@ -92,9 +90,9 @@ export default function Header() {
     <>
       <Sidebar isOpen={openSidebar} setIsOpen={setOpenSidebar}>
         <div className={styles.sidebarContainer}>
-          <div className={styles.logo}>
+          <Link className={styles.logo} href={`/${locale}/`}>
             <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
-          </div>
+          </Link>
           <div className={styles.selectOptionButtons}>
             <div className={styles.language}>
               <ToggleLanguageComponent className="w-32 flex-center" />
@@ -157,9 +155,9 @@ export default function Header() {
             <HiOutlineMenu />
           </div>
           {/* Logo Section */}
-          <div className={styles.logo}>
+          <Link className={styles.logo} href={`/${locale}/`}>
             <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
-          </div>
+          </Link>
 
           <div className={styles.language}>
             <ToggleLanguageComponent />

@@ -18,7 +18,7 @@ export default function DownloadPage() {
         <TbDeviceMobileDown size={46} />
         <span>{t("Places.downloadApp")}</span>
       </h2>
-      <p className="m-0 mt-12 md:text-center text-xl lg:mb-0 mb-12 text-primary w-full lg:w-1/3 leading-8 mx-auto px-4 text-justify">
+      <p className="container m-0 mt-12 text-sm lg:text-xl lg:mb-0 mb-12 text-primary leading-8 lg:leading-10 text-center mx-auto px-4">
         {t("Places.downloadAppInfo")}
       </p>
       <div className="w-full grid lg:grid-cols-2 grid-cols-1 items-center">

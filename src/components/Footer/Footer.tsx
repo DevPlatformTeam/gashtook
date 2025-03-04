@@ -1,18 +1,22 @@
 import React from "react";
-import Link from "next/link";
+
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+
+import Image from "next/image";
+import Link from "next/link";
+
 import logoFooter from "@/assets/images/logo-english-new.png";
 
 import { MdOutlineEmail } from "react-icons/md";
 import { AiOutlinePhone } from "react-icons/ai";
 
-import Image from "next/image";
 import { FaFacebookSquare, FaInstagram, FaLinkedin, FaTelegram } from "react-icons/fa";
 
 export default function Footer() {
   const t = useTranslations("Footer");
   const locale = useLocale();
+
   return (
     <footer className="bg-background relative w-full">
       <div className="container pt-10">
@@ -48,9 +52,9 @@ export default function Footer() {
                 <span><FaFacebookSquare /></span>
               </div>
             </div>
-              <div className="w-full flex justify-center !mt-8">
+              <Link className="w-full flex justify-center !mt-8" href={`/${locale}/`}>
                 <Image src={logoFooter} alt={t("gashtook")} />
-              </div>
+              </Link>
         </div>
         <div className="text-center pb-4">
           <span className="w-full h-[1px] bg-slate-200 block my-4"></span>
