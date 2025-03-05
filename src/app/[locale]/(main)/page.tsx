@@ -34,6 +34,8 @@ export default async function HomePage() {
   const locale = await getLocale();
 
   const { data, error } = await FetchData("site/sliders");
+  console.log(data, error);
+  
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return notFound();
