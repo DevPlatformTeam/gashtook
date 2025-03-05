@@ -68,7 +68,7 @@ const SelectOptionComponent = React.memo(
         }
       }
     };
-    
+
     return (
       <div className={`${styles.container} ${className}`}>
         {label && <label htmlFor={id}>{label}</label>}
@@ -78,6 +78,7 @@ const SelectOptionComponent = React.memo(
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
           value={inputValue}
+          readOnly
           type="text"
           className={styles.select}
           name={name}
