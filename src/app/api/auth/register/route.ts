@@ -22,7 +22,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: result.message || "Registration failed" }, { status: response.status });
     }
 
-    return NextResponse.json({ message: "Registration successful", token: result.token }, { status: 200 });
+    return NextResponse.json({ message: "Registration successful", token: result.data.token }, { status: 200 });
   } catch (error) {
     console.error("Registration error:", error);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });

@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
@@ -23,11 +23,12 @@ export default function RegisterPage() {
   const locale = useLocale();
   const isRtl = locale === "fa";
   const router = useRouter();
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const methods = useForm();
-  const onSubmit = async (data: unknown) => {
+  const onSubmit = async (data: { email_mobile: string }) => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -43,13 +44,17 @@ export default function RegisterPage() {
       if (response.ok) {
         alert(result.message);
         sessionStorage.setItem("temp_token", result.token); // Store temporary token
-        router.push(`/${locale}/auth/otp-verify`); // Redirect to OTP page
+        
+        const encodedData = encodeURIComponent(data.email_mobile);
+        router.push(`/${locale}/auth/otp?user=${encodedData}`);
       } else {
         alert(result.error);
       }
     } catch (error) {
       console.error("Registration error:", error);
       alert("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -99,7 +104,7 @@ export default function RegisterPage() {
               type={locale === 'fa' ? "tel" : "email"}
               inputMode={locale === 'fa' ? "numeric" : "email"}
               label={locale === 'fa' ? t("mobile") : t("email")}
-              name={locale === 'fa' ? "mobile" : "email"}
+              name='email_mobile'
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?
@@ -117,6 +122,8 @@ export default function RegisterPage() {
                 text={t("create-account")}
                 color="primary"
                 className="!px-12 !py-2 !font-[400]"
+                loading={isLoading}
+                disabled={isLoading || !methods.formState.isValid}
               />
             </div>
             <div className="lg:hidden md:hidden flex flex-col justify-center text-center mt-12">
