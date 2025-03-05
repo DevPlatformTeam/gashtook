@@ -64,7 +64,7 @@ const Button: React.FC<IButtonProps & React.ButtonHTMLAttributes<HTMLButtonEleme
         textColor ? `text-${textColor}` : "",
         className,
         "min-w-24 min-h-10 active:scale-95",
-        disabled && "opacity-50 cursor-not-allowed"
+        disabled && "opacity-50 cursor-not-allowed active:scale-100"
       )}
       type={type || "button"}
       onClick={onClick}
