@@ -13,16 +13,47 @@ import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+export default function OtpPage() {
   const t = useTranslations("Auth");
   const locale = useLocale();
   const router = useRouter();
   const isRtl = locale === "fa";
 
   const methods = useForm();
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-    
+  const onSubmit = async (data: unknown) => {
+    try {
+      const tempToken = sessionStorage.getItem("temp_token"); // Get temporary token from storage
+  
+      if (!tempToken) {
+        alert("Session expired, please login again.");
+        router.push(`/${locale}/auth/login`);
+        return;
+      }
+  
+      const response = await fetch("/api/auth/otp-verify", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept-Language": locale, // Pass locale
+          Authorization: `Bearer ${tempToken}`, // Send temporary token
+        },
+        body: JSON.stringify(data),
+        credentials: "include", // Ensures Laravel sets the final authentication token
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert(result.message);
+        sessionStorage.removeItem("temp_token"); // Clear temporary token
+        router.push(`/${locale}/dashboard`); // Redirect to dashboard
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      console.error("OTP verification error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };  
 
   return (

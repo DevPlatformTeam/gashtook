@@ -19,9 +19,31 @@ export default function LoginPage() {
   const isRtl = locale === "fa";
 
   const methods = useForm();
-  const onSubmit = (data: unknown) => {
-    console.log(data);
-    
+  const onSubmit = async (data: unknown) => {
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept-Language": locale, // Pass locale from next-intl
+        },
+        body: JSON.stringify(data),
+        credentials: "include", // Ensures Laravel sets a cookie
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        alert(result.message);
+        sessionStorage.setItem("temp_token", result.token); // Store temporary token
+        router.push(`/${locale}/auth/otp-verify`); // Redirect to OTP page
+      } else {
+        alert(result.error);
+      }
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };  
 
   return (
