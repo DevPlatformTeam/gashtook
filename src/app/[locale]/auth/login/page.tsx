@@ -19,6 +19,7 @@ export default function LoginPage() {
   const isRtl = locale === "fa";
 
   const methods = useForm();
+  
   const onSubmit = async (data: unknown) => {
     try {
       const response = await fetch("/api/auth/login", {

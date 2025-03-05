@@ -57,11 +57,12 @@ export default async function HomePage() {
     { image: slide2, title: "تیاتل الکییی" },
   ];
 
+
   return (
     <>
       <div className="w-full mt-5 justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
-          <SliderCardDefaultComponent slides={data} />
+          {data && <SliderCardDefaultComponent slides={data} />}
         </div>
         <div
           className={`md:flex md:justify-between w-full ${locale === "en" ? "flex-row-reverse" : ""

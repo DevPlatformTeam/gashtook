@@ -4,37 +4,27 @@ import React, { useState } from "react";
 import styles from "../contact-us.module.css";
 import { useTranslations } from "next-intl";
 import TextInput from "@/components/TextInput/TextInput";
-import SelectOptionComponent from "@/components/select-option/SelectOption.component";
 import Button from "@/components/Button/Button";
 import TextareaInputComponent from "@/components/text-area/TextareaInput.component";
 import { FormProvider, useForm } from "react-hook-form";
+import SelectOptionComponent from "@/components/select-option/SelectOption.component";
 
 export default function ContactForm() {
   const t = useTranslations();
+
   const methods = useForm();
+  const { handleSubmit, formState: { isSubmitted, isLoading, isSubmitting } } = methods;
 
-  const { handleSubmit, register, formState: { errors } } = methods;
-  const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
+  const [typeMessage, setTypeMessage] = useState<{ id: string; value: string } | null>(null);
+  
+  console.log(isLoading);
+  
 
-  
-  interface ContactFormData { // 👈 انتقال به بیرون از تابع
-    name: string;
-    email: string;
-    mobile: string;
-    message: string;
-    subject: string;
-  }
-  
   const onSubmit = async (data: object) => {
-    console.log("sub");
-    console.log(errors);
-    console.log(data);
 
-    
-    
     const payload = {
       ...data,
-      subject: selectedCity?.value || "",
+      subject: typeMessage?.value || "",
     };
 
     try {
@@ -54,17 +44,18 @@ export default function ContactForm() {
   };
 
   return (
-    <div>
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formInputs}>
         <div>
           <TextInput
-            type={"text"}
+            type={"tel"}
             inputMode={"numeric"}
             label={t("contact-us.mobileInputLabel")}
             name="mobile"
             id="mobile"
             placeHolder="09XXXXXXXXXX"
+            maxLength={11}
+            validation={{required: "شماره تلفن الزامی است", pattern: { value: /09\d{9}$/, message: "شماره تلفن نامعتبر است" }}}
           />
           <TextInput
             type={"text"}
@@ -73,6 +64,7 @@ export default function ContactForm() {
             name="name"
             id="name"
             placeHolder={t("contact-us.nameInputPlaceholder")}
+            validation={{required: "نام الزامی است"}}
           />
           <TextInput
             type={"text"}
@@ -81,41 +73,43 @@ export default function ContactForm() {
             name="email"
             id="email"
             placeHolder="email@gmail.com"
+            validation={{required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" }}}
           />
         </div>
         <div>
-          <SelectOptionComponent
-            selectValue={selectedCity}
-            setSelectValue={setSelectedCity}
-            {...register("subject", { required: true })}
-            label={t("contact-us.typeMessageInputLabel")}
-            placeholder={t("contact-us.typeMessageInputPlaceholder")}
-            id="select-type-message"
-            name="select-type-message"
-            options={[
-              { id: 1, value: "پیشنهاد" },
-              { id: 2, value: "انتقاد" },
-            ]}
-          />
+          <div>
+            <SelectOptionComponent
+              selectValue={typeMessage}
+              setSelectValue={setTypeMessage}
+              label={t("contact-us.typeMessageInputLabel")}
+              placeholder={t("contact-us.typeMessageInputPlaceholder")}
+              id="select-type-message"
+              name="select-type-message"
+              options={[
+                { id: 1, value: "پیشنهاد" },
+                { id: 2, value: "انتقاد" },
+              ]}
+            />
+            {isSubmitted && !typeMessage && <p className="text-red-500 mt-2 text-sm">نوع پیام الزامی است</p>}
+          </div>
           <TextareaInputComponent
+            name="message"
             id="message"
-            {...register("message", { required: true })}
             label={t("contact-us.messageInputLabel")}
             placeholder={t("contact-us.messageInputPlaceholder")}
-            minLength={6}
             maxLength={1000}
+            validation={{ required: "پیام الزامی است", minLength: { value: 6, message: "پیام باید حداقل 6 کاراکتر باشد" }}}
           />
           <Button
+            type="submit"
             text={t("contact-us.sendButton")}
             textColor="third"
             color="primary"
-            type="submit"
-            onClick={() => console.log("Button clicked")} 
+            loading={isSubmitting}
+            disabled={isSubmitting}
           />
-
         </div>
       </form>
     </FormProvider>
-    </div>
   );
 }

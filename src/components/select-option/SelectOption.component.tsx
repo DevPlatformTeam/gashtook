@@ -35,7 +35,7 @@ const SelectOptionComponent = React.memo(
     setSelectValue,
     ...props
   }: Props): ReactElement => {
-
+  
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState(selectValue?.value || defaultValue || "");
     const ref = useRef<HTMLInputElement>(null);
@@ -78,7 +78,7 @@ const SelectOptionComponent = React.memo(
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
           value={inputValue}
-          readOnly
+          // readOnly
           type="text"
           className={styles.select}
           name={name}
