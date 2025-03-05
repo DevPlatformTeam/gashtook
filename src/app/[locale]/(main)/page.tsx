@@ -97,7 +97,7 @@ export default async function HomePage() {
               {t("guideCity")}
             </h3>
             <div className="flex flex-wrap mt-4 w-full justify-center gap-3">
-              <Link href={`/download`}>
+              <Link href={`/${locale}/download`}>
                 <Button
                   text={t("downloadApp")}
                   color="primary"

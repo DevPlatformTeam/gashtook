@@ -45,7 +45,7 @@ export default function Footer() {
                 <AiOutlinePhone size={24} className="me-1 text-primary" />
                 {t("phone")}
               </a>
-              <div className="w-full flex items-center justify-center gap-4 child:text-primary child:text-2xl">
+              <div className="w-full flex-between gap-4 child:text-primary child:text-2xl">
                 <span><FaInstagram /></span>
                 <span><FaTelegram /> </span>
                 <span><FaLinkedin /></span>
