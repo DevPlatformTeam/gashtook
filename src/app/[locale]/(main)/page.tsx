@@ -25,6 +25,7 @@ import mockup from "@/assets/images/mockup.svg";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 import { getTranslations, getLocale } from "next-intl/server";
+import { FetchData } from "@/components/Fetch/FetchData";
 
 
 export default async function HomePage() {
@@ -32,8 +33,7 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
   const locale = await getLocale();
 
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await res.json();
+  const { data, error } = await FetchData("site/sliders");
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return notFound();
@@ -61,7 +61,7 @@ export default async function HomePage() {
     <>
       <div className="w-full mt-5 justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
-          <SliderCardDefaultComponent slides={slides} />
+          <SliderCardDefaultComponent slides={data} />
         </div>
         <div
           className={`md:flex md:justify-between w-full ${locale === "en" ? "flex-row-reverse" : ""
@@ -129,12 +129,6 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
-        {data?.map((item: { id: number, title: string, body: string }) => (
-          <div key={item.id}>
-            <h1>{item.title}</h1>
-            <p>{item.body}</p>
-          </div>
-        ))}
       </div>
     </>
   );
