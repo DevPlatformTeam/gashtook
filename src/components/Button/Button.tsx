@@ -16,7 +16,7 @@ interface IButtonProps {
   loading?: boolean;
 }
 
-const Button: React.FC<IButtonProps> = ({
+const Button: React.FC<IButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>> = ({
   text,
   icon,
   color = "primary",
@@ -27,7 +27,8 @@ const Button: React.FC<IButtonProps> = ({
   type,
   iconFirst = true,
   iconSize = "md",
-  loading
+  loading,
+  disabled
 }) => {
 
   const baseStyles =
@@ -62,10 +63,12 @@ const Button: React.FC<IButtonProps> = ({
         colors[color],
         textColor ? `text-${textColor}` : "",
         className,
-        "min-w-24 min-h-10 active:scale-95"
+        "min-w-24 min-h-10 active:scale-95",
+        disabled && "opacity-50 cursor-not-allowed"
       )}
       type={type || "button"}
       onClick={onClick}
+      disabled={disabled || loading}
     >
       {loading ? <SpinLoadingComponent /> :
         <>

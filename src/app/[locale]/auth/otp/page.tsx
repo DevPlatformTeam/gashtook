@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react";
+import React, { useEffect , useState} from "react";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -11,16 +11,29 @@ import styles from "../login/login-page.module.css";
 import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function OtpPage() {
   const t = useTranslations("Auth");
   const locale = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isRtl = locale === "fa";
 
+  const userParam = searchParams.get("user");
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if (userParam) {
+      setUser(decodeURIComponent(userParam));
+    } else {
+      router.push(`/${locale}/`);
+    }
+  }, [userParam, router, locale]);
+
+
   const methods = useForm();
-  const onSubmit = async (data: unknown) => {
+  const onSubmit = async (data: {otp: string}) => {
     try {
       const tempToken = sessionStorage.getItem("temp_token"); // Get temporary token from storage
   
@@ -37,7 +50,7 @@ export default function OtpPage() {
           "Accept-Language": locale, // Pass locale
           Authorization: `Bearer ${tempToken}`, // Send temporary token
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({email_mobile: user, code: data.otp}),
         credentials: "include", // Ensures Laravel sets the final authentication token
       });
   
@@ -95,9 +108,9 @@ export default function OtpPage() {
               id="otp"
               placeHolder="****"
               className="child:text-center"
-              validation={{required: "کد تایید الزامی است", pattern: { value: /^\d{4}$/, message: "کد تایید نامعتبر است" }}}
-              minLength={4}
-              maxLength={4}
+              validation={{required: "کد تایید الزامی است", pattern: { value: /^\d{5}$/, message: "کد تایید نامعتبر است" }}}
+              minLength={5}
+              maxLength={5}
             />
             <div className={styles.submitButtonContainer}>
               <Button
