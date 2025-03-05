@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const token = req.headers.get("authorization"); // Get temp token from headers
-    const lang = req.headers.get("accept-language") || "fa"; // Get language
+    const token = req.headers.get("authorization");
+    const lang = req.headers.get("accept-language") || "fa";
 
     if (!token) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -16,10 +16,10 @@ export async function POST(req: Request) {
         "Content-Type": "application/json",
         "Accept": "application/json",
         "Accept-Language": lang,
-        Authorization: token, // Send temporary token
+        Authorization: token,
       },
       body: JSON.stringify(body),
-      credentials: "include", // Store the final token in HttpOnly cookie
+      credentials: "include",
     });
 
     const result = await response.json();
@@ -28,7 +28,12 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: result.message || "OTP verification failed" }, { status: response.status });
     }
 
-    return NextResponse.json({ message: "OTP verified successfully" }, { status: 200 });
+    const cookie = response.headers.get("set-cookie");
+    if (cookie) {
+      return NextResponse.json({ message: "OTP verified successfully" }, { status: 200, headers: { "set-cookie": cookie } });
+    } else {
+      return NextResponse.json({ message: "OTP verified successfully" }, { status: 200 });
+    }
   } catch (error) {
     console.error("OTP verification error:", error);
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
