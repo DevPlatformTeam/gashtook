@@ -31,9 +31,9 @@ const MainCard: React.FC<IMainCardProps> = ({ imageSrc, city, onClick }) => {
       <Image
         src={imageSrc}
         alt={city}
-        layout="fill"
-        objectFit="cover"
-        className="rounded-lg"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        className="w-full h-full rounded-lg object-cover"
       />
 
       <div

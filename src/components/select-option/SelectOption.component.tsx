@@ -68,9 +68,7 @@ const SelectOptionComponent = React.memo(
         }
       }
     };
-
-    console.log(inputValue);
-
+    
     return (
       <div className={`${styles.container} ${className}`}>
         {label && <label htmlFor={id}>{label}</label>}

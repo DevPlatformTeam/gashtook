@@ -31,7 +31,7 @@ export default function SliderCardDefaultComponent({
           >
             {slides.map((slide, index) => (
                 <SwiperSlide key={index} className='w-full'>
-                    <Image src={slide.image} alt={slide.title} className="w-full h- lg:h-72 xl:h-96 object-cover rounded-2xl" />
+                    <Image src={slide.image} alt={slide.title} className="w-full h-60 lg:h-72 xl:h-96 object-cover rounded-2xl" />
                 </SwiperSlide>
             ))} 
         </Swiper>

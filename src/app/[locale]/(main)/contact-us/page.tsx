@@ -20,10 +20,15 @@ import { FormProvider, useForm } from "react-hook-form";
 
 export default function Page() {
   const t = useTranslations();
-  const form = useForm();
+  const methods = useForm();
+
+  const { handleSubmit, formState: { errors } } = methods;
+
   const [selectedCity, setSelectedCity] = useState<{ id: string; value: string } | null>(null);
 
-  const handleSubmit = (data: unknown) => {
+  const onSubmit = (data: unknown) => {
+    console.log(errors);
+
     console.log(data);
   };
 
@@ -66,60 +71,60 @@ export default function Page() {
                 {t("contact-us.descriptionFrom")}
               </span>
             </div>
-            <FormProvider {...form}>
-              <form onSubmit={form.handleSubmit(handleSubmit)} className={styles.formInputs}>
+            <FormProvider {...methods}>
+              <form onSubmit={handleSubmit(onSubmit)} className={styles.formInputs}>
                 <div>
                   <TextInput
-                  type={"text"}
-                  inputMode={"numeric"}
-                  label={t("contact-us.mobileInputLabel")}
-                  name="mobile"
-                  id="mobile"
-                  placeHolder="09XXXXXXXXXX"
-                />
-                <TextInput
-                  type={"text"}
-                  inputMode={"numeric"}
-                  label={t("contact-us.nameInputLabel")}
-                  name="name"
-                  id="name"
-                  placeHolder={t("contact-us.nameInputPlaceholder")}
-                />
-                <TextInput
-                  type={"text"}
-                  inputMode={"numeric"}
-                  label={t("contact-us.emailInputLabel")}
-                  name="email"
-                  id="email"
-                  placeHolder="email@gmail.com"
-                />
-              </div>
-              <div>
-                <SelectOptionComponent
-                  selectValue={selectedCity}
-                  setSelectValue={setSelectedCity}
-                  label={t("contact-us.typeMessageInputLabel")}
-                  placeholder={t("contact-us.typeMessageInputPlaceholder")}
-                  id="select-type-message"
-                  name="select-type-message"
-                  options={[
-                    { id: 1, value: "پیشنهاد" },
-                    { id: 2, value: "انتقاد" },
-                  ]}
-                />
-                <TextareaInputComponent
-                  id="message"
-                  name="message"
-                  label={t("contact-us.messageInputLabel")}
-                  placeholder={t("contact-us.messageInputPlaceholder")}
-                  minLength={6}
-                  maxLength={1000}
-                />
-                <Button
-                  text={t("contact-us.sendButton")}
-                  textColor="third"
-                  color="primary"
-                />
+                    type={"text"}
+                    inputMode={"numeric"}
+                    label={t("contact-us.mobileInputLabel")}
+                    name="mobile"
+                    id="mobile"
+                    placeHolder="09XXXXXXXXXX"
+                  />
+                  <TextInput
+                    type={"text"}
+                    inputMode={"numeric"}
+                    label={t("contact-us.nameInputLabel")}
+                    name="name"
+                    id="name"
+                    placeHolder={t("contact-us.nameInputPlaceholder")}
+                  />
+                  <TextInput
+                    type={"text"}
+                    inputMode={"numeric"}
+                    label={t("contact-us.emailInputLabel")}
+                    name="email"
+                    id="email"
+                    placeHolder="email@gmail.com"
+                  />
+                </div>
+                <div>
+                  <SelectOptionComponent
+                    selectValue={selectedCity}
+                    setSelectValue={setSelectedCity}
+                    label={t("contact-us.typeMessageInputLabel")}
+                    placeholder={t("contact-us.typeMessageInputPlaceholder")}
+                    id="select-type-message"
+                    name="select-type-message"
+                    options={[
+                      { id: 1, value: "پیشنهاد" },
+                      { id: 2, value: "انتقاد" },
+                    ]}
+                  />
+                  <TextareaInputComponent
+                    id="message"
+                    name="message"
+                    label={t("contact-us.messageInputLabel")}
+                    placeholder={t("contact-us.messageInputPlaceholder")}
+                    minLength={6}
+                    maxLength={1000}
+                  />
+                  <Button
+                    text={t("contact-us.sendButton")}
+                    textColor="third"
+                    color="primary"
+                  />
                 </div>
               </form>
             </FormProvider>
