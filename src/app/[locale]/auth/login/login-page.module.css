@@ -108,4 +108,8 @@
   .roundedR {
     @apply rounded-r-xl;
   }
+
+  .otpTimer {
+    @apply text-sm text-center text-primary font-bold;
+  }
 }

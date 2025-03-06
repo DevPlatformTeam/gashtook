@@ -264,7 +264,20 @@
     "register-rules": "I have read and agree to the terms and conditions of use of the Gashtook Website Services and agree to all its terms",
     "otp-title": "Email confirmation",
     "otp-label-input": "Verification code",
-    "otp-text-btn": "Send"
+    "otp-text-btn": "Send",
+    "error-login": "Login failed",
+    "error-register": "Registration failed",
+    "error-otp": "OTP verification failed",
+    "required-mobile": "Phone number is required",
+    "invalid-mobile": "Invalid phone number",
+    "required-email": "Email is required",
+    "invalid-email": "Invalid email",
+    "otp-resend-btn": "Resend OTP",
+    "otp-expires-in": "OTP expires in",
+    "otp-resend-error": "OTP resend failed",
+    "otp-resend-success": "OTP resend successfully",
+    "otp-verify-error": "OTP verification failed",
+    "otp-verify-success": "Login to account successfully."
   },
   "Places": {
     "favourite": "my favorite place",
