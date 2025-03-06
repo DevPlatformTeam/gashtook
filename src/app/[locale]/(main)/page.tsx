@@ -33,36 +33,20 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
   const locale = await getLocale();
 
-  const { data, error } = await FetchData("site/sliders");
+  const { data: sliderData, error: sliderError } = await FetchData("site/sliders");
+  const { data: cityData, error: cityError  } = await FetchData("cities");
+
+
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return notFound();
   }
 
-  const cards = [
-    { imageSrc: "https://picsum.photos/id/241/200/300", city: "تهران" },
-    { imageSrc: "https://picsum.photos/id/111/200/300", city: "اصفهان" },
-    { imageSrc: "https://picsum.photos/id/555/200/300", city: "شیراز" },
-    { imageSrc: "https://picsum.photos/id/444/200/300", city: "مشهد" },
-    { imageSrc: "https://picsum.photos/id/421/200/300", city: "تبریز" },
-    { imageSrc: "https://picsum.photos/id/222/200/300", city: "کیش" },
-  ];
-
-  const slides = [
-    { image: slide1, title: "تیاتل الکییی" },
-    { image: slide2, title: "تیاتل الکییی" },
-    { image: slide1, title: "تیاتل الکییی" },
-    { image: slide2, title: "تیاتل الکییی" },
-    { image: slide1, title: "تیاتل الکییی" },
-    { image: slide2, title: "تیاتل الکییی" },
-  ];
-
-
   return (
     <>
       <div className="w-full mt-5 justify-center items-center relative block">
         <div className="w-full lg:px-12 px-4 top-5 z-5 ">
-          {data && <SliderCardDefaultComponent slides={data} />}
+          {sliderData && <SliderCardDefaultComponent slides={sliderData} />}
         </div>
         <div
           className={`md:flex md:justify-between w-full ${locale === "en" ? "flex-row-reverse" : ""
@@ -83,7 +67,7 @@ export default async function HomePage() {
 
           <div className="md:w-1/3 w-full flex flex-col justify-center text-center items-center md:mt-0 mt-16">
             <p
-              className={`text-gray-500 lg:text-lg text-sm mb-4 font-semibold`}
+              className={`text-gray-500 lg:text-lg text-sm font-semibold relative top-10 ${locale === "en" ? "left-12" : "left-6"} `}
             >
               {t("seeAndGo")}
             </p>
@@ -125,8 +109,8 @@ export default async function HomePage() {
 
         <div className="container mx-auto w-full px-4 mt-12 mb-24">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 justify-center lg:px-14 xl:px-56">
-            {cards.map((card, index) => (
-              <MainCard key={index} imageSrc={card.imageSrc} city={card.city} />
+          {cityData?.map((city:undefined, index:undefined) => (
+              <MainCard key={index} imageSrc={city.image_url} city={city.name} />
             ))}
           </div>
         </div>
