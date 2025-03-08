@@ -18,9 +18,6 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import slide1 from "@/assets/images/slider1.png";
-import slide2 from "@/assets/images/roozbeh-eslami-o-2-e-9-zgo-r-fgc-unsplash@3x.jpg";
-
 import mockup from "@/assets/images/mockup.svg";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
@@ -35,7 +32,6 @@ export default async function HomePage() {
 
   const { data: sliderData, error: sliderError } = await FetchData("site/sliders");
   const { data: cityData, error: cityError  } = await FetchData("cities");
-
 
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {

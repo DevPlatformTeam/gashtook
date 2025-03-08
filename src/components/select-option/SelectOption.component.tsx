@@ -78,7 +78,7 @@ const SelectOptionComponent = React.memo(
           onBlur={() => setIsOpen(false)}
           autoComplete="off"
           value={inputValue}
-          // readOnly
+          readOnly
           type="text"
           className={styles.select}
           name={name}

@@ -104,11 +104,6 @@ export default function Header() {
     }
   };
 
-  // const handleSelectCity = (cityObj: { id: string; value: string }) => {
-  //   setSelectedCity(cityObj);
-  //   router.push(`/${locale}/${cityObj.id}`);
-  // };
-
   return (
     <>
       <Sidebar isOpen={openSidebar} setIsOpen={setOpenSidebar}>
@@ -228,7 +223,7 @@ export default function Header() {
         {/* Menu Section */}
         {selectedCity &&
           <nav className={styles.navMenu}>
-            <button className={`${city === selectedCity?.id ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
+            <button className={`${city === selectedCity?.id && lastPath === city ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
             <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
               {t("Header.sightCategory")}
             </button>
