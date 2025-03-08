@@ -17,6 +17,7 @@ import Logo from "@/public/images/logo-white.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import CheckBox from "@/components/CheckBox/CheckBox";
 import { useRouter } from "next/navigation";
+import { FormData } from "../FormType";
 
 export default function RegisterPage() {
   const t = useTranslations("Auth");
@@ -25,7 +26,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const methods = useForm();
+  const methods = useForm<FormData>();
   const onSubmit = async (data: { email_mobile: string }) => {
     try {
       setIsLoading(true);

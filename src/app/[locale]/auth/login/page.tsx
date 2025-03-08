@@ -11,6 +11,7 @@ import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
 import { useRouter } from "next/navigation";
+import { FormData } from "../FormType";
 
 export default function LoginPage() {
   const t = useTranslations("Auth");
@@ -18,9 +19,9 @@ export default function LoginPage() {
   const router = useRouter();
   const isRtl = locale === "fa";
 
-  const methods = useForm();
-  
-  const onSubmit = async (data: unknown) => {
+  const methods = useForm<FormData>();
+
+  const onSubmit = async (data: { email_mobile: string }) => {
     try {
       const response = await fetch("/api/auth/login", {
         method: "POST",
@@ -31,9 +32,12 @@ export default function LoginPage() {
         body: JSON.stringify(data),
         credentials: "include", // Ensures Laravel sets a cookie
       });
-  
+
       const result = await response.json();
-  
+
+      console.log(result);
+
+
       if (response.ok) {
         alert(result.message);
         sessionStorage.setItem("temp_token", result.token); // Store temporary token
@@ -45,7 +49,7 @@ export default function LoginPage() {
       console.error("Registration error:", error);
       alert("Something went wrong. Please try again.");
     }
-  };  
+  };
 
   return (
     <div className={styles.loginPage}>
@@ -64,7 +68,7 @@ export default function LoginPage() {
                 type="button"
                 color="third"
                 textColor="primary"
-                onClick={()=> router.push(`/${locale}/auth/register`)}
+                onClick={() => router.push(`/${locale}/auth/register`)}
                 className={styles.registerButton}
               />
             </div>
@@ -82,13 +86,13 @@ export default function LoginPage() {
               type={locale === 'fa' ? "tel" : "email"}
               inputMode={locale === 'fa' ? "numeric" : "email"}
               label={locale === 'fa' ? t("mobile") : t("email")}
-              name={locale === 'fa' ? "mobile" : "email"}
+              name='email_mobile'
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
-              validation={locale === 'fa' ? 
-                {required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" }}
+              validation={locale === 'fa' ?
+                { required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" } }
                 :
-                {required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" }}
+                { required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" } }
               }
             />
             <div className={styles.submitButtonContainer}>
