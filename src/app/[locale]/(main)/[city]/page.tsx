@@ -25,7 +25,7 @@ export default function Page({
   const { locale, city } = params;
   const t = useTranslations();
   const cityFa = t.raw(`city`).filter((item: {id: string, value: string}) => item.id === city)[0]?.value;
-
+  
   const slides = [
     {
       title: "بهترین موزه های تهران",

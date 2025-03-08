@@ -10,8 +10,6 @@ const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
   const [activeTabLeft, setActiveTabLeft] = useState(0);
   const [resize, setResize] = useState<number>(0);
 
-  console.log(params);
-
   const data = {
     success: true,
     message: "درخواست با موفقیت انجام شد.",
