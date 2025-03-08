@@ -11,41 +11,30 @@ import { LuStar } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import { FiList } from "react-icons/fi";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
 import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
+import { FetchData } from "@/components/Fetch/FetchData";
 
-export default function Page({
+
+export default async function Page({
   params,
 }: {
   params: { city: string; locale: string };
 }) {
 
   const { locale, city } = params;
-  const t = useTranslations();
+  const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: {id: string, value: string}) => item.id === city)[0]?.value;
-  
-  const slides = [
-    {
-      title: "بهترین موزه های تهران",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-    {
-      title: "بهترین مراکز درمانی تهران",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "بهترین مراکز دیدنی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "بهترین موزه تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-    {
-      title: "بهترین مراکز خرید تهران",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "بهترین مراکز تفریحی تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "بهترین مراکز خرید تهران", imageSrc: "https://picsum.photos/id/222/300/150" },
-  ];
+
+  const { data: sliderData, error: sliderError } = await FetchData(`cities/${city}/collections`);
+
+    const formattedSlides = sliderData.map((item: { name: string; image_url: string; slug: string; }) => ({
+      title: item.name,
+      imageSrc: `${item.image_url}`,
+      slug: item.slug, 
+    }));
 
 
   return (
@@ -81,7 +70,7 @@ export default function Page({
             }
           </Link>
         </div>
-        <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={slides} textOnCard={true} />
+        <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={formattedSlides} textOnCard={true} />
       </div>
 
       <div className={styles.placesCard}>
