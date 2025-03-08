@@ -18,9 +18,25 @@ export default function Card({ src, label, alt, liked = false }: ICardProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(src);
+  
+  if (isLoading) {
+    return (
+      <>
+        <div className="min-h-40 relative rounded-lg animate-pulse bg-slate-200 child:animate-pulse">
+          <button
+            className="bg-slate-100 text-slate-300 shadow-lg flex justify-center items-center rounded-full w-9 h-9 absolute end-4 bottom-5"
+            type="button"
+          >
+          </button>
+        </div>
+        <div className="w-30 h-8 bg-slate-200 rounded-lg ps-0.5 z-1 animate-pulse mt-2"></div>
+      </>
+    )
+  }
+
   return (
     <div className="min-h-40 relative flex flex-col gap-2">
-      {isLoading && <div>Loading...</div>}
       <Image
         className="!relative rounded-lg"
         fill
