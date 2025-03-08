@@ -1,30 +1,50 @@
 import { NextResponse } from "next/server";
+import winston from "winston";
+import DailyRotateFile from 'winston-daily-rotate-file';
+
+
+const logger = winston.createLogger({
+  level: 'error',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+    new DailyRotateFile({
+      filename: 'logs/error-%DATE%.log',
+      datePattern: 'YYYY-MM-DD',
+      maxSize: '20m',
+      maxFiles: '14d',
+    }),
+  ],
+});
 
 export async function POST(req: Request) {
+  const lang = req.headers.get("accept-language") || "fa";
+
   try {
     const body = await req.json();
-    const lang = req.headers.get("accept-language") || "fa"; // Get language from the request headers
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/auth/login`, {
+    const response = await fetch(`${process.env.BASE_URL_API}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json",
-        "Accept-Language": lang, // Send language header to Laravel
+        "Accept-Language": lang,
       },
       body: JSON.stringify(body),
-      credentials: "include", // Ensures cookies are stored in the browser
+      credentials: "include",
     });
 
     const result = await response.json();
 
     if (!response.ok) {
-      return NextResponse.json({ error: result.message || "Registration failed" }, { status: response.status });
+      const defaultMessage = lang === 'fa' ? "وررود با خطا مواجه شد" : "Login failed";
+      return NextResponse.json({ error: result.message || defaultMessage }, { status: response.status });
     }
 
-    return NextResponse.json({ message: "Registration successful", token: result.token }, { status: 200 });
+    const defaultOkMessage = lang === 'fa' ? "ورود با موفقیت انجام شد" : "Login successful";
+    return NextResponse.json({ message: result.message || defaultOkMessage, token: result.token }, { status: 200 });
   } catch (error) {
-    console.error("Registration error:", error);
-    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+    logger.error("Login error:", error);
+    return NextResponse.json({ error: lang === 'fa' ? 'خطای داخلی بروز کرده است.' : "Something went wrong" }, { status: 500 });
   }
 }

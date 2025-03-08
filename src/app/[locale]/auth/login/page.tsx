@@ -1,5 +1,7 @@
 "use client"
-import React from "react";
+
+import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -17,33 +19,62 @@ export default function LoginPage() {
   const locale = useLocale();
   const router = useRouter();
   const isRtl = locale === "fa";
-
-  const methods = useForm();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const methods = useForm<{ email_mobile: string }>();
   
-  const onSubmit = async (data: unknown) => {
+  const onSubmit = async (data: { email_mobile: string }) => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept-Language": locale, // Pass locale from next-intl
+          "Accept": "application/json",
+          "Accept-Language": locale,
         },
         body: JSON.stringify(data),
-        credentials: "include", // Ensures Laravel sets a cookie
+        credentials: "include",
       });
   
       const result = await response.json();
   
       if (response.ok) {
-        alert(result.message);
-        sessionStorage.setItem("temp_token", result.token); // Store temporary token
-        router.push(`/${locale}/auth/otp-verify`); // Redirect to OTP page
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: result.message,
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+
+        sessionStorage.setItem("temp_token", result.token);
+        router.push(`/${locale}/auth/otp-verify`);
       } else {
-        alert(result.error);
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: result.error,
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
       }
     } catch (error) {
-      console.error("Registration error:", error);
-      alert("Something went wrong. Please try again.");
+      console.error("Login error:", error);
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: t("error-login"),
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };  
 
@@ -82,13 +113,13 @@ export default function LoginPage() {
               type={locale === 'fa' ? "tel" : "email"}
               inputMode={locale === 'fa' ? "numeric" : "email"}
               label={locale === 'fa' ? t("mobile") : t("email")}
-              name={locale === 'fa' ? "mobile" : "email"}
+              name="email_mobile"
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ? 
-                {required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" }}
+                {required: t("required-mobile"), pattern: { value: /^(09)\d{9}$/, message: t("invalid-mobile") }}
                 :
-                {required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" }}
+                {required: t("required-email"), pattern: { value: /\S+@\S+\.\S+/, message: t("invalid-email") }}
               }
             />
             <div className={styles.submitButtonContainer}>
@@ -97,6 +128,8 @@ export default function LoginPage() {
                 text={t("enter")}
                 color="primary"
                 className={styles.submitButton}
+                loading={isLoading}
+                disabled={isLoading || !methods.formState.isValid}
               />
             </div>
             <div className={styles.mobileSignup}>
