@@ -1,10 +1,12 @@
 export const FetchData = async (endpoint: string) => {
     try {
-        const response = await fetch(`${process.env.BASE_URL_API}/${endpoint}`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/${endpoint}`, {
+            method: "GET",
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
-            }
+            },
+            credentials: "include"
         });
         const json = await response.json();
 
