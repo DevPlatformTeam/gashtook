@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { useLocale } from "next-intl";
@@ -34,26 +35,46 @@ export default function RegisterPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept-Language": locale, // Pass locale from next-intl
+          "Accept-Language": locale,
         },
         body: JSON.stringify(data),
-        credentials: "include", // Ensures Laravel sets a cookie
+        credentials: "include",
       });
   
       const result = await response.json();
   
       if (response.ok) {
-        alert(result.message);
-        sessionStorage.setItem("temp_token", result.token); // Store temporary token
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: result.message,
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+        sessionStorage.setItem("temp_token", result.token);
         
         const encodedData = encodeURIComponent(data.email_mobile);
         router.push(`/${locale}/auth/otp?user=${encodedData}`);
       } else {
-        alert(result.error);
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: result.error,
+          showConfirmButton: false,
+        });
       }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("Something went wrong. Please try again.");
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: t("error-register"),
+        showConfirmButton: false,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -109,9 +130,9 @@ export default function RegisterPage() {
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?
-                { required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" } }
+                { required: t("required-mobile"), pattern: { value: /^(09)\d{9}$/, message: t("invalid-mobile") } }
                 :
-                { required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" } }
+                { required: t("required-email"), pattern: { value: /\S+@\S+\.\S+/, message: t("invalid-email") } }
               }
             />
             <div className="flex justify-between items-center">

@@ -1,5 +1,7 @@
 "use client"
-import React from "react";
+
+import React, { useState } from "react";
+import Swal from "sweetalert2";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -19,18 +21,21 @@ export default function LoginPage() {
   const router = useRouter();
   const isRtl = locale === "fa";
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const methods = useForm<FormData>();
-
+  
   const onSubmit = async (data: { email_mobile: string }) => {
     try {
+      setIsLoading(true);
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Accept-Language": locale, // Pass locale from next-intl
+          "Accept": "application/json",
+          "Accept-Language": locale,
         },
         body: JSON.stringify(data),
-        credentials: "include", // Ensures Laravel sets a cookie
+        credentials: "include",
       });
 
       const result = await response.json();
@@ -39,15 +44,42 @@ export default function LoginPage() {
 
 
       if (response.ok) {
-        alert(result.message);
-        sessionStorage.setItem("temp_token", result.token); // Store temporary token
-        router.push(`/${locale}/auth/otp-verify`); // Redirect to OTP page
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: result.message,
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+
+        sessionStorage.setItem("temp_token", result.token);
+        router.push(`/${locale}/auth/otp-verify`);
       } else {
-        alert(result.error);
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: result.error,
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
       }
     } catch (error) {
-      console.error("Registration error:", error);
-      alert("Something went wrong. Please try again.");
+      console.error("Login error:", error);
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: t("error-login"),
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -101,6 +133,8 @@ export default function LoginPage() {
                 text={t("enter")}
                 color="primary"
                 className={styles.submitButton}
+                loading={isLoading}
+                disabled={isLoading || !methods.formState.isValid}
               />
             </div>
             <div className={styles.mobileSignup}>
