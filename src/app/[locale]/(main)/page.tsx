@@ -30,8 +30,8 @@ export default async function HomePage() {
   const t = await getTranslations("HomePage");
   const locale = await getLocale();
 
-  const { data: sliderData, error: sliderError } = await FetchData("site/sliders");
-  const { data: cityData, error: cityError  } = await FetchData("cities");
+  const { data: sliderData } = await FetchData("site/sliders");
+  const { data: cityData } = await FetchData("cities");
 
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
@@ -105,8 +105,8 @@ export default async function HomePage() {
 
         <div className="container mx-auto w-full px-4 mt-12 mb-24">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 justify-center lg:px-14 xl:px-56">
-          {cityData?.map((city:undefined, index:undefined) => (
-              <MainCard key={index} imageSrc={city.image_url} city={city.name} />
+          {cityData?.map((city: {image_url: string, name: string, slug: string}, index:undefined) => (
+              <MainCard key={index} imageSrc={city?.image_url} city={city?.name} slug={city?.slug}/>
             ))}
           </div>
         </div>
