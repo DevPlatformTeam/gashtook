@@ -69,7 +69,17 @@ export default async function Page({
             }
           </Link>
         </div>
-          <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={formattedSlides} textOnCard={true} />
+        <SliderCard 
+          showPagination={true} 
+          mdPerView={2} 
+          xlPerView={3} 
+          slidesPerView={1.3} 
+          id="best-museums" 
+          slides={formattedSlides} 
+          textOnCard={true}
+          city={city} 
+          locale={locale} 
+        />
       </div>}
 
       <div className={styles.placesCard}>
