@@ -323,5 +323,8 @@
     "allFeatures": "All Features",
     "rial": "Rial",
     "logout": "Logout"
+  },
+  "Collections": {
+    "place": "show place"
   }
 }

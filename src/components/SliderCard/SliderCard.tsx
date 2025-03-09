@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Pagination, EffectCoverflow,  } from "swiper/modules";
+import { Navigation, Autoplay, Pagination, EffectCoverflow } from "swiper/modules";
 import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -10,13 +10,17 @@ import styles from "./slidercardStyle.module.css";
 import { useEffect, useState } from "react";
 import { IoHeart } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward, IoMdHeartEmpty } from "react-icons/io";
+import Link from "next/link";
 
 interface Props {
   slides: {
     title: string;
     imageSrc: string;
+    slug: string;
   }[];
   id: string;
+  city: string; // اضافه شدن شهر برای لینک‌سازی
+  locale: string; // اضافه شدن locale برای لینک‌سازی
   isLike?: boolean;
   liked?: boolean;
   mdPerView?: number;
@@ -31,6 +35,8 @@ interface Props {
 const SliderCard = ({
   slides,
   id,
+  city,
+  locale,
   mdPerView = 2,
   lgPerView = 3,
   xlPerView = 4,
@@ -105,21 +111,25 @@ const SliderCard = ({
             key={index}
             className={`relative h-80 lg:min-h-40 pt-4 pb-10 lg:py-8 lg:pt-4 flex flex-col justify-between ${textOnCard && "lg:!pb-14 "}`}
           >
-            <div className="relative">
-              <Image
-                src={slide.imageSrc}
-                alt={slide.title}
-                fill
-                className="!relative rounded-lg w-auto sm:w-[90%] md:w-[80%] lg:w-full z-0"
-              />
-              {<div className={styles.overlay}></div>}
-            </div>
-            {isLike && (
-              <button className="bg-primary shadow-lg flex justify-center items-center text-white rounded-full w-9 h-9 absolute end-3 bottom-10">
-                {liked ? <IoHeart size={22} /> : <IoMdHeartEmpty size={22} />}
-              </button>
-            )}
-            <p className={`${textOnCard && "absolute bottom-14 lg:bottom-20 text-third ms-6"} mt-2 lg:text-xl shrink-0 z-20`}>{slide.title}</p>
+            <Link href={`/${locale}/${city}/collection/${slide.slug}`} className="block w-full h-full">
+              <div className="relative">
+                <Image
+                  src={slide.imageSrc}
+                  alt={slide.title}
+                  fill
+                  className="!relative rounded-lg w-auto sm:w-[90%] md:w-[80%] lg:w-full z-0"
+                />
+                {<div className={styles.overlay}></div>}
+              </div>
+              {isLike && (
+                <button className="bg-primary shadow-lg flex justify-center items-center text-white rounded-full w-9 h-9 absolute end-3 bottom-10">
+                  {liked ? <IoHeart size={22} /> : <IoMdHeartEmpty size={22} />}
+                </button>
+              )}
+              <p className={`${textOnCard && "absolute bottom-14 lg:bottom-20 text-third ms-6"} mt-2 lg:text-xl shrink-0 z-20`}>
+                {slide.title}
+              </p>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
