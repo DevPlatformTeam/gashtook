@@ -10,16 +10,25 @@ import { LuPizza } from "react-icons/lu";
 import { TbBed } from "react-icons/tb";
 import { LuTreePine } from "react-icons/lu";
 import { GiMedicalDrip } from "react-icons/gi";
+import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 
 interface IMainCardProps {
   imageSrc: string;
   city: string;
+  slug: string;
   onClick?: () => void;
 }
 
-const MainCard: React.FC<IMainCardProps> = ({ imageSrc, city, onClick }) => {
+const MainCard: React.FC<IMainCardProps> = ({
+  imageSrc,
+  city,
+  slug,
+  onClick,
+}) => {
   const [hover, setHover] = useState(false);
   const t = useTranslations("HomePage");
+  const locale = useLocale();
 
   return (
     <div
@@ -72,12 +81,14 @@ const MainCard: React.FC<IMainCardProps> = ({ imageSrc, city, onClick }) => {
             <p className="text-third text-3xl md:pb-12  mb-5 font-bold">
               {city}
             </p>
-            <Button
-              text={t("showCity")}
-              color="third"
-              textColor="secondary"
-              className="md:text-lg md:!px-10"
-            />
+            <Link href={`${locale}/${slug}`}>
+              <Button
+                text={t("showCity")}
+                color="third"
+                textColor="secondary"
+                className="md:text-lg md:!px-10"
+              />
+            </Link>
           </div>
         )}
       </div>
