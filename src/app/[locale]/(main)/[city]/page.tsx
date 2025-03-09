@@ -26,16 +26,15 @@ export default async function Page({
 
   const { locale, city } = params;
   const t = await getTranslations();
-  const cityFa = t.raw(`city`).filter((item: {id: string, value: string}) => item.id === city)[0]?.value;
+  const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
   const { data: sliderData, error: sliderError } = await FetchData(`cities/${city}/collections`);
 
-    const formattedSlides = sliderData.map((item: { name: string; image_url: string; slug: string; }) => ({
-      title: item.name,
-      imageSrc: `${item.image_url}`,
-      slug: item.slug, 
-    }));
-
+  const formattedSlides: [] = sliderData?.map((item: { name: string; image_url: string; slug: string; }) => ({
+    title: item.name,
+    imageSrc: `${item.image_url}`,
+    slug: item.slug,
+  }));
 
   return (
     <div className={styles.city}>
@@ -50,7 +49,7 @@ export default async function Page({
         {t('cityPage.descriptionCity')}
       </p>
 
-      <div className={styles.collectionCard}>
+      {formattedSlides && formattedSlides.length > 0 && <div className={styles.collectionCard}>
         <div className={styles.cardTitles}>
           <span>
             <LuStar />
@@ -70,8 +69,8 @@ export default async function Page({
             }
           </Link>
         </div>
-        <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={formattedSlides} textOnCard={true} />
-      </div>
+          <SliderCard showPagination={true} mdPerView={2} xlPerView={3} slidesPerView={1.3} id="best-museums" slides={formattedSlides} textOnCard={true} />
+      </div>}
 
       <div className={styles.placesCard}>
         <div className={styles.cardTitles}>

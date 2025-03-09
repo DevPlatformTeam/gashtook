@@ -22,11 +22,11 @@
     }
 
     .description {
-        @apply text-sm lg:text-lg text-center lg:text-start;
+        @apply text-sm lg:text-lg text-center lg:text-start mb-5 sm:mb-7;
     }
 
     .collectionCard {
-        @apply bg-third py-4 mt-5 sm:mt-7 mb-7 rounded-[1.75rem] pb-0;
+        @apply h-full min-h-72 md:min-h-80 xl:min-h-96 bg-third py-4 mb-7 rounded-[1.75rem] pb-0;
 
         box-shadow: 0px 1px 12px -8px black;
 

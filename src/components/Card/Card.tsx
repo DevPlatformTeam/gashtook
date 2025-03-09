@@ -18,7 +18,6 @@ export default function Card({ src, label, alt, liked = false }: ICardProps) {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(src);
   
   if (isLoading) {
     return (
