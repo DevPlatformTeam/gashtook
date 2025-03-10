@@ -335,5 +335,14 @@
   },
   "Collections": {
     "place": "show place"
-  }
+  },
+   "TimeAgo": {
+     "justNow": "Just now",
+     "minutesAgo": "{count} minute{count, plural, one {} other {s}} ago",
+     "hoursAgo": "{count} hour{count, plural, one {} other {s}} ago",
+     "daysAgo": "{count} day{count, plural, one {} other {s}} ago",
+     "monthsAgo": "{count} month{count, plural, one {} other {s}} ago",
+     "yearsAgo": "{count} year{count, plural, one {} other {s}} ago"
+    }
+  
 }

@@ -335,6 +335,14 @@
   },
   "Collections": {
     "place": "مشاهده اطلاعات مکان"
+  },
+  "TimeAgo": {
+    "justNow": "لحظاتی پیش",
+    "minutesAgo": "{count} دقیقه پیش",
+    "hoursAgo": "{count} ساعت پیش",
+    "daysAgo": "{count} روز پیش",
+    "monthsAgo": "{count} ماه پیش",
+    "yearsAgo": "{count} سال پیش"
   }
 
 }
