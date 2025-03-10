@@ -264,6 +264,7 @@
     "register-rules": "I have read and agree to the terms and conditions of use of the Gashtook Website Services and agree to all its terms",
     "otp-title": "Email confirmation",
     "otp-label-input": "Verification code",
+    "otp-text-back-btn": "Back",
     "otp-text-btn": "Send",
     "error-login": "Login failed",
     "error-register": "Registration failed",
@@ -303,6 +304,8 @@
   },
   "Dashboard": {
     "dashboard": "Dashboard",
+    "userName": "Dear User",
+    "welcomeText": "Welcome to the user dashboard",
     "expireSubscription": "Expire Subscription",
     "notifications": "Notifications",
     "favorites": "Favorites",
@@ -325,6 +328,10 @@
     "allFeatures": "All Features",
     "rial": "Rial",
     "logout": "Logout"
+  },
+  "FormValidationMessages": {
+    "requiredError": "{value} is required",
+    "invalidError": "{value} is invalid"
   },
   "Collections": {
     "place": "show place"

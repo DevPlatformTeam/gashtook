@@ -4,16 +4,24 @@ import React, { useEffect, useState } from "react";
 
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
+
 import { useRouter, useSearchParams } from "next/navigation";
-import { useForm, FormProvider } from "react-hook-form";
-import { TbDeviceMobileMessage } from "react-icons/tb";
 import Image from "next/image";
 
+import { useForm, FormProvider } from "react-hook-form";
+
+import { TbDeviceMobileMessage } from "react-icons/tb";
+
 import Swal from "sweetalert2";
+
+import styles from "../login/login-page.module.css";
+
 import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
-import styles from "../login/login-page.module.css";
 import Logo from "@/public/images/logo-white.svg";
+import MainLogo from "@/assets/images/logo-english-new@2x.png";
+import Link from "next/link";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function OtpPage() {
   const t = useTranslations("Auth");
@@ -101,6 +109,8 @@ export default function OtpPage() {
           showConfirmButton: false,
         });
         sessionStorage.removeItem("temp_token");
+        localStorage.removeItem("userInfo");
+        localStorage.setItem("userInfo", JSON.stringify(result.data.user));
         router.push(`/${locale}/dashboard`);
       } else {
         Swal.fire({
@@ -214,13 +224,16 @@ export default function OtpPage() {
                 textColor="primary"
                 type="button"
                 className="!px-8 !py-2 !font-[400]"
-                onClick={()=> router.push(`/${locale}/auth/login`)}
+                onClick={() => router.push(`/${locale}/auth/login`)}
               />
             </div>
           </div>
         </div>
       </div>
       <div className={`${styles.formContainer} ${isRtl ? styles.roundedL : styles.roundedR}`}>
+        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start`}>
+          <Image className="inset-block-card-btn" src={MainLogo} alt="Gashtook" />
+        </Link>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.loginHeader}>
@@ -256,6 +269,15 @@ export default function OtpPage() {
               </div>
             </div>
             <div className={styles.submitButtonContainer}>
+              <Button
+                type="button"
+                text={t("otp-text-back-btn")}
+                color="primary"
+                outline
+                className={styles.submitButton}
+                icon={<IoArrowBack size={24} />}
+                onClick={()=>router.back()}
+              />
               <Button
                 type="submit"
                 text={t("otp-text-btn")}

@@ -33,6 +33,8 @@ export default function DashboardLayout({ children, params }: Props) {
 
     const navRef = useRef<HTMLDivElement>(null);
 
+    const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+
     useEffect(() => {
         if (navRef.current) {
             const activeEl = navRef.current.querySelector('[data-active="true"]');
@@ -49,13 +51,13 @@ export default function DashboardLayout({ children, params }: Props) {
                 <aside className="w-full h-fit grow-0 lg:w-4/12 xl:w-3/12 overflow-hidden lg:shadow-sm lg:rounded-2xl shrink-0">
                     {/* اطلاعات کاربر */}
                     <div className="flex flex-col p-4 border-b border-gray-100">
-                        <div className="flex items-center gap-2 text-right">
+                        <div className="flex items-center gap-2 text-start">
                             <span className='size-14 rounded-full bg-primaryfade/10 text-primary p-2'>
                                 <IoIosPerson className='size-full' />
                             </span>
                             <div>
-                                <p className="font-bold">مهدی مرتضوی</p>
-                                <p className="text-sm text-gray-500">09921112233</p>
+                                <p className="font-bold">{userInfo.name ? userInfo.name : t("userName")}</p>
+                                <p className="text-sm text-gray-500">{locale === "fa" ? userInfo.mobile : userInfo.email}</p>
                             </div>
                         </div>
                         <div className='pt-4'>

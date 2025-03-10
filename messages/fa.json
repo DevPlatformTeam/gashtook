@@ -264,6 +264,7 @@
     "register-rules": "شرایط و قوانین استفاده از سرویس های سایت گشتوک را مطالعه نموده و با کلیه موارد آن موافقم",
     "otp-title": "تایید تلفن همراه",
     "otp-label-input": "کد تایید",
+    "otp-text-back-btn": "بازگشت",
     "otp-text-btn": "ارسال",
     "error-login": "ورود با خطا مواجه شد",
     "error-register": "ثبت نام با خطا مواجه شد",
@@ -303,6 +304,8 @@
   },
   "Dashboard": {
     "dashboard": "داشبورد",
+    "userName": "کاربر گرامی",
+    "welcomeText": "به داشبورد کاربری خوش آمدید",
     "expireSubscription": "مهلت اشتراک ویژه",
     "notifications": "اعلانات",
     "favorites": "علاقه مندی ها",
@@ -325,6 +328,10 @@
     "allFeatures": "همه امکانات",
     "rial": "تومان",
     "logout": "خروج از حساب"
+  },
+  "FormValidationMessages": {
+    "requiredError": "{value} الزامی است",
+    "invalidError": "{value} نامعتبر است"
   },
   "Collections": {
     "place": "مشاهده اطلاعات مکان"
