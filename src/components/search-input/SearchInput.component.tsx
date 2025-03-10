@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-
+import { useRouter } from "next/navigation";
 import styles from "./search-input.module.css";
-
 import { CiSearch } from "react-icons/ci";
+import { useLocale } from "next-intl";
 import clsx from "clsx";
 
 type Props = {
@@ -20,24 +20,32 @@ export default function SearchInputComponent({
   placeholder,
   className,
 }: Props) {
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const router = useRouter();
+  const locale = useLocale();
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
+  const handleSearch = () => {
+    if (searchTerm.trim()) {
+      router.push(`/${locale}/search?query=${encodeURIComponent(searchTerm)}`);
+    }
   };
 
-  const handleSearch = () => {};
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
 
   return (
     <div className={clsx(styles.search, className)}>
       {label && <label htmlFor={id}>{label}</label>}
       <input
-        placeholder={placeholder}
         type="text"
         id={id}
+        placeholder={placeholder}
         value={searchTerm}
-        onChange={handleInput}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        onKeyDown={handleKeyPress}
       />
       <CiSearch onClick={handleSearch} />
     </div>
