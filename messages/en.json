@@ -297,7 +297,9 @@
   },
   "Search": {
     "resultPlaces": "Search results Place",
-    "resultCollections": "Search results Collection"
+    "resultCollections": "Search results Collection",
+    "noResults": "No results found",
+    "enterSearchTerm": "Enter your search term"
   },
   "Dashboard": {
     "dashboard": "Dashboard",
