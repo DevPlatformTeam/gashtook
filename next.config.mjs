@@ -12,7 +12,12 @@ const nextConfig = {
     },
     {
       hostname: process.env.BASE_URL_API_HOSTNAME,
-      protocol: process.env.PROTOCOL_NEXT_CONFIG,
+      protocol: "http",
+      pathname: "/**"
+    },
+    {
+      hostname: process.env.BASE_URL_API_HOSTNAME,
+      protocol: "https",
       pathname: "/**"
     },
   ]
