@@ -34,7 +34,7 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
                     <p className="text-sm text-gray-600 mt-2">{description}</p>
                 </div>
 
-                <Button text={`مشاهده اطلاعات ${category}`} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                <Button text={`${category}`} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
             </div>
         </div>
     );

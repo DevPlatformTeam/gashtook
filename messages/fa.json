@@ -298,7 +298,9 @@
   },
   "Search": {
     "resultPlaces": "نتایج جستجوی مکان",
-    "resultCollections": "نتایج جستجوی کالکشن"
+    "resultCollections": "نتایج جستجوی کالکشن",
+    "noResults": "نتیجه ای یافت نشد.",
+    "enterSearchTerm": "لطفا عبارت مورد نظر خود را برای جست‌و‌جو وارد کنید"
   },
   "Dashboard": {
     "dashboard": "داشبورد",
@@ -330,5 +332,9 @@
   "FormValidationMessages": {
     "requiredError": "{value} الزامی است",
     "invalidError": "{value} نامعتبر است"
+  },
+  "Collections": {
+    "place": "مشاهده اطلاعات مکان"
   }
+
 }
