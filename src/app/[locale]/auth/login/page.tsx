@@ -14,9 +14,10 @@ import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
 import { useRouter } from "next/navigation";
 import { FormData } from "../FormType";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function LoginPage() {
-  const t = useTranslations("Auth");
+  const t = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const isRtl = locale === "fa";
@@ -55,7 +56,8 @@ export default function LoginPage() {
         });
 
         sessionStorage.setItem("temp_token", result.token);
-        router.push(`/${locale}/auth/otp-verify`);
+        const encodedData = encodeURIComponent(data.email_mobile);
+        router.push(`/${locale}/auth/otp?user=${encodedData}`);
       } else {
         Swal.fire({
           toast: true,
@@ -92,11 +94,11 @@ export default function LoginPage() {
             <Image className={styles.logo} src={Logo} alt="Gashtook" />
           </div>
           <div className={styles.registerSection}>
-            <h3 className={styles.registerTitle}>{t("register-in-gashtook")}</h3>
-            <p className={styles.registerNotice}>{t("notice-register")}</p>
+            <h3 className={styles.registerTitle}>{t("Auth.register-in-gashtook")}</h3>
+            <p className={styles.registerNotice}>{t("Auth.notice-register")}</p>
             <div className={styles.registerButtonContainer}>
               <Button
-                text={t("create-account")}
+                text={t("Auth.create-account")}
                 type="button"
                 color="third"
                 textColor="primary"
@@ -112,25 +114,34 @@ export default function LoginPage() {
           <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.loginHeader}>
               <TbLogin size={26} className={styles.loginIcon} />
-              <h2 className={styles.loginTitle}>{t("login-to-account")}</h2>
+              <h2 className={styles.loginTitle}>{t("Auth.login-to-account")}</h2>
             </div>
             <TextInput
               type={locale === 'fa' ? "tel" : "email"}
               inputMode={locale === 'fa' ? "numeric" : "email"}
-              label={locale === 'fa' ? t("mobile") : t("email")}
+              label={locale === 'fa' ? t("Auth.mobile") : t("Auth.email")}
               name='email_mobile'
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?
-                { required: "شماره تلفن الزامی است", pattern: { value: /^\d{11}$/, message: "شماره تلفن نامعتبر است" } }
+                { required: t("FormValidationMessages.requiredError", {value: "شماره تلفن"}), pattern: { value: /^\d{11}$/, message: t("FormValidationMessages.invalidError", {value: "شماره تلفن"}) } }
                 :
-                { required: "ایمیل الزامی است", pattern: { value: /\S+@\S+\.\S+/, message: "ایمیل نامعتبر است" } }
+                { required: t("FormValidationMessages.requiredError", {value: "Email"}), pattern: { value: /\S+@\S+\.\S+/, message: t("FormValidationMessages.invalidError", {value: "Email"}) } }
               }
             />
             <div className={styles.submitButtonContainer}>
               <Button
+                type="button"
+                text={t("Auth.otp-text-back-btn")}
+                color="primary"
+                outline
+                className={styles.submitButton}
+                icon={<IoArrowBack size={24} />}
+                onClick={()=>router.back()}
+              />
+              <Button
                 type="submit"
-                text={t("enter")}
+                text={t("Auth.enter")}
                 color="primary"
                 className={styles.submitButton}
                 loading={isLoading}
@@ -138,9 +149,9 @@ export default function LoginPage() {
               />
             </div>
             <div className={styles.mobileSignup}>
-              <p className={styles.signupNotice}>{t("notice-register")}</p>
+              <p className={styles.signupNotice}>{t("Auth.notice-register")}</p>
               <Link className={styles.signupLink} href={'/auth/register'}>
-                {t("signup")}
+                {t("Auth.signup")}
               </Link>
             </div>
           </form>

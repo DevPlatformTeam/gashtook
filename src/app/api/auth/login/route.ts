@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     }
 
     const defaultOkMessage = lang === 'fa' ? "ورود با موفقیت انجام شد" : "Login successful";
-    return NextResponse.json({ message: result.message || defaultOkMessage, token: result.token }, { status: 200 });
+    return NextResponse.json({ message: result.message || defaultOkMessage, token: result.data.token }, { status: 200 });
   } catch (error) {
     logger.error("Login error:", error);
     return NextResponse.json({ error: lang === 'fa' ? 'خطای داخلی بروز کرده است.' : "Something went wrong" }, { status: 500 });

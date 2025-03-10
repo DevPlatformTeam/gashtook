@@ -24,6 +24,7 @@ export async function POST(req: Request) {
     });
 
     const result = await response.json();
+    
 
     if (!response.ok) {
       const defaultMessage = lang === 'fa' ? "تایید کد تایید با خطا مواجه شد" : "OTP verification failed";
@@ -31,11 +32,10 @@ export async function POST(req: Request) {
     }
 
     const cookie = response.headers.get("set-cookie");
-    const defaultOkMessage = lang === 'fa' ? "ورود به حساب کاربری با موفقیت انجام شد." : "OTP verified successfully";
     if (cookie) {
-      return NextResponse.json({ message: result.message || defaultOkMessage }, { status: 200, headers: { "set-cookie": cookie } });
+      return NextResponse.json(result, { status: 200, headers: { "set-cookie": cookie } });
     } else {
-      return NextResponse.json({ message: result.message || defaultOkMessage }, { status: 200 });
+      return NextResponse.json(result, { status: 200 });
     }
   } catch (error) {
     console.error("OTP verification error:", error);
