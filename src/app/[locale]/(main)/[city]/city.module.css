@@ -2,7 +2,7 @@
     @apply container mt-6 pb-8;
 
     img {
-        @apply w-full h-48 sm:h-60 md:h-72 object-cover rounded-3xl;
+        @apply w-full h-48 sm:h-60 md:h-72 object-cover;
     }
 
     .title {
@@ -26,7 +26,7 @@
     }
 
     .collectionCard {
-        @apply h-full min-h-72 md:min-h-80 xl:min-h-96 bg-third py-4 mb-7 rounded-[1.75rem] pb-0;
+        @apply h-full min-h-72 md:min-h-80 xl:min-h-96 py-4 mb-7 rounded-2xl pb-0;
 
         box-shadow: 0px 1px 12px -8px black;
 
@@ -36,7 +36,7 @@
     }
 
     .placesCard {
-        @apply bg-third flex flex-col items-center justify-between gap-6 pt-4 px-4 lg:px-6 rounded-[1.75rem];
+        @apply lg:min-h-[45rem] flex flex-col items-center gap-6 pt-4 px-4 lg:px-6 rounded-2xl;
 
         & > div:first-child {
             @apply px-0;

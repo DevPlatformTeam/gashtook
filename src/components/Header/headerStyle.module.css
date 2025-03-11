@@ -47,7 +47,7 @@
   .navMenu {
     @apply relative flex items-center md:justify-center container gap-8 py-4 overflow-x-auto;
 
-    &::before {
+    & .activeDisplayBottom {
       position: absolute;
       content: "";
       background-color: var(--primary);

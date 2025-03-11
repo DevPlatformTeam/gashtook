@@ -69,7 +69,6 @@ export default function OtpPage() {
 
   const methods = useForm<{ otp: string }>();
 
-  // Submit OTP
   const onSubmit = async (data: { otp: string }) => {
     try {
       setIsLoading(true);
@@ -135,7 +134,6 @@ export default function OtpPage() {
     }
   };
 
-  // Resend OTP
   const resendOtp = async () => {
     try {
       const tempToken = sessionStorage.getItem("temp_token");

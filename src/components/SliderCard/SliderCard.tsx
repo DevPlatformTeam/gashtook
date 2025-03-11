@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { IoHeart } from "react-icons/io5";
 import { IoIosArrowBack, IoIosArrowForward, IoMdHeartEmpty } from "react-icons/io";
 import Link from "next/link";
+import { useLocale } from "next-intl";
 
 interface Props {
   slides: {
@@ -20,7 +21,6 @@ interface Props {
   }[];
   id: string;
   city: string; // اضافه شدن شهر برای لینک‌سازی
-  locale: string; // اضافه شدن locale برای لینک‌سازی
   isLike?: boolean;
   liked?: boolean;
   mdPerView?: number;
@@ -36,7 +36,6 @@ const SliderCard = ({
   slides,
   id,
   city,
-  locale,
   mdPerView = 2,
   lgPerView = 3,
   xlPerView = 4,
@@ -47,6 +46,7 @@ const SliderCard = ({
   textOnCard = false,
   showPagination = false,
 }: Props) => {
+  const locale = useLocale();
   const [uniqueId, setUniqueId] = useState<string>("");
 
   useEffect(() => {

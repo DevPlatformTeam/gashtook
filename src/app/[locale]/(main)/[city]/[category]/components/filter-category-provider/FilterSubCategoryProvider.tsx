@@ -4,21 +4,21 @@ import React, { createContext, ReactNode, useState, Dispatch, SetStateAction } f
 import { Categories } from "@/app/[locale]/(main)/[city]/types/categories";
 
 export const Subcategories = {
-  sight: ["religious", "rural", "nature", "museum", "historical"],
-  buy: ["bookstore", "hypermarket", "market", "commercialCenter"],
-  eat: ["cafe", "fastFood", "restaurant"],
-  hotel: ["hotel", "guestHouse", "apartmentHotel"],
-  fun: [
-    "sportsComplex",
+  attractions: ["nature", "museum", "historical", "religious-sites", "village"],
+  shopping: ["bookstore", "hypermarket", "bazaar", "mall"],
+  food: ["cafe", "fast-food", "restaurant", "coffee-shop"],
+  accommodation: ["hotel", "motel", "apartment-hotel"],
+  recreation: [
+    "sports-club",
     "entertainmentAndGames",
-    "waterActivities",
+    "marine",
     "cinema",
     "park",
-    "amusementPark",
-    "swimming",
-    "sportsHall",
+    "amusement-park",
+    "swim",
+    "gym",
   ],
-  healthcare: ["hospital", "clinic"],
+  treatment: ["hospital", "clinic", "pharmacy"],
 } as const;
 
 type SubCategoryValue = (typeof Subcategories)[Categories["category"]][number] | "all";
@@ -42,13 +42,13 @@ type SubCategoryProviderProps = {
   initialCategory: Categories["category"];
 };
 
-const getDefaultSubCategory = (category: Categories["category"]): SubCategoryValue => {
-  return Subcategories[category]?.[0] || "all";
+const getDefaultSubCategory = (): SubCategoryValue => {
+  return "all";
 };
 
 export function FilterSubCategoryProvider({ children, initialCategory }: SubCategoryProviderProps) {
   const [category, setCategory] = useState<Categories["category"]>(initialCategory);
-  const [subCategory, setSubCategory] = useState<SubCategoryValue>(getDefaultSubCategory(initialCategory));
+  const [subCategory, setSubCategory] = useState<SubCategoryValue>(getDefaultSubCategory());
 
   return (
     <SubCategoryContext.Provider value={{ category, setCategory, subCategory, setSubCategory }}>

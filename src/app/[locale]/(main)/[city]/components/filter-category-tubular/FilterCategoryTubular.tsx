@@ -108,11 +108,11 @@ export default function FilterCategory({ isSubCategories }: Props) {
         )
       ) : (
         <>
-          {categories.map((cat: { name: string }, index: number) => (
+          {categories.map((cat: { name: string; value: string }, index: number) => (
             <li
               key={index}
               id={String(index + 1)}
-              data-name={cat.name}
+              data-name={cat.value}
               className={activeIndex === index + 1 ? styles['active-category'] : ''}
               onClick={handleClick}
             >
