@@ -15,6 +15,7 @@ import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
 
 import Logo from "@/public/images/logo-white.svg";
+import MainLogo from "@/assets/images/logo-english-new@2x.png";
 import { FormProvider, useForm } from "react-hook-form";
 import CheckBox from "@/components/CheckBox/CheckBox";
 import { useRouter } from "next/navigation";
@@ -114,6 +115,9 @@ export default function RegisterPage() {
       <div
         className={`lg:w-1/2 md:w-1/2 w-full bg-white flex flex-col justify-center px-12 ${isRtl ? "rounded-l-md" : "rounded-r-md"} `}
       >
+        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start`}>
+          <Image className="inset-block-card-btn" src={MainLogo} alt="Gashtook" />
+        </Link>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className="flex items-center gap-x-1 mb-6 text-slate-700">

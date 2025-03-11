@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -15,11 +15,19 @@ import { PiBriefcaseLight } from 'react-icons/pi';
 
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+
 type Props = {
     children: React.ReactNode;
     params: {
         locale: string;
     };
+}
+
+interface userInfoI {
+    mobile?: string;
+    email?: string|null;
+    name?: string|null;
+    image?: string|null;
 }
 
 export default function DashboardLayout({ children, params }: Props) {
@@ -33,9 +41,15 @@ export default function DashboardLayout({ children, params }: Props) {
 
     const navRef = useRef<HTMLDivElement>(null);
 
-    const userInfo = JSON.parse(localStorage.getItem("userInfo")!);
+    const [userInfo, setUserInfo] = useState<userInfoI>({});
 
     useEffect(() => {
+        if (typeof window !== "undefined") {
+            // ✅ فقط در کلاینت اجرا شود
+            const storedUserInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
+            setUserInfo(storedUserInfo);
+        }
+
         if (navRef.current) {
             const activeEl = navRef.current.querySelector('[data-active="true"]');
             if (activeEl) {
@@ -56,8 +70,8 @@ export default function DashboardLayout({ children, params }: Props) {
                                 <IoIosPerson className='size-full' />
                             </span>
                             <div>
-                                <p className="font-bold">{userInfo.name ? userInfo.name : t("userName")}</p>
-                                <p className="text-sm text-gray-500">{locale === "fa" ? userInfo.mobile : userInfo.email}</p>
+                                <p className="font-bold">{userInfo?.name ? userInfo.name : t("userName")}</p>
+                                <p className="text-sm text-gray-500">{locale === "fa" ? userInfo?.mobile : userInfo?.email}</p>
                             </div>
                         </div>
                         <div className='pt-4'>

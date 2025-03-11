@@ -312,7 +312,8 @@
     "searchPlaceholder": "Search for places and collections ... ",
     "history": "Your search history",
     "top": "Top Search",
-    "noHistory": "No history found"
+    "noHistory": "No history found",
+    "errorFetching": "Error fetching data"
   },
   "Dashboard": {
     "dashboard": "Dashboard",
