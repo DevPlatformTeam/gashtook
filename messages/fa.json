@@ -331,7 +331,10 @@
     "citiesWithoutLimit": "شهرها بدون محدودیت",
     "allFeatures": "همه امکانات",
     "rial": "تومان",
-    "logout": "خروج از حساب"
+    "logout": "خروج از حساب",
+    "active": "فعال",
+    "inactive": "غیرفعال",
+    "error-login": "خطا در ورود"
   },
   "FormValidationMessages": {
     "requiredError": "{value} الزامی است",

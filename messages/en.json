@@ -330,8 +330,11 @@
     "categoriesWithoutLimit": "Categories without limit",
     "citiesWithoutLimit": "Cities without limit",
     "allFeatures": "All Features",
-    "rial": "Rial",
-    "logout": "Logout"
+    "rial": "Toman",
+    "logout": "Logout",
+    "active": "Active",
+    "inactive": "Inactive",
+    "error-login": "Login Error"
   },
   "FormValidationMessages": {
     "requiredError": "{value} is required",
