@@ -12,6 +12,7 @@ import styles from "./login-page.module.css";
 import TextInput from "@/components/TextInput/TextInput";
 import Button from "@/components/Button/Button";
 import Logo from "@/public/images/logo-white.svg";
+import MainLogo from "@/assets/images/logo-english-new@2x.png";
 import { useRouter } from "next/navigation";
 import { FormData } from "../FormType";
 import { IoArrowBack } from "react-icons/io5";
@@ -110,6 +111,9 @@ export default function LoginPage() {
         </div>
       </div>
       <div className={`${styles.formContainer} ${isRtl ? styles.roundedL : styles.roundedR}`}>
+        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start`}>
+          <Image className="inset-block-card-btn" src={MainLogo} alt="Gashtook" />
+        </Link>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.loginHeader}>
