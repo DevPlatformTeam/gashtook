@@ -308,7 +308,11 @@
     "resultPlaces": "Search results Place",
     "resultCollections": "Search results Collection",
     "noResults": "No results found",
-    "enterSearchTerm": "Enter your search term"
+    "enterSearchTerm": "Enter your search term",
+    "searchPlaceholder": "Search for places and collections ... ",
+    "history": "Your search history",
+    "top": "Top Search",
+    "noHistory": "No history found"
   },
   "Dashboard": {
     "dashboard": "Dashboard",
@@ -343,5 +347,14 @@
   },
   "Collections": {
     "place": "show place"
-  }
+  },
+   "TimeAgo": {
+     "justNow": "Just now",
+     "minutesAgo": "{count} minute{count, plural, one {} other {s}} ago",
+     "hoursAgo": "{count} hour{count, plural, one {} other {s}} ago",
+     "daysAgo": "{count} day{count, plural, one {} other {s}} ago",
+     "monthsAgo": "{count} month{count, plural, one {} other {s}} ago",
+     "yearsAgo": "{count} year{count, plural, one {} other {s}} ago"
+    }
+  
 }

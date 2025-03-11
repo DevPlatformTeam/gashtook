@@ -46,7 +46,7 @@ export default function Card({
           {liked ? <IoHeart size={22} /> : <IoMdHeartEmpty size={22} />}
         </button>
       )}
-      <p className="ps-0.5 text-start">{label}</p>
+      <p className="ps-1 font-semibold text-lg text-start">{label}</p>
     </div>
   );
 }
