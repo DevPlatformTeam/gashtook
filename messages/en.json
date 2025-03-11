@@ -300,7 +300,11 @@
     "resultPlaces": "Search results Place",
     "resultCollections": "Search results Collection",
     "noResults": "No results found",
-    "enterSearchTerm": "Enter your search term"
+    "enterSearchTerm": "Enter your search term",
+    "searchPlaceholder": "Search for places and collections ... ",
+    "history": "Your search history",
+    "top": "Top Search",
+    "noHistory": "No history found"
   },
   "Dashboard": {
     "dashboard": "Dashboard",
