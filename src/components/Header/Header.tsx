@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./headerStyle.module.css";
 
-import { IoCallOutline, IoSearch } from "react-icons/io5";
+import { IoCallOutline } from "react-icons/io5";
 
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -23,6 +23,7 @@ import SelectOptionComponent from "../select-option/SelectOption.component";
 
 import Sidebar from "../sidbar/SidebarComponent";
 import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component";
+import MobileSearchModal from "../MobileSearchModal/MobileSearchModal";
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -181,9 +182,7 @@ export default function Header() {
             <ToggleLanguageComponent />
           </div>
 
-          <div className={styles.mobileSearch}>
-            <IoSearch />
-          </div>
+          <MobileSearchModal />
 
           {/* Navigation Section */}
           <div className={styles.search}>
