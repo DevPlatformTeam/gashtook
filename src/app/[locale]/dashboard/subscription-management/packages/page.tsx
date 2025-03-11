@@ -1,55 +1,114 @@
-import React from 'react'
+"use client";
 
-import styles from './packages.module.css'
-import Button from '@/components/Button/Button'
-import { useTranslations } from 'next-intl';
+import React, { useEffect, useState } from "react";
+import styles from "./packages.module.css";
+import Button from "@/components/Button/Button";
+import { useTranslations } from "next-intl";
+import Swal from "sweetalert2";
+import NoDataSvg from "@/icons/NoDataSvg";
+
+interface Subscription {
+  name: string;
+  price: string;
+  features: string[];
+  period: string;
+  sku: string;
+}
 
 export default function Page() {
   const t = useTranslations();
+  const [subscriptions, setSubscriptions] = useState<Subscription[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/dashboard/subscription", {
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        const result = await response.json();
+
+        if (result.success && Array.isArray(result.data)) {
+          const formattedData: Subscription[] = result.data.map((item) => ({
+            name: item.name,
+            price: `${item.price} ${t("Dashboard.rial")}`,
+            features: item.features.split("،"), 
+            period: item.period,
+            sku: item.sku,
+          }));
+          setSubscriptions(formattedData);
+        } else {
+          setSubscriptions([]);
+        }
+      } catch (error) {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: t("error-login"),
+          text: error instanceof Error ? error.message : String(error),
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [t]);
+
   return (
     <div className={styles.packages}>
       <h1 className={styles.title}>{t("Dashboard.packages")}</h1>
       <div className={`${styles.cardsContainer} scroll`}>
-        <div className={styles.card}>
-            <div className={styles.cardHeader}>
-                <span>{t("Dashboard.dailySubscription")}</span>
-                <span>{`3,000 ${t("Dashboard.rial")}`}</span>
+        {loading ? (
+          [...Array(3)].map((_, index) => <SkeletonCard key={index} />)
+        ) : subscriptions && subscriptions.length > 0 ? (
+          subscriptions.map((sub, index) => (
+            <div key={index} className={styles.card}>
+              <div className={styles.cardHeader}>
+                <span>{sub.name}</span>
+                <span>{sub.price}</span>
+              </div>
+              <ul>
+                {sub.features.map((feature, i) => (
+                  <li key={i}>{feature}</li>
+                ))}
+              </ul>
+              <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
             </div>
-            <ul>
-                <li>{t("Dashboard.placesWithoutLimit")}</li>
-                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
-                <li>{t("Dashboard.citiesWithoutLimit")}</li>
-                <li>{t("Dashboard.allFeatures")}</li>
-            </ul>
-            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
-        </div>
-        <div className={styles.card}>
-            <div className={styles.cardHeader}>
-                <span>{t("Dashboard.monthlySubscription")}</span>
-                <span>{`30,000 ${t("Dashboard.rial")}`}</span>
-            </div>
-            <ul>
-                <li>{t("Dashboard.placesWithoutLimit")}</li>
-                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
-                <li>{t("Dashboard.citiesWithoutLimit")}</li>
-                <li>{t("Dashboard.allFeatures")}</li>
-            </ul>
-            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
-        </div>
-        <div className={styles.card}>
-            <div className={styles.cardHeader}>
-                <span>{t("Dashboard.yearlySubscription")}</span>
-                <span>{`100,000 ${t("Dashboard.rial")}`}</span>
-            </div>
-            <ul>
-                <li>{t("Dashboard.placesWithoutLimit")}</li>
-                <li>{t("Dashboard.categoriesWithoutLimit")}</li>
-                <li>{t("Dashboard.citiesWithoutLimit")}</li>
-                <li>{t("Dashboard.allFeatures")}</li>
-            </ul>
-            <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
-        </div>
+          ))
+        ) : (
+            <div className="w-full h-full flex-center flex-col gap-4">
+            <NoDataSvg className="max-w-48 h-48" />
+            <p className="text-center text-gray-500">
+              {t("Dashboard.notFound", { type: locale === "fa" ? "پکیج" : "Package" })}
+            </p>
+          </div>
+        )}
       </div>
     </div>
-  )
+  );
+}
+
+function SkeletonCard() {
+  return (
+    <div className={`${styles.card} animate-pulse`}>
+      <div className={styles.cardHeader}>
+        <div className="w-3/4 h-5 bg-gray-300 rounded"></div>
+        <div className="w-1/4 h-5 bg-gray-300 rounded"></div>
+      </div>
+      <ul className="space-y-2">
+        {[...Array(4)].map((_, i) => (
+          <li key={i} className="w-3/4 h-4 bg-gray-300 rounded"></li>
+        ))}
+      </ul>
+      <div className={`${styles.cardButton} w-full h-10 bg-gray-300 rounded`}></div>
+    </div>
+  );
 }
