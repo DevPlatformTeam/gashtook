@@ -223,6 +223,7 @@ export default function Header() {
         {/* Menu Section */}
         {selectedCity &&
           <nav className={styles.navMenu}>
+            {pathname.split("/").length < 5 && <span className={styles.activeDisplayBottom}></span>}
             <button className={`${city === selectedCity?.id && lastPath === city ? styles.active : ""}`} onClick={() => handleCategoryClick(selectedCity?.id as string)}>{locale === 'fa' ? selectedCity?.value + t("Header.menuListMyCity") : t("Header.menuListMyCity") + selectedCity?.value}</button>
             <button className={`${lastPath === categories[0].value ? styles.active : ""}`} onClick={() => handleCategoryClick(categories[0].value)}>
               {t("Header.sightCategory")}

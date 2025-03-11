@@ -12,6 +12,11 @@ export default async function CollectionPage({ params }: { params: { city: strin
 
   const { data, error } = await FetchData(`cities/${city}/collections/${collection_slug}`);
 
+  console.log(data);
+  console.log(`cities/${city}/collections/${collection_slug}`);
+
+  
+
   if (error || !data?.collection) {
     return <div className="text-center text-red-500 p-4">❌ خطا در دریافت اطلاعات</div>;
   }

@@ -58,34 +58,34 @@
     "categories": [
       {
         "name": "دیدنی",
-        "value": "sight"
+        "value": "attractions"
       },
       {
         "name": "خرید",
-        "value": "buy"
+        "value": "shopping"
       },
       {
         "name": "خوردنی",
-        "value": "eat"
+        "value": "food"
       },
       {
         "name": "اسکان",
-        "value": "hotel"
+        "value": "accommodation"
       },
       {
         "name": "تفریحی",
-        "value": "fun"
+        "value": "recreation"
       },
       {
         "name": "درمانی",
-        "value": "healthcare"
+        "value": "treatment"
       }
     ],
     "subCategories": {
-      "sight": [
+      "attractions": [
         {
           "name": "اماکن مذهبی",
-          "value": "religious"
+          "value": "religious-sites"
         },
         {
           "name": "روستا",
@@ -104,7 +104,7 @@
           "value": "historical"
         }
       ],
-      "buy": [
+      "shopping": [
         {
           "name": "کتاب فروشی",
           "value": "bookstore"
@@ -115,53 +115,57 @@
         },
         {
           "name": "بازار",
-          "value": "market"
+          "value": "bazaar"
         },
         {
           "name": "مرکز تجاری",
-          "value": "commercialCenter"
+          "value": "mall"
         }
       ],
-      "eat": [
+      "food": [
         {
           "name": "کافه",
           "value": "cafe"
         },
         {
           "name": "فست فود",
-          "value": "fastFood"
+          "value": "fast-food"
         },
         {
           "name": "رستوران",
           "value": "restaurant"
+        },
+        {
+          "name": "کافی شاپ",
+          "value": "coffee-shop"
         }
       ],
-      "hotel": [
+      "accommodation": [
         {
           "name": "هتل",
           "value": "hotel"
         },
         {
           "name": "مهمانپذیر",
-          "value": "guestHouse"
+          "value": "motel"
         },
         {
           "name": "هتل آپارتمان",
-          "value": "apartmentHotel"
+          "value": "apartment-hotel"
         }
       ],
-      "fun": [
+      "recreation": [
         {
           "name": "مجموعه ورزشی",
-          "value": "sportsComplex"
+          "value": "sports-club"
         },
         {
           "name": "بازی و سرگرمی",
-          "value": "entertainmentAndGames"
+          "value": "game"
         },
         {
           "name": "تفریحات دریایی",
-          "value": "waterActivities"
+          "value": "marine"
         },
         {
           "name": "سینما",
@@ -173,18 +177,18 @@
         },
         {
           "name": "شهربازی",
-          "value": "amusementPark"
+          "value": "amusement-park"
         },
         {
           "name": "شنا",
-          "value": "swimming"
+          "value": "swim"
         },
         {
           "name": "سالن ورزشی",
-          "value": "sportsHall"
+          "value": "gym"
         }
       ],
-      "healthcare": [
+      "treatment": [
         {
           "name": "بیمارستان",
           "value": "hospital"
@@ -192,6 +196,10 @@
         {
           "name": "درمانگاه",
           "value": "clinic"
+        },
+        {
+          "name": "داروخانه",
+          "value": "pharmacy"
         }
       ]
     },

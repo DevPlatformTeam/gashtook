@@ -28,13 +28,13 @@ export default async function Page({
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
-  const { data: sliderData, error: sliderError } = await FetchData(`cities/${city}/collections`);
+  const { data: sliderData } = await FetchData(`cities/${city}/collections`);
 
   const formattedSlides: [] = sliderData?.map((item: { name: string; image_url: string; slug: string; }) => ({
     title: item.name,
     imageSrc: `${item.image_url}`,
     slug: item.slug,
-  }));
+  }));  
 
   return (
     <div className={styles.city}>
@@ -77,8 +77,7 @@ export default async function Page({
           id="best-museums" 
           slides={formattedSlides} 
           textOnCard={true}
-          city={city} 
-          locale={locale} 
+          city={city}
         />
       </div>}
 
