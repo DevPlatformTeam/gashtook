@@ -1,28 +1,58 @@
-.filterCategoryResultCards {
-    @apply w-full h-[26rem] overflow-y-auto;
+.containerResult {
+    @apply w-full;
+
+  .selectDisplay {
+    @apply relative flex items-center font-semibold text-lg child:w-1/2 child:text-center me-5 border-b-2 border-gray-100;
+
+    & .activeTab {
+      position: absolute;
+      content: "";
+      background-color: var(--primary);
+      border-radius: 1rem 1rem 0 0;
+      width: 50%;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      transition: all 0.3s ease;
+      z-index: 0;
+    }
+
+    & > span:not(:first-child) {
+        @apply h-full cursor-pointer z-10 py-1.5 lg:py-2 rounded-t-2xl;
+        transition: all 0.3s ease;
+    }
+
+    span.activeItemTab {
+        @apply text-white;
+    }
+  }
+
+  .filterCategoryResultCards {
+    @apply w-full h-[26rem] lg:h-[37rem] overflow-y-auto pt-4;
 
     .containerCards {
-        @apply pe-4 pb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4;
+      @apply pe-4 pb-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4;
 
-        .card {
-            @apply !relative flex flex-col gap-2;
-    
-            img {
-                @apply !relative !h-40 lg:!h-60 object-fill;
-            }
-    
-            .textContainer {
-                @apply flex justify-between items-center shrink-0;
-    
-                .title {
-                    @apply text-lg font-bold ms-4;
-                }
-                
-                .likeButton {
-                    @apply text-2xl text-secondary me-2 cursor-pointer;
-                }
-            }
+      .card {
+        @apply bg-slate-50 shadow !relative flex flex-col gap-2 rounded-xl overflow-hidden transition-all hover:bg-primaryfade;
+
+        img {
+          @apply !relative !h-40 lg:!h-60 object-fill cursor-pointer;
         }
-    }
-}
 
+        .textContainer {
+          @apply flex justify-between items-center shrink-0 px-2 pb-3;
+
+          .title {
+            @apply text-lg ms-4 cursor-pointer;
+          }
+
+          .likeButton {
+            @apply text-2xl text-secondary me-2 cursor-pointer;
+          }
+        }
+      }
+    }
+  }
+
+}

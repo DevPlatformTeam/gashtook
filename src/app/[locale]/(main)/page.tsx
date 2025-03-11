@@ -63,7 +63,7 @@ export default async function HomePage() {
 
           <div className="md:w-1/3 w-full flex flex-col justify-center text-center items-center md:mt-0 mt-16">
             <p
-              className={`text-gray-500 lg:text-lg text-sm font-semibold relative top-10 ${locale === "en" ? "left-12" : "left-6"} `}
+              className={`text-gray-500 text-sm xl:text-lg font-semibold relative top-10 md:top-5 xl:top-10 ${locale === "en" ? "left-12" : "left-6"} `}
             >
               {t("seeAndGo")}
             </p>

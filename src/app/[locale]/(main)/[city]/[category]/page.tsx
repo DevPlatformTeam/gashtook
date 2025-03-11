@@ -6,48 +6,34 @@ import { MdOutlineLocationOn } from "react-icons/md";
 
 import SliderCard from "@/components/SliderCard/SliderCard";
 
-import { useTranslations } from "next-intl";
-
 import { notFound } from "next/navigation";
 
-import map from "@/assets/images/map-category/image-1@3x.jpg";
-import Image from "next/image";
-import { LuStar, LuMapPin } from "react-icons/lu";
+import { LuStar } from "react-icons/lu";
 import FilterCategory from "../components/filter-category-tubular/FilterCategoryTubular";
 import FilterCategoryResultCards from "../components/filter-category-result/FilterCategoryResultCards";
 import { FiList } from "react-icons/fi";
 import { FilterSubCategoryProvider } from "./components/filter-category-provider/FilterSubCategoryProvider";
 import { Categories } from "../types/categories";
+import { FetchData } from "@/components/Fetch/FetchData";
+import { getTranslations } from "next-intl/server";
 
-export default function CategoryPage({
+export default async function CategoryPage({
   params,
 }: {
   params: { city: string; category: string };
 }) {
-  const slides = [
-    {
-      title: "موزه ملی ایران",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
-    {
-      title: "موزه هنرهای معاصر",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "کاخ گلستان", imageSrc: "https://picsum.photos/id/222/300/150" },
-    {
-      title: "موزه هنرهای معاصر",
-      imageSrc: "https://picsum.photos/id/222/300/150",
-    },
-    { title: "برج میلاد", imageSrc: "https://picsum.photos/id/222/300/150" },
-    { title: "پل طبیعت", imageSrc: "https://picsum.photos/id/222/300/150" },
-  ];
 
-  const t = useTranslations("category");
+  const t = await getTranslations("category");
 
   const { city, category } = params;
+
+  const { data } = await FetchData(`cities/${city}/collections`);
+
+  const formattedSlides: [] = data?.map((item: { name: string; image_url: string; slug: string; }) => ({
+    title: item.name,
+    imageSrc: `${item.image_url}`,
+    slug: item.slug,
+  }));  
 
   const categoryTitle = decodeURIComponent(category).replace(/-/g, " ");
 
@@ -82,9 +68,10 @@ export default function CategoryPage({
             lgPerView={2}
             xlPerView={2.5}
             id={`collection-${city}-${category}`}
-            slides={slides}
+            slides={formattedSlides}
             textOnCard={true}
             showPagination={true}
+            city={city}
           />
         </div>
         <div className={styles.placesWithMap}>
@@ -97,14 +84,6 @@ export default function CategoryPage({
               <FilterCategory isSubCategories={true} />
               <FilterCategoryResultCards isSubCategories={true} />
             </FilterSubCategoryProvider>
-          </div>
-
-          <div className={styles.map}>
-            <label htmlFor="map">
-              <LuMapPin />
-              {t("titleCategoryList") + " " + categoryFind.name + " " + t("mapTitle")}
-            </label>
-            <Image src={map} alt="map" />
           </div>
         </div>
       </div>

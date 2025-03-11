@@ -58,34 +58,34 @@
     "categories": [
       {
         "name": "sight",
-        "value": "sight"
+        "value": "attractions"
       },
       {
         "name": "buy",
-        "value": "buy"
+        "value": "shopping"
       },
       {
         "name": "eat",
-        "value": "eat"
+        "value": "food"
       },
       {
         "name": "hotel",
-        "value": "hotel"
+        "value": "accommodation"
       },
       {
         "name": "fun",
-        "value": "fun"
+        "value": "recreation"
       },
       {
         "name": "healthcare",
-        "value": "healthcare"
+        "value": "treatment"
       }
     ],
     "subCategories": {
-      "sight": [
+      "attractions": [
         {
           "name": "Religious Sites",
-          "value": "religious"
+          "value": "religious-sites"
         },
         {
           "name": "Rural",
@@ -104,7 +104,7 @@
           "value": "historical"
         }
       ],
-      "buy": [
+      "shopping": [
         {
           "name": "Bookstore",
           "value": "bookstore"
@@ -115,53 +115,57 @@
         },
         {
           "name": "Market",
-          "value": "market"
+          "value": "bazaar"
         },
         {
           "name": "Commercial Center",
-          "value": "commercialCenter"
+          "value": "mall"
         }
       ],
-      "eat": [
+      "food": [
         {
           "name": "Cafe",
           "value": "cafe"
         },
         {
           "name": "Fast Food",
-          "value": "fastFood"
+          "value": "fast-food"
         },
         {
           "name": "Restaurant",
           "value": "restaurant"
+        },
+        {
+          "name": "Coffee Shop",
+          "value": "coffee-shop"
         }
       ],
-      "hotel": [
+      "accommodation": [
         {
           "name": "Hotel",
           "value": "hotel"
         },
         {
           "name": "Guest House",
-          "value": "guestHouse"
+          "value": "motel"
         },
         {
           "name": "Apartment Hotel",
-          "value": "apartmentHotel"
+          "value": "apartment-hotel"
         }
       ],
-      "fun": [
+      "recreation": [
         {
-          "name": "Sports Complex",
-          "value": "sportsComplex"
+          "name": "Sports Club",
+          "value": "sports-club"
         },
         {
           "name": "Entertainment and Games",
-          "value": "entertainmentAndGames"
+          "value": "game"
         },
         {
           "name": "Water Activities",
-          "value": "waterActivities"
+          "value": "marine"
         },
         {
           "name": "Cinema",
@@ -173,18 +177,18 @@
         },
         {
           "name": "Amusement Park",
-          "value": "amusementPark"
+          "value": "amusement-park"
         },
         {
-          "name": "Swimming",
-          "value": "swimming"
+          "name": "Swim",
+          "value": "swim"
         },
         {
           "name": "Sports Hall",
-          "value": "sportsHall"
+          "value": "gym"
         }
       ],
-      "healthcare": [
+      "treatment": [
         {
           "name": "Hospital",
           "value": "hospital"
@@ -192,6 +196,10 @@
         {
           "name": "Clinic",
           "value": "clinic"
+        },
+        {
+          "name": "Pharmacy",
+          "value": "pharmacy"
         }
       ]
     },
@@ -223,12 +231,12 @@
     "searchPlaceholder": "Search for places in ",
     "selectCityPlaceholder": "Select City",
     "menuListMyCity": "My ",
-    "sightCategory": "Sight",
-    "buyCategory": "Buy",
-    "eatCategory": "Eat",
-    "HotelCategory": "Hotel",
-    "funCategory": "Fun",
-    "healthcareCategory": "Healthcare",
+    "sightCategory": "attractions",
+    "buyCategory": "shopping",
+    "eatCategory": "food",
+    "HotelCategory": "accommodation",
+    "funCategory": "recreation",
+    "healthcareCategory": "treatment",
     "menuListAboutCity": "About city"
   },
   "Footer": {
