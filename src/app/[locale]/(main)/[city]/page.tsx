@@ -1,21 +1,24 @@
 import React from "react";
 
+import Link from "next/link";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
 import slidImage from "@/assets/images/slider1.png";
 import SliderCard from "@/components/SliderCard/SliderCard";
 
 import styles from "./city.module.css";
 
+import { FiList } from "react-icons/fi";
 import { LuStar } from "react-icons/lu";
 import { IoIosArrowBack } from "react-icons/io";
-import Link from "next/link";
-import { FiList } from "react-icons/fi";
-import { getTranslations } from "next-intl/server";
+
+
+import { FetchData } from "@/components/Fetch/FetchData";
+import CityDetailsServer from "./components/server/CityDetails.server";
 import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
 import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
-import { FetchData } from "@/components/Fetch/FetchData";
 
 
 export default async function Page({
@@ -48,6 +51,8 @@ export default async function Page({
       <p className={styles.description}>
         {t('cityPage.descriptionCity')}
       </p>
+
+      <CityDetailsServer locale={locale}  city={locale == 'fa' ? cityFa : city} />
 
       {formattedSlides && formattedSlides.length > 0 && <div className={styles.collectionCard}>
         <div className={styles.cardTitles}>

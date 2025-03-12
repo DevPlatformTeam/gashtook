@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Map from "@/assets/images/map-category/image-1@3x.jpg";
 
-const CityDetails = ({ params }: { params?: { [key: string]: string } }) => {
+const CityDetails = () => {
   const [activeTab, setActiveTab] = useState("tehran");
   const [activeTabWidth, setActiveTabWidth] = useState(0);
   const [activeTabLeft, setActiveTabLeft] = useState(0);
