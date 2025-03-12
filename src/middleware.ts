@@ -51,7 +51,7 @@ export async function middleware(request: NextRequest) {
   }
 
   const isPublicRoute =
-    publicRoutes.includes(`/${segments[2] || ""}`) ||
+  publicRoutes.includes(`/${segments[2] || ""}`) ||
     segments.length === 3 || // `/fa/{city}` مسیر شهرها
     (segments.length === 4 && (segments[3] === "collections" || segments[3] === "city-details")) || // `/fa/{city}/collections` و `/fa/{city}/city-details`
     (segments.length === 5 && segments[3] === "collections") || // `/fa/{city}/collections/{slug}`
