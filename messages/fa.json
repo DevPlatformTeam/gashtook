@@ -318,6 +318,7 @@
   "Dashboard": {
     "dashboard": "داشبورد",
     "userName": "کاربر گرامی",
+    "userAccount": "حساب کاربری",
     "welcomeText": "به داشبورد کاربری خوش آمدید",
     "expireSubscription": "مهلت اشتراک ویژه",
     "notifications": "اعلانات",

@@ -1,0 +1,16 @@
+.language {
+  @apply relative;
+
+  .button-language {
+    @apply flex items-center gap-2 p-1 pe-2 hover:bg-gray-200 rounded-full text-gray-800 cursor-pointer transition-all duration-300;
+  }
+
+  .list-languages {
+    @apply absolute left-1/2 -translate-x-1/2 mt-2 w-44 bg-white border rounded-xl shadow-md z-10 overflow-hidden;
+
+    & > .item {
+      @apply flex items-center gap-2 px-4 py-2 text-right w-full cursor-pointer hover:bg-gray-100;
+
+    }
+  }
+}
