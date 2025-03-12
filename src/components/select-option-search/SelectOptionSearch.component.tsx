@@ -83,7 +83,6 @@ const SelectOptionSearchComponent = React.memo(
       setSelectValue(null);
       setIsOpen(false);
     };    
-    console.log(searchTerm);
 
     return (
       <div className={`${styles.container} ${className}`}>

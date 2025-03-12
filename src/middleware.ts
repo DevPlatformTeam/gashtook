@@ -11,38 +11,43 @@ export async function middleware(request: NextRequest) {
   const segments = pathname.split("/");
   const locale = segments[1];
   const token = request.cookies.get("token");
-  const publicRoutes = [
-    "/",
-    "/download",
-    "/contact-us",
-    "/faq",
-    "/about-us",
-    "/rules",
-  ];
+  const publicRoutes = ["/", "/download", "/contact-us", "/faq", "/about-us", "/rules"];
 
-  // ❌ درخواست‌های مربوط به فایل‌های استاتیک، API و next/ را فیلتر کن
+  // تعیین مقدار isAuthenticate بر اساس وجود توکن
+  const isAuthenticated = token ? "true" : "false";
+
+  // تابع کمکی برای ست کردن کوکی روی هر Response
+  const setAuthCookie = (response: NextResponse) => {
+    response.cookies.set("isAuthenticate", isAuthenticated);
+    return response;
+  };
+
+  let response = NextResponse.next();
+  response = setAuthCookie(response);
+
+  // فیلتر کردن درخواست‌های استاتیک، API و فایل‌های _next
   if (
-    pathname.startsWith("/_next/") || // فایل‌های داخلی نکست
-    pathname.startsWith("/api/") || // APIها
-    pathname.startsWith("/static/") || // فایل‌های استاتیک (مثلاً تصاویر)
-    pathname.startsWith("/public/") || // فایل‌های public
-    pathname.startsWith("/favicon.ico") // آیکون سایت
+    pathname.startsWith("/_next/") ||
+    pathname.startsWith("/api/") ||
+    pathname.startsWith("/static/") ||
+    pathname.startsWith("/public/") ||
+    pathname.startsWith("/favicon.ico")
   ) {
-    return NextResponse.next();
+    return response;
   }
 
-  // ✅ مشکل ۱: اگر پارامتر زبان وجود نداشت، ریدایرکت به /fa
+  // اگر پارامتر زبان وجود نداشته باشد، ریدایرکت به /fa
   if (!segments[1]) {
-    return NextResponse.redirect(new URL("/fa", request.url));
+    return setAuthCookie(NextResponse.redirect(new URL("/fa", request.url)));
   }
 
-  // ✅ مشکل ۲: اگر زبان نامعتبر بود، 404 نمایش بده یا ریدایرکت کن
+  // اگر زبان نامعتبر بود، ریدایرکت به /fa
   if (!intlConfig.locales.includes(locale)) {
-    return NextResponse.redirect(new URL("/fa", request.url)); // یا return NextResponse.next() برای 404
+    return setAuthCookie(NextResponse.redirect(new URL("/fa", request.url)));
   }
 
-  if (!token && segments[2] == "dashboard") {
-    return NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url));
+  if (!token && segments[2] === "dashboard") {
+    return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url)));
   }
 
   const isPublicRoute =
@@ -53,7 +58,9 @@ export async function middleware(request: NextRequest) {
     (segments.length === 4 && segments[3] !== "auth"); // `/fa/{city}/{category}` -> مسیر دسته‌بندی‌ها به جز `/auth`
 
   if (isPublicRoute) {
-    return intlMiddleware(intlConfig)(request);
+    const intlResponse = intlMiddleware(intlConfig)(request);
+    intlResponse.cookies.set("isAuthenticate", isAuthenticated);
+    return intlResponse;
   }
 
   // مسیرهای احراز هویت
@@ -61,19 +68,25 @@ export async function middleware(request: NextRequest) {
 
   if (isAuthRoute) {
     if (token) {
-      return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
+      return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url)));
     }
-    return intlMiddleware(intlConfig)(request);
+    const intlResponse = intlMiddleware(intlConfig)(request);
+    intlResponse.cookies.set("isAuthenticate", isAuthenticated);
+    return intlResponse;
   }
 
   // اگر در مسیر احراز هویت نیست و توکن ندارد، به لاگین منتقل شود
   if (!token) {
-    return NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url));
+    return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url)));
+  } else if (token) {
+    return response;
   }
 
-  return intlMiddleware(intlConfig)(request);
+  const intlResponse = intlMiddleware(intlConfig)(request);
+  intlResponse.cookies.set("isAuthenticate", isAuthenticated);
+  return intlResponse;
 }
 
 export const config = {
-  matcher: ["/:path*"], // ✅ این باعث می‌شود همه مسیرها بررسی شوند
+  matcher: ["/:path*"],
 };

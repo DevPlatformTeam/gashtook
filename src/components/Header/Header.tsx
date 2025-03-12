@@ -27,6 +27,7 @@ import MobileSearchModal from "../MobileSearchModal/MobileSearchModal";
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import ButtonDashboardComponent from "../ButtonDashboard/ButtonDashboard.component";
 
 type City = {
   id: string;
@@ -39,6 +40,7 @@ export default function Header() {
   const router = useRouter();
 
   const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const [isToken, setIsToken] = useState<boolean>(false);
 
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
   const locale = pathname.split("/")[1];
@@ -78,20 +80,40 @@ export default function Header() {
     }
   }, [pathname, resize, selectedCity]);
 
+  const getCookieValue = (name: string) => {
+
+    const cookieString = document.cookie;
+    const cookies = cookieString.split("; ");
+    for (const cookie of cookies) {
+      const [key, value] = cookie.split("=");
+      if (key === name) {
+        return decodeURIComponent(value);
+      }
+    }
+    return null;
+  }
+
+
   useEffect(() => {
+    const isAuthenticated = getCookieValue("isAuthenticate");
+
     if (city !== selectedCity?.id) {
       const selectedItem = t.raw("city").find((option: City) => option.id === city);
       setSelectedCity(selectedItem);
     }
 
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (isAuthenticated === "true") {
+      setIsToken(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
     if (selectedCity && selectedCity?.id !== city) {
       router.push(`/${locale}/${selectedCity?.id}`);
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCity]);
 
@@ -203,13 +225,17 @@ export default function Header() {
 
           {/* Actions Section */}
           <div className={styles.actions}>
-            <Button
-              color="primary"
-              outline={true}
-              icon={<LuUserRound className={"w-5 h-5"} />}
-              text={t("Header.myAccountButton")}
-              onClick={() => router.push(`/${locale}/dashboard`)}
-            />
+            {isToken ?
+              <ButtonDashboardComponent />
+              :
+              <Button
+                color="primary"
+                outline={true}
+                icon={<LuUserRound className={"w-5 h-5"} />}
+                text={t("Header.myAccountButton")}
+                onClick={() => router.push(`/${locale}/dashboard`)}
+              />
+            }
             <Button
               color="primary"
               icon={<GoDownload className={"w-5 h-5"} />}
