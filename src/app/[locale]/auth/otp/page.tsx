@@ -176,6 +176,8 @@ export default function OtpPage() {
           timer: 5000,
           timerProgressBar: true,
         });
+
+        methods.setValue("otp", "");
       } else {
         Swal.fire({
           toast: true,
