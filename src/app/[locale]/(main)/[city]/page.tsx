@@ -52,7 +52,7 @@ export default async function Page({
         {t('cityPage.descriptionCity')}
       </p>
 
-      <CityDetailsServer locale={locale}  city={locale == 'fa' ? cityFa : city} />
+      <CityDetailsServer locale={locale} citySlug={city} city={locale == 'fa' ? cityFa : city} />
 
       {formattedSlides && formattedSlides.length > 0 && <div className={styles.collectionCard}>
         <div className={styles.cardTitles}>

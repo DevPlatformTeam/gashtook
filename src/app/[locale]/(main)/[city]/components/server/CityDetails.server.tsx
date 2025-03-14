@@ -1,8 +1,11 @@
 import CityDetailsClient from "../client/CityDetails.client";
 
+import { FetchData } from "@/components/Fetch/FetchData";
+
 interface CityDetailsServerProps {
   city: string;
   locale: string;
+  citySlug: string
 }
 
 const fetchData = async () => {
@@ -55,7 +58,8 @@ const fetchData = async () => {
   };
 };
 
-export default async function CityDetailsServer({ city, locale }: CityDetailsServerProps) {
-  const data = await fetchData();
+export default async function CityDetailsServer({ city, locale, citySlug }: CityDetailsServerProps) {
+  const { data, error } = await FetchData(`cities/${citySlug}/details`);
+  console.log(data, error);
   return <CityDetailsClient city={city} locale={locale} data={data} />;
 }
