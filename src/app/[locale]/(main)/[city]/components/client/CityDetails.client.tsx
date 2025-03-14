@@ -58,14 +58,8 @@ interface CityData {
   content: ContentItem[];
 }
 
-interface ApiResponse {
-  success: boolean;
-  message: string;
-  data: CityData;
-}
-
 interface CityDetailsProps {
-  data: ApiResponse;
+  data: CityData;
   city: string;
   locale: string;
 }
@@ -115,7 +109,7 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
   const renderContent = () => {
     switch (activeTab) {
       case "city":
-        return <p>{data?.data?.content?.[0]?.cnt || "اطلاعاتی موجود نیست."}</p>;
+        return <p className="text-justify leading-7">{data?.content?.[0]?.cnt || "اطلاعاتی موجود نیست."}</p>;
       case "areas":
         return (
           <Image src={Map} alt="map" className="w-[70%] h-[400px] mx-auto" />
@@ -127,7 +121,7 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
               رسیدن به تهران
             </h1>
             <ul className="text-right mb-6">
-              {data?.data?.transport?.arrive?.map((item) => (
+              {data?.transport?.arrive?.map((item) => (
                 <li key={item._id} className="mb-2">
                   <a
                     href="#"
@@ -142,7 +136,7 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
               حمل و نقل شهری تهران
             </h2>
             <ul className="text-right">
-              {data?.data?.transport?.around?.map((item) => (
+              {data?.transport?.around?.map((item) => (
                 <li key={item._id} className="mb-4">
                   <div className="flex items-center">
                     <span
@@ -162,16 +156,16 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
         return (
           <div className="text-center">
             <h1 className="text-xl font-bold mb-4">
-              {data?.data?.budget?.title || "بودجه"}
+              {data?.budget?.title || "بودجه"}
             </h1>
             <p className="mb-6">
-              {data?.data?.budget?.decs || "اطلاعاتی موجود نیست."}
+              {data?.budget?.decs || "اطلاعاتی موجود نیست."}
             </p>
             <h2 className="text-lg font-bold">
-              {data?.data?.budget?.low?.title || "حداقل هزینه"}
+              {data?.budget?.low?.title || "حداقل هزینه"}
             </h2>
             <p className="text-gray-700">
-              {data?.data?.budget?.low?.desc || "اطلاعاتی موجود نیست."}
+              {data?.budget?.low?.desc || "اطلاعاتی موجود نیست."}
             </p>
           </div>
         );
