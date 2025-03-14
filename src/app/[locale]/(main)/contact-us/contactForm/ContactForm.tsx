@@ -17,8 +17,6 @@ export default function ContactForm() {
 
   const [typeMessage, setTypeMessage] = useState<{ id: string; value: string } | null>(null);
   
-  console.log(isLoading);
-  
 
   const onSubmit = async (data: object) => {
 

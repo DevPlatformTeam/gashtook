@@ -32,7 +32,6 @@ export default function PlacesPage({
   params?: { [key: string]: string };
 }) {
   const { city, category, subCategory, places } = params ?? {};
-  console.log(city, category, subCategory, places);
   
   const t = useTranslations("Places");
   const slides = [

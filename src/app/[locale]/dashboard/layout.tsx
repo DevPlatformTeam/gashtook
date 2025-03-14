@@ -45,7 +45,6 @@ export default function DashboardLayout({ children, params }: Props) {
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            // ✅ فقط در کلاینت اجرا شود
             const storedUserInfo = JSON.parse(localStorage.getItem("userInfo") || "{}");
             setUserInfo(storedUserInfo);
         }

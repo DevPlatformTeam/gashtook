@@ -174,7 +174,10 @@ export default function OtpPage() {
           title: t("otp-resend-success"),
           showConfirmButton: false,
           timer: 5000,
+          timerProgressBar: true,
         });
+
+        methods.setValue("otp", "");
       } else {
         Swal.fire({
           toast: true,
@@ -183,6 +186,7 @@ export default function OtpPage() {
           title: result.error,
           showConfirmButton: false,
           timer: 5000,
+          timerProgressBar: true,
         });
       }
     } catch (error) {
@@ -194,6 +198,7 @@ export default function OtpPage() {
         title: t("otp-resend-error"),
         showConfirmButton: false,
         timer: 5000,
+        timerProgressBar: true,
       });
     }
   };

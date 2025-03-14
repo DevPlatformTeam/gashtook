@@ -318,6 +318,7 @@
   "Dashboard": {
     "dashboard": "Dashboard",
     "userName": "Dear User",
+    "userAccount": "User Account",
     "welcomeText": "Welcome to the user dashboard",
     "expireSubscription": "Expire Subscription",
     "notifications": "Notifications",
