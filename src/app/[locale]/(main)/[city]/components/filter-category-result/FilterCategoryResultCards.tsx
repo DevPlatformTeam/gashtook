@@ -13,6 +13,7 @@ import Map from '@/components/Map/Map';
 import Swal from 'sweetalert2';
 import { useLocale, useTranslations } from 'next-intl';
 import { CiBoxList } from 'react-icons/ci';
+import { Location } from '../../types/map';
 
 
 type Props = {
@@ -32,6 +33,8 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     const { city } = useParams()
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    const [locations, setLocations] = useState<Location[]>([]);
 
     const skeletonCards = [1, 2, 3, 4];
 
@@ -136,6 +139,16 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
 
                     const dataCards = response.data.data;
 
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; }) => ({
+                        lat: +item.lat,
+                        lng: +item.long,
+                        imageSrc: `${item.image_url}`,
+                        slug: item.slug,
+                        title: item.name,
+                    }));
+                    
+                    setLocations(locations);
+
                     if (dataCards) {
                         const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
                             title: item.name,
@@ -168,28 +181,23 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
 
     }, [subCategory, category, mainCategory]);
 
-    const locations = [
-        { lat: 35.6892, lng: 51.389 }, // تهران
-        { lat: 36.2605, lng: 59.6168 }, // مشهد
-        { lat: 29.5914, lng: 52.5837 }, // شیراز
-    ];
 
     return (
         <div className={styles.containerResult}>
             <div className={styles.selectDisplay}>
                 <span className={`${styles.activeTab} ${display === true ? "!left-1/2" : "!left-0"}`}></span>
-                <span className={display === true ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(true)}>نقشه</span>
-                <span className={display === false ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(false)}>مکان ها</span>
+                <span className={display === true ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(true)}>{t("Map.mapTitle")}</span>
+                <span className={display === false ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(false)}>{t("Map.mapTitle")}</span>
             </div>
 
             {display === false ?
                 <div className={`${styles.filterCategoryResultCards} scroll`}>
-                        {!isLoading && !cards.length ?
-                            <div className='w-full h-full flex-center flex-col gap-2 text-gray-400 text-2xl lg:text-3xl '>
-                                <CiBoxList size={60} className='text-xl lg:text-3xl ' />
-                                <span>{t("Dashboard.notFound", { type: locale === 'fa' ? "مکانی" : "place" })}</span>
-                            </div>
-                            :
+                    {!isLoading && !cards.length ?
+                        <div className='w-full h-full flex-center flex-col gap-2 text-gray-400 text-2xl lg:text-3xl '>
+                            <CiBoxList size={60} className='text-xl lg:text-3xl ' />
+                            <span>{t("Dashboard.notFound", { type: locale === 'fa' ? "مکانی" : "place" })}</span>
+                        </div>
+                        :
                         <div className={styles.containerCards}>
                             {!isLoading && cards.length ? cards.map((card, index) => (
                                 <div className={styles.card} key={index}>
@@ -213,7 +221,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                                 ))
                             }
                         </div>
-                        }
+                    }
                 </div>
                 :
                 <div className={styles.map}>
