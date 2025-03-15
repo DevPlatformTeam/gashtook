@@ -227,6 +227,7 @@
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
     "myAccountButton": "حساب کاربری من",
+    "loginOrRegister": "ورود یا ثبت نام",
     "mainSearchPlaceholder": "جست و جو در شهر ها",
     "searchPlaceholder": "جستجوی مکان ها در ",
     "selectCityPlaceholder": "انتخاب شهر",

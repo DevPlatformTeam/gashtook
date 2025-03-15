@@ -261,6 +261,7 @@ export default function OtpPage() {
               name="otp"
               id="otp"
               placeHolder="****"
+              autoFocus
               className="child:text-center"
               validation={{ required: "کد تایید الزامی است", pattern: { value: /^\d{5}$/, message: "کد تایید نامعتبر است" } }}
               minLength={5}
