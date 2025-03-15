@@ -8,7 +8,7 @@ import styles from "./ButtonDashboard.module.css";
 import { useLocale, useTranslations } from "next-intl";
 import { IoIosLogOut, IoMdHeartEmpty } from "react-icons/io";
 import { LuUserRound } from "react-icons/lu";
-import Swal from "sweetalert2";
+import LogoutFunction from "@/utils/LogoutFunction";
 
 type Props = {
   className?: string;
@@ -20,7 +20,7 @@ type UserInfoType = {
 }
 
 export default function ButtonDashboardComponent({ className }: Props) {
-  const locale = useLocale();
+  const locale = useLocale() as "fa" | "en";
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname()
@@ -53,62 +53,8 @@ export default function ButtonDashboardComponent({ className }: Props) {
     };
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      const res = await fetch("/api/auth/logout", {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Accept-Language": locale,
-        },
-        credentials: "include",
-      });
-
-      const result = await res.json();
-
-      if (result.success) {
-        Swal.fire({
-          toast: true,
-          position: "top-end",
-          icon: "success",
-          title: result.message,
-          showConfirmButton: false,
-          timer: 5000,
-          timerProgressBar: true,
-        });
-
-        setIsOpen(false);
-        if (pathname.split("/").length === 2) {
-          if (navigator.userAgent.toLowerCase().indexOf('edge') > -1) {
-            window.location.href = `/${process.env.NEXT_PUBLIC_BASE_URL}`;
-          }
-          else if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
-            window.location.reload();
-          }
-          else {
-            location.href = `/${process.env.NEXT_PUBLIC_BASE_URL}`;
-          }
-
-        } else {
-          window.location.assign(window.location.origin);
-        }
-      } else {
-        Swal.fire({
-          toast: true,
-          position: "top-end",
-          icon: "error",
-          title: result.message,
-          showConfirmButton: false,
-          timer: 5000,
-          timerProgressBar: true,
-        });
-        setIsOpen(false);
-      }
-
-    } catch (error) {
-      console.log(error);
-
-    }
+  const handleLogout = () => {
+    LogoutFunction({ locale, pathname, setIsOpen})
   }
 
 
