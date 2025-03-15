@@ -81,6 +81,8 @@ export default function OtpPage() {
           icon: "error",
           title: t("error-otp"),
           showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
         });
         router.push(`/${locale}/auth/login`);
         return;
@@ -106,6 +108,8 @@ export default function OtpPage() {
           icon: "success",
           title: result.message,
           showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
         });
         sessionStorage.removeItem("temp_token");
         localStorage.removeItem("userInfo");
@@ -118,6 +122,8 @@ export default function OtpPage() {
           icon: "error",
           title: result.error,
           showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
         });
       }
     } catch (error) {
@@ -128,6 +134,8 @@ export default function OtpPage() {
         icon: "error",
         title: t("error-otp"),
         showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
       });
     } finally {
       setIsLoading(false);
@@ -145,6 +153,8 @@ export default function OtpPage() {
           icon: "error",
           title: t("error-otp"),
           showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
         });
         router.push(`/${locale}/auth/login`);
         return;
@@ -251,6 +261,7 @@ export default function OtpPage() {
               name="otp"
               id="otp"
               placeHolder="****"
+              autoFocus
               className="child:text-center"
               validation={{ required: "کد تایید الزامی است", pattern: { value: /^\d{5}$/, message: "کد تایید نامعتبر است" } }}
               minLength={5}

@@ -87,7 +87,7 @@
   .actions {
     @apply flex flex-col gap-2 child:w-full border-t border-gray-200 pt-2;
 
-    li a {
+    li a, li div {
       @apply flex items-center gap-2 p-3 rounded-lg hover:bg-primaryfade/10 hover:text-primary active:scale-110 transition-all duration-300;
     }
   }

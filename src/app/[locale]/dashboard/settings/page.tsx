@@ -24,7 +24,6 @@ export default function Page() {
   const t = useTranslations();
   const router = useRouter();
 
-  // تعریف اولیه فرم با defaultValues خالی
   const methods = useForm<userInfoI>({
     defaultValues: {
       name: "",
@@ -44,26 +43,29 @@ export default function Page() {
     const storedUserInfo = JSON.parse(localStorage.getItem("userInfo") ?? "{}");
     if (storedUserInfo && Object.keys(storedUserInfo).length > 0) {
       setUserInfo(storedUserInfo);
-      // به‌روز‌رسانی مقادیر فرم با استفاده از reset
       methods.reset({
         name: storedUserInfo.name || "",
         mobile: storedUserInfo.mobile || "",
         email: storedUserInfo.email || "",
-        image: storedUserInfo.image || "",
+        image: storedUserInfo.image_url || "",
       });
     }
   }, [methods]);
 
-  // نظارت بر تغییرات فیلد image برای ایجاد پیش‌نمایش
+
   const imageFiles = methods.watch("image");
   useEffect(() => {
-    if (imageFiles && imageFiles.length > 0) {
-      const file = imageFiles[0];
-      const objectUrl = URL.createObjectURL(file);
-      setImagePreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
+    if (typeof imageFiles !== "string") {
+      if (imageFiles && imageFiles.length > 0) {
+        const file = imageFiles[0];
+        const objectUrl = URL.createObjectURL(file);
+        setImagePreview(objectUrl);
+        return () => URL.revokeObjectURL(objectUrl);
+      } else {
+        setImagePreview(null);
+      }
     } else {
-      setImagePreview(null);
+      setImagePreview(imageFiles)
     }
   }, [imageFiles]);
 
@@ -130,10 +132,6 @@ export default function Page() {
     const inputFile = document.getElementById("image") as HTMLInputElement;
     inputFile?.click();
   };
-
-  console.log(methods.formState.isDirty)
-  console.log(methods.getValues())
-  console.log(imagePreview)
 
   return (
     <div className="h-full text-start">

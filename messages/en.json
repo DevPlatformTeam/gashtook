@@ -227,6 +227,7 @@
   "Header": {
     "downloadAppButton": "Download app",
     "myAccountButton": "My account",
+    "loginOrRegister": "Login or Register",
     "mainSearchPlaceholder": "Search in cities",
     "searchPlaceholder": "Search for places in ",
     "selectCityPlaceholder": "Select City",
