@@ -1,0 +1,26 @@
+/* حذف پس‌زمینه سفید و پدینگ */
+
+.gm-style-iw-c {
+    background: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    max-width: none !important;
+  }
+  
+  /* حذف محتوای اضافی */
+  .gm-style-iw-d {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* حذف دکمه بستن پیش‌فرض */
+  .gm-ui-hover-effect {
+    display: none !important;
+  }
+  
+  /* حذف حاشیه داخلی */
+  .gm-style-iw-chr {
+    display: none !important;
+  }
+  
