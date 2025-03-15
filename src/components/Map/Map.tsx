@@ -9,7 +9,6 @@ const Map = ({ locations }: { locations:  Location[] }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
-console.log(locations);
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<Location | null>(null);
@@ -47,7 +46,7 @@ console.log(locations);
   if (!isLoaded) return <p>در حال بارگذاری نقشه...</p>;
 
   return (
-    <GoogleMap mapContainerStyle={{ width: "100%", height: "500px" }} center={center} zoom={12}>
+    <GoogleMap mapContainerStyle={{ width: "100%", height: "520px" }} center={center} zoom={12}>
       {locations.map((location, index) => {
         const position = { lat: location.lat, lng: location.lng };
         return (
@@ -76,7 +75,6 @@ console.log(locations);
               src={selectedMarker.imageSrc}
               alt={selectedMarker.title}
               fill
-              sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
               className="!relative !object-cover !w-full !h-full"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>

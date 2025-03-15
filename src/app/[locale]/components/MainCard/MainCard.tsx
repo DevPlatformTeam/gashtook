@@ -41,7 +41,6 @@ const MainCard: React.FC<IMainCardProps> = ({
         src={imageSrc}
         alt={city}
         fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="w-full h-full rounded-lg object-cover"
       />
 

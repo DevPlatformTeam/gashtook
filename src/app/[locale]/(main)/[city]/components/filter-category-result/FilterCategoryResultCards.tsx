@@ -187,7 +187,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
             <div className={styles.selectDisplay}>
                 <span className={`${styles.activeTab} ${display === true ? "!left-1/2" : "!left-0"}`}></span>
                 <span className={display === true ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(true)}>{t("Map.mapTitle")}</span>
-                <span className={display === false ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(false)}>{t("Map.mapTitle")}</span>
+                <span className={display === false ? `${styles.activeItemTab}` : ""} onClick={() => setDisplay(false)}>{t("Map.placesTitle")}</span>
             </div>
 
             {display === false ?
@@ -201,7 +201,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         <div className={styles.containerCards}>
                             {!isLoading && cards.length ? cards.map((card, index) => (
                                 <div className={styles.card} key={index}>
-                                    <Image onClick={() => router.push(`/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw' />
+                                    <Image onClick={() => router.push(`/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill />
                                     <div className={styles.textContainer}>
                                         <div onClick={() => router.push(`/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
                                         <div className={styles.likeButton}>

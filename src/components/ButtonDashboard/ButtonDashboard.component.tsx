@@ -26,7 +26,7 @@ export default function ButtonDashboardComponent({ className }: Props) {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const userInfo: UserInfoType = JSON.parse(localStorage.getItem("userInfo") || '{}') as UserInfoType;
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen((prev) => !prev);
@@ -36,6 +36,13 @@ export default function ButtonDashboardComponent({ className }: Props) {
     setIsOpen(false);
     router.push(`/${locale}/${route}`);
   };
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || '{}') as UserInfoType;
+    if (userInfo) {
+      setUserInfo(userInfo);
+    }
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
