@@ -1,13 +1,12 @@
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Button from "@/components/Button/Button";
 import { FetchData } from "@/components/Fetch/FetchData";
-import { getTranslations, getLocale } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
 import { IoMdHeartEmpty } from "react-icons/io";
-import { FaLink, FaTrain, FaWhatsappSquare, FaTelegram, FaTwitter, FaFacebookSquare } from "react-icons/fa";
+import { FaLink } from "react-icons/fa";
 import { MdOutlineLocationOn, MdPhone } from "react-icons/md";
 import { TbDeviceMobileDown, TbDeviceMobileCode } from "react-icons/tb";
 import { BsBasket3Fill } from "react-icons/bs";
@@ -15,21 +14,19 @@ import { DiAndroid } from "react-icons/di";
 
 import SliderCard from "@/components/SliderCard/SliderCard";
 import styles from "./places.module.css";
-import { Link } from "@/i18n/routing";
 import downloadApp from "@/assets/images/downloadapp.png";
 
 export default async function PlacesPage({ params }: { params?: { [key: string]: string } }) {
   const { places } = params ?? {};
 
   const t = await getTranslations("Places");
-  const locale = await getLocale();
+  const city =  params?.city as string;
 
-  // دریافت داده از API
   const { data } = await FetchData(`places/slug/${places}`);
   const place = data?.place;
   const relatedPlaces = data?.places ?? [];
 
-  const slides = relatedPlaces.map((p: any) => ({
+  const slides = relatedPlaces.map((p: { name: string; image_url: string; slug: string }) => ({
     title: p.name,
     imageSrc: p.image_url,
     link: `/places/${p.slug}`,
@@ -130,7 +127,7 @@ export default async function PlacesPage({ params }: { params?: { [key: string]:
         </div>
 
         <div className="my-8">
-          <SliderCard id="related-places" slides={slides} />
+          <SliderCard id="related-places" slides={slides} city={city} />
         </div>
 
         <div className="bg-slate-100 py-6 rounded-lg">

@@ -378,5 +378,9 @@
     "TopCost": "The budget needed to enjoy welfare in {city}",
     "CollectionsNotFound": "There is no collection for this city.",
     "NoData": "No information available."
+  },
+  "Map": {
+    "map": "map",
+    "mapTitle": "Places"
   }
 }
