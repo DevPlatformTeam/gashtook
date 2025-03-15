@@ -105,7 +105,7 @@ export default function MobileSearchModal() {
                 {searchHistory.length > 0 ? (
                   searchHistory.map((item, index) => <SearchHistoryChips onClick={() => setIsModalOpen(false)} key={index} text={item} />)
                 ) : (
-                  <span className="text-gray-500 text-sm">{t("noHistory")}</span>
+                  <p className="text-gray-500 text-sm text-center w-full block">{t("noHistory")}</p>
                 )}
               </div>
             </div>
