@@ -50,7 +50,7 @@ export default function MobileSearchModal() {
 
   return (
     <>
-      <div className="cursor-pointer" onClick={() => setIsModalOpen(true)}>
+      <div className="cursor-pointer lg:hidden block" onClick={() => setIsModalOpen(true)}>
         <IoSearch size={30} />
       </div>
 

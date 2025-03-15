@@ -25,28 +25,40 @@ import Sidebar from "../sidbar/SidebarComponent";
 import ToggleLanguageComponent from "../toggle-language/ToggleLanguage.component";
 import MobileSearchModal from "../MobileSearchModal/MobileSearchModal";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import ButtonDashboardComponent from "../ButtonDashboard/ButtonDashboard.component";
+import { IoIosLogOut } from "react-icons/io";
+import LogoutFunction from "@/utils/LogoutFunction";
+import { CiLogin } from "react-icons/ci";
 
 type City = {
   id: string;
   value: string;
 }
 
+type UserInfoType = {
+  email: string | null;
+  mobile: string | null;
+}
+
 export default function Header() {
   const t = useTranslations();
+  const locale = useLocale() as "fa" | "en";
   const pathname = usePathname();
   const router = useRouter();
 
-  const [openSidebar, setOpenSidebar] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isToken, setIsToken] = useState<boolean>(false);
 
   const [selectedCity, setSelectedCity] = useState<City | null>(null);
-  const locale = pathname.split("/")[1];
   const city = pathname.split("/")[2];
   const lastPath = pathname.split("/").pop();
   const [resize, setResize] = useState<number>(0);
 
   const categories = t.raw("category.categories") as { value: string }[];
+
+  const userInfo: UserInfoType = JSON.parse(localStorage.getItem("userInfo") || '{}') as UserInfoType;
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,20 +90,40 @@ export default function Header() {
     }
   }, [pathname, resize, selectedCity]);
 
+  const getCookieValue = (name: string) => {
+
+    const cookieString = document.cookie;
+    const cookies = cookieString.split("; ");
+    for (const cookie of cookies) {
+      const [key, value] = cookie.split("=");
+      if (key === name) {
+        return decodeURIComponent(value);
+      }
+    }
+    return null;
+  }
+
+
   useEffect(() => {
+    const isAuthenticated = getCookieValue("isAuthenticate");
+
     if (city !== selectedCity?.id) {
       const selectedItem = t.raw("city").find((option: City) => option.id === city);
       setSelectedCity(selectedItem);
     }
 
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (isAuthenticated === "true") {
+      setIsToken(true);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
     if (selectedCity && selectedCity?.id !== city) {
       router.push(`/${locale}/${selectedCity?.id}`);
     }
-    
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCity]);
 
@@ -105,9 +137,14 @@ export default function Header() {
     }
   };
 
+  const handleLogout = () => {
+    LogoutFunction({ locale, pathname, setIsOpen })
+  }
+  
+
   return (
     <>
-      <Sidebar isOpen={openSidebar} setIsOpen={setOpenSidebar}>
+      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen}>
         <div className={styles.sidebarContainer}>
           <Link className={styles.logo} href={`/${locale}/`}>
             <Image src={logo} alt="Gashhook Logo" className={styles.logoImage} />
@@ -130,47 +167,64 @@ export default function Header() {
           </div>
           <ul className={styles.actions}>
             <li>
-              <Link href={`/${locale}/dashboard`}>
-                <LuUserRound className={"size-7"} />
-                {t("Header.myAccountButton")}
+              <Link href={`/${locale}/dashboard`} className={`${lastPath === "dashboard" ? "text-primary" : ""}`}>
+                {userInfo.mobile || userInfo.mobile ?
+                  (<>
+                    <LuUserRound className={"size-7"} />
+                    {t("Dashboard.userAccount")}
+                  </>)
+                  :
+                  (<>
+                    <CiLogin className={"size-7"} />
+                    {t("Header.loginOrRegister")}
+                  </>)
+                }
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/download`}>
+              <Link href={`/${locale}/download`} className={`${lastPath === "download" ? "text-primary" : ""}`}>
                 <GoDownload className={"size-7"} />
                 {t("Header.downloadAppButton")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/contact-us`}>
+              <Link href={`/${locale}/contact-us`} className={`${lastPath === "contact-us" ? "text-primary" : ""}`}>
                 <IoCallOutline className={"size-7"} />
                 {t("contact-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/about-us`}>
+              <Link href={`/${locale}/about-us`} className={`${lastPath === "about-us" ? "text-primary" : ""}`}>
                 <LuUsersRound className={"size-7"} />
                 {t("about-us.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/faq`}>
+              <Link href={`/${locale}/faq`} className={`${lastPath === "faq" ? "text-primary" : ""}`}>
                 <LuShieldQuestion className={"size-7"} />
                 {t("faq.title")}
               </Link>
             </li>
             <li>
-              <Link href={`/${locale}/rules`}>
+              <Link href={`/${locale}/rules`} className={`${lastPath === "rules" ? "text-primary" : ""}`}>
                 <PiBriefcase className={"size-7"} />
                 {t("rules.title")}
               </Link>
             </li>
+            {(userInfo.mobile || userInfo.email) &&
+              <li>
+                <div onClick={handleLogout}>
+                  <IoIosLogOut className={"size-7"} />
+                  {t("Dashboard.logout")}
+                </div>
+              </li>
+            }
           </ul>
         </div>
       </Sidebar>
       <header className={styles.header}>
         <div className={styles.headerTop}>
-          <div className={styles.menu} onClick={() => setOpenSidebar(!openSidebar)}>
+          <div className={styles.menu} onClick={() => setIsOpen(!isOpen)}>
             <HiOutlineMenu />
           </div>
           {/* Logo Section */}
@@ -203,13 +257,17 @@ export default function Header() {
 
           {/* Actions Section */}
           <div className={styles.actions}>
-            <Button
-              color="primary"
-              outline={true}
-              icon={<LuUserRound className={"w-5 h-5"} />}
-              text={t("Header.myAccountButton")}
-              onClick={() => router.push(`/${locale}/dashboard`)}
-            />
+            {isToken ?
+              <ButtonDashboardComponent />
+              :
+              <Button
+                color="primary"
+                outline={true}
+                icon={<LuUserRound className={"w-5 h-5"} />}
+                text={t("Header.myAccountButton")}
+                onClick={() => router.push(`/${locale}/dashboard`)}
+              />
+            }
             <Button
               color="primary"
               icon={<GoDownload className={"w-5 h-5"} />}

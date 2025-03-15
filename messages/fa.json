@@ -227,6 +227,7 @@
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
     "myAccountButton": "حساب کاربری من",
+    "loginOrRegister": "ورود یا ثبت نام",
     "mainSearchPlaceholder": "جست و جو در شهر ها",
     "searchPlaceholder": "جستجوی مکان ها در ",
     "selectCityPlaceholder": "انتخاب شهر",
@@ -321,6 +322,7 @@
   "Dashboard": {
     "dashboard": "داشبورد",
     "userName": "کاربر گرامی",
+    "userAccount": "حساب کاربری",
     "welcomeText": "به داشبورد کاربری خوش آمدید",
     "expireSubscription": "مهلت اشتراک ویژه",
     "notifications": "اعلانات",
@@ -362,6 +364,20 @@
     "daysAgo": "{count} روز پیش",
     "monthsAgo": "{count} ماه پیش",
     "yearsAgo": "{count} سال پیش"
+  },
+  "CityDetail": {
+    "About": "درباره",
+    "Collections": "مجموعه ها",
+    "Transportation": "حمل و نقل",
+    "Budget": "بودجه و هزینه",
+    "Arrive-To": "رسیدن به " ,
+    "Urban": "حمل و نقل شهری {city}",
+    "Currency": "درباره پول رایج",
+    "LowCost": "حداقل هزینه لازم برای زندگی در {city}",
+    "MidCost": "متوسط هزینه لازم برای زندگی در {city}",
+    "TopCost": "بودجه لازم برای برخورداری از رفاه در  {city}",
+    "CollectionsNotFound": "مجموعه ای برای این شهر وجود ندارد.",
+    "NoData": "اطلاعاتی موجود نیست."
   }
 
 }

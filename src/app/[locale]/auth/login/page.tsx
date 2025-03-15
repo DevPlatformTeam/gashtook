@@ -123,6 +123,7 @@ export default function LoginPage() {
               label={locale === 'fa' ? t("Auth.mobile") : t("Auth.email")}
               name='email_mobile'
               id={locale === 'fa' ? "mobile" : "email"}
+              autoFocus
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?
                 { required: t("FormValidationMessages.requiredError", {value: "شماره تلفن"}), pattern: { value: /^\d{11}$/, message: t("FormValidationMessages.invalidError", {value: "شماره تلفن"}) } }

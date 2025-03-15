@@ -41,9 +41,6 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     const { mainCategory } = useContext(CategoryContext);
     const { category, subCategory } = useContext(SubCategoryContext);
 
-    console.log("mainCategory:", mainCategory);
-
-
     useEffect(() => {
         const fetchAllSubCategoryPlaces = async () => {
             try {
