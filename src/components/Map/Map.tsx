@@ -10,7 +10,6 @@ const Map = ({ locations }: { locations:  Location[] }) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
-console.log(locations);
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<Location | null>(null);
@@ -61,7 +60,7 @@ console.log(locations);
   if (!isLoaded) return <p>در حال بارگذاری نقشه...</p>;
 
   return (
-    <GoogleMap mapContainerStyle={{ width: "100%", height: "500px" }} center={center} zoom={12}>
+    <GoogleMap mapContainerStyle={{ width: "100%", height: "520px" }} center={center} zoom={12}>
       {locations.map((location, index) => {
         const position = { lat: location.lat, lng: location.lng };
         return (

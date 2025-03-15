@@ -58,7 +58,14 @@ export default function Header() {
 
   const categories = t.raw("category.categories") as { value: string }[];
 
-  const userInfo: UserInfoType = JSON.parse(localStorage.getItem("userInfo") || '{}') as UserInfoType;
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null);
+
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo") || '{}') as UserInfoType;
+    if (userInfo) {
+      setUserInfo(userInfo);
+    }
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -168,7 +175,7 @@ export default function Header() {
           <ul className={styles.actions}>
             <li>
               <Link href={`/${locale}/dashboard`} className={`${lastPath === "dashboard" ? "text-primary" : ""}`}>
-                {userInfo.mobile || userInfo.mobile ?
+                {userInfo && (userInfo.mobile || userInfo.email) ?
                   (<>
                     <LuUserRound className={"size-7"} />
                     {t("Dashboard.userAccount")}
@@ -211,7 +218,7 @@ export default function Header() {
                 {t("rules.title")}
               </Link>
             </li>
-            {(userInfo.mobile || userInfo.email) &&
+            {userInfo && (userInfo.mobile || userInfo.email) &&
               <li>
                 <div onClick={handleLogout}>
                   <IoIosLogOut className={"size-7"} />
