@@ -354,13 +354,26 @@
   "Collections": {
     "place": "show place"
   },
-   "TimeAgo": {
-     "justNow": "Just now",
-     "minutesAgo": "{count} minute{count, plural, one {} other {s}} ago",
-     "hoursAgo": "{count} hour{count, plural, one {} other {s}} ago",
-     "daysAgo": "{count} day{count, plural, one {} other {s}} ago",
-     "monthsAgo": "{count} month{count, plural, one {} other {s}} ago",
-     "yearsAgo": "{count} year{count, plural, one {} other {s}} ago"
-    }
-  
+  "TimeAgo": {
+    "justNow": "Just now",
+    "minutesAgo": "{count} minute{count, plural, one {} other {s}} ago",
+    "hoursAgo": "{count} hour{count, plural, one {} other {s}} ago",
+    "daysAgo": "{count} day{count, plural, one {} other {s}} ago",
+    "monthsAgo": "{count} month{count, plural, one {} other {s}} ago",
+    "yearsAgo": "{count} year{count, plural, one {} other {s}} ago"
+  },
+  "CityDetail": {
+    "About": "about",
+    "Collections": "collections",
+    "Transportation": "transportation",
+    "Budget": "budget",
+    "Arrive-To": "Arrive To ",
+    "Urban": "{city} urban transportation",
+    "Currency": "About currency",
+    "LowCost": "Minimum cost of living in {city}",
+    "MidCost": "Average cost of living in {city}",
+    "TopCost": "The budget needed to enjoy welfare in {city}",
+    "CollectionsNotFound": "There is no collection for this city.",
+    "NoData": "No information available."
+  }
 }
