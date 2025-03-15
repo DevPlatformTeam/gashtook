@@ -15,6 +15,7 @@ import { PiBriefcaseLight } from 'react-icons/pi';
 
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 type Props = {
     children: React.ReactNode;
@@ -25,9 +26,10 @@ type Props = {
 
 interface userInfoI {
     mobile?: string;
-    email?: string|null;
-    name?: string|null;
-    image?: string|null;
+    email?: string | null;
+    name?: string | null;
+    image?: string | null;
+    image_url?: string | null;
 }
 
 export default function DashboardLayout({ children, params }: Props) {
@@ -65,8 +67,12 @@ export default function DashboardLayout({ children, params }: Props) {
                     {/* اطلاعات کاربر */}
                     <div className="flex flex-col p-4 border-b border-gray-100">
                         <div className="flex items-center gap-2 text-start">
-                            <span className='size-14 rounded-full bg-primaryfade/10 text-primary p-2'>
-                                <IoIosPerson className='size-full' />
+                            <span className={`size-14 rounded-full bg-primaryfade/10 text-primary ${userInfo.image_url ? "p-0" : "p-2"}`}>
+                                {userInfo.image_url ?
+                                    <Image className="rounded-full size-full object-cover" width={50} height={50} src={userInfo.image_url} alt="Profile Preview" unoptimized />
+                                    :
+                                    <IoIosPerson className='size-full' />
+                                }
                             </span>
                             <div>
                                 <p className="font-bold">{userInfo?.name ? userInfo.name : t("userName")}</p>
