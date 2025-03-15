@@ -1,20 +1,13 @@
 import React from "react";
 
-import Link from "next/link";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import slidImage from "@/assets/images/slider1.png";
-import SliderCard from "@/components/SliderCard/SliderCard";
 
 import styles from "./city.module.css";
 
 import { FiList } from "react-icons/fi";
-import { LuStar } from "react-icons/lu";
-import { IoIosArrowBack } from "react-icons/io";
-
-
-import { FetchData } from "@/components/Fetch/FetchData";
 import CityDetailsServer from "./components/server/CityDetails.server";
 import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
@@ -31,14 +24,6 @@ export default async function Page({
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
-  const { data: sliderData } = await FetchData(`cities/${city}/collections`);
-
-  const formattedSlides: [] = sliderData?.map((item: { name: string; image_url: string; slug: string; }) => ({
-    title: item.name,
-    imageSrc: `${item.image_url}`,
-    slug: item.slug,
-  }));  
-
   return (
     <div className={styles.city}>
       <Image
@@ -53,38 +38,6 @@ export default async function Page({
       </p>
 
       <CityDetailsServer locale={locale} citySlug={city} city={locale == 'fa' ? cityFa : city} />
-
-      {formattedSlides && formattedSlides.length > 0 && <div className={styles.collectionCard}>
-        <div className={styles.cardTitles}>
-          <span>
-            <LuStar />
-            {locale === 'fa' ? `${t('cityPage.collectionCardTitle')} ${cityFa}` : `${t('cityPage.collectionCardTitle')} ${city}`}
-          </span>
-          <Link className={styles.moreButton} href={`/${locale}/${city}/collection-list`}>
-            {locale === 'fa' ?
-              <>
-                {t('cityPage.moreButton')}
-                <IoIosArrowBack className="!size-6" />
-              </>
-              :
-              <>
-                {t('cityPage.moreButton')}
-                <IoIosArrowBack className="!size-6 !rotate-180" />
-              </>
-            }
-          </Link>
-        </div>
-        <SliderCard 
-          showPagination={true} 
-          mdPerView={2} 
-          xlPerView={3} 
-          slidesPerView={1.3} 
-          id="best-museums" 
-          slides={formattedSlides} 
-          textOnCard={true}
-          city={city}
-        />
-      </div>}
 
       <div className={styles.placesCard}>
         <div className={styles.cardTitles}>

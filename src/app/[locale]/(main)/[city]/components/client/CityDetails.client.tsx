@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import Image from "next/image";
-import { useLocale } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
-import Map from "@/assets/images/map-category/image-1@3x.jpg";
+import NoDataSvg from "@/icons/NoDataSvg";
+import SliderCard from "@/components/SliderCard/SliderCard";
 
 interface CitySeo {
   title: string;
@@ -20,7 +20,10 @@ interface BudgetDetail {
 interface Budget {
   title: string;
   decs: string;
-  low: BudgetDetail;
+  money: string;
+  low?: BudgetDetail | null;
+  mid?: BudgetDetail | null;
+  top?: BudgetDetail | null;
 }
 
 interface TransportArrival {
@@ -56,6 +59,13 @@ interface CityData {
   budget: Budget;
   transport: Transport;
   content: ContentItem[];
+  city_collections: Collections[];
+}
+
+interface Collections {
+  imageSrc: string;
+  title: string;
+  slug: string;
 }
 
 interface CityDetailsProps {
@@ -64,7 +74,10 @@ interface CityDetailsProps {
   locale: string;
 }
 
-export default function CityDetailsClient({ data, city, locale }: CityDetailsProps) {
+export default function CityDetailsClient({ data, city }: CityDetailsProps) {
+  const t = useTranslations();
+  const locale = useLocale();
+
   const [resize, setResize] = useState<number>(0);
   const [activeTab, setActiveTab] = useState("city");
   const [activeTabLeft, setActiveTabLeft] = useState(0);
@@ -98,29 +111,52 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
 
   const tabs = useMemo(
     () => [
-      { key: "city", label: "درباره تهران" },
-      { key: "areas", label: "مناطق شهری" },
-      { key: "transport", label: "حمل و نقل" },
-      { key: "budget", label: "بودجه" },
+      { key: "city", label: `${t("CityDetail.About")} ${city}` },
+      { key: "collection", label: `${t("CityDetail.Collections")}` },
+      { key: "transport", label: `${t("CityDetail.Transportation")}` },
+      { key: "budget", label: `${t("CityDetail.Budget")}` },
     ],
-    [],
+    [city, t],
   );
 
   const renderContent = () => {
     switch (activeTab) {
       case "city":
-        return <p className="text-justify leading-7">{data?.content?.[0]?.cnt || "اطلاعاتی موجود نیست."}</p>;
-      case "areas":
         return (
-          <Image src={Map} alt="map" className="w-[70%] h-[400px] mx-auto" />
+          <p className="text-justify leading-7">
+            {data?.content?.[0]?.cnt || t('CityDetail.NoData') }{" "}
+            {/* TODO city show dynamic */}
+          </p>
+        );
+      case "collection":
+        return data?.city_collections && data?.city_collections.length > 0 ? (
+          <div className="h-full min-h-72 md:min-h-80 xl:min-h-96 rounded-2xl p-0 m-0">
+            <SliderCard
+              showPagination={true}
+              mdPerView={2}
+              xlPerView={3}
+              slidesPerView={1.3}
+              id="best-museums"
+              slides={data?.city_collections}
+              textOnCard={true}
+              city={city}
+            />
+          </div>
+        ) : (
+          <div className="w-full h-full flex-center flex-col gap-4">
+            <NoDataSvg className="max-w-36 h-36" />
+            <p className="text-center text-gray-500">
+              {t("CityDetail.CollectionsNotFound")}
+            </p>
+          </div>
         );
       case "transport":
         return (
           <div>
             <h1 className="text-center text-xl font-bold mb-4">
-              رسیدن به تهران
+              {t("CityDetail.Arrive-To")} {city}
             </h1>
-            <ul className="text-right mb-6">
+            <ul className={`${locale == 'fa' ? "text-right" : 'text-left'} mb-6`}>
               {data?.transport?.arrive?.map((item) => (
                 <li key={item._id} className="mb-2">
                   <a
@@ -130,43 +166,90 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
                     {item.name}
                   </a>
                 </li>
-              )) || <p>اطلاعاتی موجود نیست.</p>}
+              )) || <p> { t('CityDetail.NoData') } </p>}
             </ul>
             <h2 className="text-center text-lg font-bold mb-3">
-              حمل و نقل شهری تهران
+              {t("CityDetail.Urban", { city: `${city}` })}
             </h2>
-            <ul className="text-right">
+            <ul className={`${locale == 'fa' ? 'text-right' : 'text-left'}`}>
               {data?.transport?.around?.map((item) => (
                 <li key={item._id} className="mb-4">
                   <div className="flex items-center">
-                    <span
-                      className={`text-2xl text-primary ml-2 ${item.icon}`}
-                    ></span>
+                    <span className={`text-2xl text-primary`}></span>
                     <span className="font-semibold">{item.name}</span>
                   </div>
                   <p className="text-gray-500 text-sm mt-1">
                     {item.description}
                   </p>
                 </li>
-              )) || <p>اطلاعاتی موجود نیست.</p>}
+              )) || <p> { t('CityDetail.NoData') } </p>}
             </ul>
           </div>
         );
       case "budget":
         return (
           <div className="text-center">
-            <h1 className="text-xl font-bold mb-4">
-              {data?.budget?.title || "بودجه"}
-            </h1>
-            <p className="mb-6">
-              {data?.budget?.decs || "اطلاعاتی موجود نیست."}
-            </p>
-            <h2 className="text-lg font-bold">
-              {data?.budget?.low?.title || "حداقل هزینه"}
-            </h2>
-            <p className="text-gray-700">
-              {data?.budget?.low?.desc || "اطلاعاتی موجود نیست."}
-            </p>
+            {
+              data?.budget?.title && data?.budget?.decs ? <div>
+              <div>
+                <span className="text-xl font-bold border-b-2 border-b-primary">
+                  {data?.budget?.title}
+                </span>
+                <p className="my-4">
+                  {data?.budget?.decs || t('CityDetail.NoData') }
+                </p>
+              </div>
+
+              <div className="my-2">
+                <span className="text-xl font-bold border-b-2 border-b-primary">
+                  {t("CityDetail.Currency")}
+                </span>
+                <p
+                  className="my-4"
+                  dangerouslySetInnerHTML={{ __html: data?.budget?.money }}
+                />
+              </div>
+
+              {data?.budget?.low ? (
+                <div className="my-2">
+                  <span className="text-xl font-bold border-b-2 border-b-primary">
+                    {data?.budget?.low?.title || t("CityDetail.Currency")}
+                  </span>
+                  <p className="my-4">
+                    {data?.budget?.low?.desc || t('CityDetail.NoData') }
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
+
+              {data?.budget?.mid ? (
+                <div className="my-2">
+                  <span className="text-xl font-bold border-b-2 border-b-primary">
+                    {data?.budget?.mid?.title || t("CityDetail.Currency")}
+                  </span>
+                  <p className="my-4">
+                    {data?.budget?.mid?.desc || t('CityDetail.NoData') }
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
+
+              {data?.budget?.top ? (
+                <div className="my-2">
+                  <span className="text-xl font-bold border-b-2 border-b-primary">
+                    {data?.budget?.top?.title || t("CityDetail.Currency")}
+                  </span>
+                  <p className="my-4">
+                    {data?.budget?.top?.desc || t('CityDetail.NoData') }
+                  </p>
+                </div>
+              ) : (
+                ""
+              )}
+            </div> : <p>{ t('CityDetail.NoData') }</p>
+            }
           </div>
         );
       default:
@@ -175,14 +258,14 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
   };
 
   return (
-    <div className="w-full min-h-96 max-w-3xl mx-auto mt-16 container mb-10 transition-all">
+    <div className="min-h-96 mx-auto mt-16 container mb-10 transition-all">
       <div className="relative w-full border-b border-gray-300 pb-3">
         <div className="flex justify-evenly flex-wrap mx-auto h-fit">
           {tabs.map(({ key, label }) => (
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`grow text-[14px] lg:text-lg font-medium relative transition-all w-fit ${
+              className={`grow text-xs lg:text-lg font-medium relative transition-all w-fit ${
                 activeTab === key ? "text-primary active-tab" : "text-secondary"
               }`}
             >
@@ -198,7 +281,7 @@ export default function CityDetailsClient({ data, city, locale }: CityDetailsPro
         </div>
       </div>
 
-      <div className="mt-10 text-secondary text-right text-sm">
+      <div className={`mt-10 text-secondary ${locale == 'fa' ? 'text-right' : 'text-left'} text-sm`}>
         {renderContent()}
       </div>
     </div>
