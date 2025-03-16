@@ -354,6 +354,12 @@
     "requiredError": "{value} الزامی است",
     "invalidError": "{value} نامعتبر است"
   },
+  "ToastMessages": {
+    "titleSuccess": "عملیات موفق",
+    "success": "عملیات با موفقیت انجام شد",
+    "titleError": "خطا",
+    "error": "عملیات با خطا مواجه شد"
+  },
   "Collections": {
     "place": "مشاهده اطلاعات مکان"
   },
@@ -382,5 +388,10 @@
   "Map": {
     "mapTitle": "نقشه",
     "placesTitle": "مکان ها"
+  },
+  "Favorites": {
+    "errorMessageAuth": "ابتدا باید وارد حساب کاربری خود شوید",
+    "successAddMessage": "این مکان با موفقیت به لیست علاقه مندی ها اضافه شد",
+    "successRemoveMessage": "این مکان با موفقیت از لیست علاقه مندی ها حذف شد"
   }
 }

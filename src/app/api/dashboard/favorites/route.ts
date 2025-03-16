@@ -48,3 +48,35 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: lang === 'fa' ? 'خطای داخلی بروز کرده است.' : "Something went wrong" }, { status: 500 });
   }
 }
+export async function POST(req: Request) {
+  const cookeStore = cookies();
+  const lang = req.headers.get("accept-language") || "fa";
+  const token = cookeStore.get("token")?.value;
+
+  try {
+    const requestBody = await req.json();
+
+    const response = await fetch(`${process.env.BASE_URL_API}/favorites`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Accept-Language": lang,
+        "Authorization": `Bearer ${token}`
+      },
+      credentials: "include",
+      body: JSON.stringify(requestBody)
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      return NextResponse.json(result, { status: response.status });
+    }
+
+    return NextResponse.json(result, { status: 200 });
+  } catch (error) {
+    logger.error("Login error:", error);
+    return NextResponse.json({ error: lang === 'fa' ? 'خطای داخلی بروز کرده است.' : "Something went wrong" }, { status: 500 });
+  }
+}

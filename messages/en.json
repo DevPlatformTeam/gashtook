@@ -354,6 +354,11 @@
     "requiredError": "{value} is required",
     "invalidError": "{value} is invalid"
   },
+  "ToastMessages": {
+    "success": "Operation successful",
+    "titleError": "Error",
+    "error": "Operation failed"
+  },
   "Collections": {
     "place": "show place"
   },
@@ -382,5 +387,8 @@
   "Map": {
     "map": "map",
     "mapTitle": "Places"
+  },
+  "Favorites": {
+    "errorMessageAuth": "You must first log in to your account"
   }
 }

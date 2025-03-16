@@ -1,9 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { IoHeart } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
+
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
+
 import Image from "next/image";
+
+import styles from "./card.module.css";
 
 interface ICardProps {
   src: string;
@@ -11,6 +14,8 @@ interface ICardProps {
   alt: string;
   liked?: boolean;
   showLikedBtn?: boolean;
+  city: string;
+  handleLike?: (slug: string, city: string) => void;
 }
 
 export default function Card({
@@ -19,34 +24,35 @@ export default function Card({
   alt,
   liked = false,
   showLikedBtn = true,
+  handleLike,
+  city,
 }: ICardProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="min-h-40 relative flex flex-col gap-2">
-      <div className="relative">
+    <div className={styles.card}>
         {isLoading && (
-          <div className="absolute inset-0 bg-gray-300 animate-pulse rounded-lg"></div>
+          <div className={styles.loadingOverlay}></div>
         )}
         <Image
-          className={`rounded-lg !relative drop-shadow-xl shadow-lg !w-96 !h-auto object-cover transition-opacity duration-300 ${
-            isLoading ? "opacity-0" : "opacity-100"
-          }`}
+          className={`${styles.image} ${isLoading ? "opacity-0" : "opacity-100"}`}
           src={src}
           alt={alt}
           fill
           onLoad={() => setIsLoading(false)}
         />
-      </div>
-      {showLikedBtn && (
-        <button
-          className="bg-primary shadow-lg flex justify-center items-center text-white rounded-full w-9 h-9 absolute end-3 bottom-11"
+      <div className={styles.textContainer}>
+        <p className={styles.title}>{label}</p>
+        {showLikedBtn && (
+          <button
+            className={styles.likeButton}
+            onClick={() => handleLike?.(alt, city)}
           type="button"
         >
-          {liked ? <IoHeart size={22} /> : <IoMdHeartEmpty size={22} />}
-        </button>
-      )}
-      <p className="ps-1 font-semibold text-lg text-start">{label}</p>
+          {liked ? <IoMdHeart className='text-primary' size={28} /> : <IoMdHeartEmpty className='text-gray-400 hover:text-primary transition-colors' size={28} />}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
