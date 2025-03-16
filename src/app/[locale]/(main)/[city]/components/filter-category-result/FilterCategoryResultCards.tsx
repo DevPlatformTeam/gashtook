@@ -89,6 +89,17 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     }));
 
                     setCards(formattedSlides);
+
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                        lat: +item.lat,
+                        lng: +item.long,
+                        imageSrc: `${item.image_url}`,
+                        slug: item.slug,
+                        title: item.name,
+                        category: item.category_slug,
+                    }));
+
+                    setLocations(locations);
                 }
             } catch (error) {
                 Swal.fire({
@@ -128,6 +139,17 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                             slug: item.slug,
                         }));
                         setCards(formattedSlides);
+
+                        const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                            lat: +item.lat,
+                            lng: +item.long,
+                            imageSrc: `${item.image_url}`,
+                            slug: item.slug,
+                            title: item.name,
+                            category: item.category_slug,
+                        }));
+    
+                        setLocations(locations);
                     }
                 } catch (error) {
                     Swal.fire({
@@ -164,12 +186,13 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
 
                     const dataCards = response.data.data;
 
-                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; }) => ({
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
                         lat: +item.lat,
                         lng: +item.long,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
                         title: item.name,
+                        category: item.category_slug,
                     }));
 
                     setLocations(locations);
@@ -280,9 +303,9 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         <div className={styles.containerCards}>
                             {!isLoading && cards.length ? cards.map((card, index) => (
                                 <div className={styles.card} key={index}>
-                                    <Image onClick={() => router.push(`/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill />
+                                    <Image onClick={() => router.push(`/${locale}/${city}/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill />
                                     <div className={styles.textContainer}>
-                                        <div onClick={() => router.push(`/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
+                                        <div onClick={() => router.push(`/${locale}/${city}/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
                                         <div className={styles.likeButton} onClick={() => handleLike(card.slug)}>
                                             {card.favorites_count !== "0" ? <span className='text-gray-500 text-sm'>{card.favorites_count}</span> : null}
                                             {likedPlaces.find((place) => place.id === card.slug)?.isLiked ? <IoMdHeart className='text-primary' size={28} /> : <IoMdHeartEmpty className='text-gray-400 hover:text-primary transition-colors' size={28} />}

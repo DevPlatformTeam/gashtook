@@ -4,4 +4,5 @@ export type Location = {
     imageSrc: string;
     slug: string;
     title: string;
+    category: string;
 }
