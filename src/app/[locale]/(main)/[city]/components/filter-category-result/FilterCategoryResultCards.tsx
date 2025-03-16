@@ -5,7 +5,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import styles from './filterCategoryResultCards.module.css';
 
 import Image from 'next/image';
-import { LuHeart } from 'react-icons/lu';
 import { CategoryContext } from '@/app/[locale]/(main)/[city]/components/filter-category-provider/FilterCategoryProvider';
 import { SubCategoryContext } from '../../[category]/components/filter-category-provider/FilterSubCategoryProvider';
 import { useParams, useRouter } from 'next/navigation';
@@ -14,6 +13,7 @@ import Swal from 'sweetalert2';
 import { useLocale, useTranslations } from 'next-intl';
 import { CiBoxList } from 'react-icons/ci';
 import { Location } from '../../types/map';
+import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
 
 
 type Props = {
@@ -24,6 +24,8 @@ interface Card {
     title: string;
     imageSrc: string;
     slug: string;
+    is_liked: boolean;
+    favorites_count: string;
 }
 
 export default function FilterCategoryResultCards({ isSubCategories = false }: Props) {
@@ -44,7 +46,27 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     const { mainCategory } = useContext(CategoryContext);
     const { category, subCategory } = useContext(SubCategoryContext);
 
+    const [likedPlaces, setLikedPlaces] = useState<{id: string; isLiked: boolean} []>([]);
+
+    const [token, setToken] = useState<string | null>(null);
+
     useEffect(() => {
+        const fetchToken = async () => {
+            const response = await fetch("/api/auth/token", {
+                credentials: 'include',
+            });
+            const data = await response.json();
+            if (data.token) {
+                setToken(data.token.value);
+            }
+        };
+        fetchToken();
+    }, []);
+    
+
+    useEffect(() => {
+        if (!token) return;
+
         const fetchAllSubCategoryPlaces = async () => {
             try {
                 setIsLoading(true);
@@ -52,7 +74,8 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${isSubCategories ? category : mainCategory}`, {
                     credentials: 'include',
                     headers: {
-                        'Accept': 'application/json'
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 }).then(res => res.json());
 
@@ -66,6 +89,17 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     }));
 
                     setCards(formattedSlides);
+
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                        lat: +item.lat,
+                        lng: +item.long,
+                        imageSrc: `${item.image_url}`,
+                        slug: item.slug,
+                        title: item.name,
+                        category: item.category_slug,
+                    }));
+
+                    setLocations(locations);
                 }
             } catch (error) {
                 Swal.fire({
@@ -91,7 +125,8 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${category}/${subCategory}`, {
                         credentials: 'include',
                         headers: {
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
                         }
                     }).then(res => res.json());
 
@@ -104,6 +139,17 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                             slug: item.slug,
                         }));
                         setCards(formattedSlides);
+
+                        const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                            lat: +item.lat,
+                            lng: +item.long,
+                            imageSrc: `${item.image_url}`,
+                            slug: item.slug,
+                            title: item.name,
+                            category: item.category_slug,
+                        }));
+    
+                        setLocations(locations);
                     }
                 } catch (error) {
                     Swal.fire({
@@ -133,20 +179,22 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}`, {
                         credentials: 'include',
                         headers: {
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'Authorization': `Bearer ${token}`
                         }
                     }).then(res => res.json());
 
                     const dataCards = response.data.data;
 
-                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; }) => ({
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
                         lat: +item.lat,
                         lng: +item.long,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
                         title: item.name,
+                        category: item.category_slug,
                     }));
-                    
+
                     setLocations(locations);
 
                     if (dataCards) {
@@ -179,8 +227,62 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
             }
         }
 
-    }, [subCategory, category, mainCategory]);
+    }, [subCategory, category, mainCategory, token]);
 
+    useEffect(() => {
+        setLikedPlaces(cards.map((card) => ({ id: card.slug, isLiked: false })));
+    }, [cards]);
+
+    const handleLike = async (slug: string) => {
+        try {
+            const response = await fetch("/api/dashboard/favorites", {
+                method: "POST",
+                credentials: "include",
+                headers: { Accept: "application/json" },
+                body: JSON.stringify({
+                    "city": city,
+                    "place": slug
+                })
+            }).then(res => res.json());
+
+            if (response.success) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    title: t("ToastMessages.titleSuccess"),
+                    text: response.data.favorite === "remove" ? t("Favorites.successRemoveMessage") : t("Favorites.successAddMessage"),
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                });
+
+                setLikedPlaces(likedPlaces.map((place) => place.id === slug ? { ...place, isLiked: !place.isLiked } : place));
+            } else if (!response.ok && response.code === 401) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "error",
+                    title: t("ToastMessages.titleError"),
+                    text: t("Favorites.errorMessageAuth"),
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "error",
+                text: t("Favorites.errorMessage"),
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            });
+            console.log(error);
+        }
+    };
 
     return (
         <div className={styles.containerResult}>
@@ -201,11 +303,12 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         <div className={styles.containerCards}>
                             {!isLoading && cards.length ? cards.map((card, index) => (
                                 <div className={styles.card} key={index}>
-                                    <Image onClick={() => router.push(`/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill />
+                                    <Image onClick={() => router.push(`/${locale}/${city}/${mainCategory}/${card.slug}`)} src={card.imageSrc} alt={card.title} fill />
                                     <div className={styles.textContainer}>
-                                        <div onClick={() => router.push(`/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
-                                        <div className={styles.likeButton}>
-                                            <LuHeart />
+                                        <div onClick={() => router.push(`/${locale}/${city}/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
+                                        <div className={styles.likeButton} onClick={() => handleLike(card.slug)}>
+                                            {card.favorites_count !== "0" ? <span className='text-gray-500 text-sm'>{card.favorites_count}</span> : null}
+                                            {likedPlaces.find((place) => place.id === card.slug)?.isLiked ? <IoMdHeart className='text-primary' size={28} /> : <IoMdHeartEmpty className='text-gray-400 hover:text-primary transition-colors' size={28} />}
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +318,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                                         <div className='min-h-40 lg:min-h-60 bg-gray-200 animate-pulse'></div>
                                         <div className="flex items-center justify-between p-2">
                                             <div className="w-3/5 h-4 lg:h-8 rounded-lg bg-gray-200 animate-pulse"></div>
-                                            <LuHeart size={24} className='text-gray-200 animate-pulse' />
+                                            <IoMdHeartEmpty size={24} className='text-gray-200 animate-pulse' />
                                         </div>
                                     </div>
                                 ))

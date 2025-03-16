@@ -1,0 +1,19 @@
+.card {
+    @apply bg-slate-50 shadow !relative w-full flex flex-col gap-2 rounded-xl overflow-hidden transition-all hover:bg-primaryfade;
+
+    img {
+      @apply w-full !relative cursor-pointer;
+    }
+
+    .textContainer {
+      @apply flex justify-between items-center shrink-0 px-2 pb-3;
+
+      .title {
+        @apply text-lg ms-4 cursor-pointer line-clamp-1;
+      }
+
+      .likeButton {
+        @apply text-2xl text-secondary me-2 cursor-pointer;
+      }
+    }
+  }

@@ -5,14 +5,20 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { Location } from "@/app/[locale]/(main)/[city]/types/map";
 import "./map.css";
+import { useParams, useRouter } from "next/navigation";
 
-const Map = ({ locations }: { locations:  Location[] }) => {
+const Map = ({ locations }: { locations: Location[] }) => {
+  const router = useRouter();
+  const { locale, city } = useParams();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
   });
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [selectedMarker, setSelectedMarker] = useState<Location | null>(null);
+
+console.log(selectedMarker);
+
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -35,17 +41,16 @@ const Map = ({ locations }: { locations:  Location[] }) => {
   const getMarkerIcon = (type: string) => {
     switch (type) {
       case "restaurant":
-        return "https://maps.google.com/mapfiles/ms/icons/restaurant.png"; // آیکون رستوران
+        return `${process.env.NEXT_PUBLIC_MAP_MARKER_URL}/images/home.png`; // آیکون رستوران
       case "hospital":
-        return "https://maps.google.com/mapfiles/ms/icons/hospitals.png"; // آیکون بیمارستان
+        return `${process.env.NEXT_PUBLIC_MAP_MARKER_URL}/images/hospital-marker.png`; // آیکون بیمارستان (در صورت وجود)
       case "shop":
-        return "https://maps.google.com/mapfiles/ms/icons/shopping.png"; // آیکون فروشگاه
+        return `${process.env.NEXT_PUBLIC_MAP_MARKER_URL}/images/shopping.png`; // آیکون فروشگاه
       default:
-        return "https://maps.google.com/mapfiles/ms/icons/red-dot.png"; // آیکون پیش‌فرض (قرمز)
+        return `${process.env.NEXT_PUBLIC_MAP_MARKER_URL}/images/red-dot.png`; // آیکون پیش‌فرض (قرمز)
     }
   };
-  
-  // تعیین مرکز نقشه: در صورت وجود موقعیت کاربر از آن استفاده می‌شود و در غیر این صورت از اولین مکان لیست.
+
   const center = useMemo(() => {
     if (userLocation) return userLocation;
     if (locations && locations.length > 0) {
@@ -64,16 +69,16 @@ const Map = ({ locations }: { locations:  Location[] }) => {
       {locations.map((location, index) => {
         const position = { lat: location.lat, lng: location.lng };
         return (
-<Marker
+          <Marker
 
-  key={index}
-  position={position}
-  icon={{
-    url: getMarkerIcon("restaurant"), // تابع برای دریافت آیکون مناسب
-    scaledSize: new window.google.maps.Size(40, 40), // اندازه آیکون (40x40 پیکسل)
-  }}
-  onClick={() => setSelectedMarker(location)}
-/>
+            key={index}
+            position={position}
+            icon={{
+              url: getMarkerIcon("restaurant"),
+              scaledSize: new window.google.maps.Size(30, 50),
+            }}
+            onClick={() => setSelectedMarker(location)}
+          />
 
         );
       })}
@@ -82,43 +87,41 @@ const Map = ({ locations }: { locations:  Location[] }) => {
 
       {selectedMarker && (
         <InfoWindow
-  position={{
-    lat: selectedMarker.lat,
-    lng: selectedMarker.lng,
-  }}
-  onCloseClick={() => setSelectedMarker(null)}
-  options={{
-    disableAutoPan: true, // جلوگیری از حرکت اتوماتیک نقشه
-    pixelOffset: new window.google.maps.Size(0, -30), // تنظیم مکان صحیح
-  }}
->
-  <div className="p-0 m-0 border-none w-64 h-40 relative rounded-lg overflow-hidden">
-    {/* دکمه بستن سفارشی */}
-    <button
-      onClick={() => setSelectedMarker(null)}
-      className="absolute top-2 end-2 z-20 bg-black/50 !w-8 !h-8 text-white rounded-full p-1 justify-center text-center items-center hover:bg-black transition"
-    >
-      ✕
-    </button>
+          position={{
+            lat: selectedMarker.lat,
+            lng: selectedMarker.lng,
+          }}
+          onCloseClick={() => setSelectedMarker(null)}
+          options={{
+            disableAutoPan: true,
+            pixelOffset: new window.google.maps.Size(0, -30),
+          }}
+        >
+          <div onClick={() => router.push(`/${locale}/${city}/${selectedMarker.category}/${selectedMarker.slug}`)} className="p-0 m-0 border-none w-64 h-40 relative rounded-lg overflow-hidden cursor-pointer">
+            <button
+              onClick={() => setSelectedMarker(null)}
+              className="absolute top-2 end-2 z-20 bg-black/50 !w-8 !h-8 text-white rounded-full p-1 pt-0 justify-center text-center items-center hover:bg-black transition"
+            >
+              ✕
+            </button>
 
-    {/* عکس بدون حاشیه */}
-    <Image
-      src={selectedMarker.imageSrc}
-      alt={selectedMarker.title}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      className="object-cover"
-    />
+            <Image
+              src={selectedMarker.imageSrc}
+              alt={selectedMarker.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
 
-    {/* افکت گرادیان */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+            {/* افکت گرادیان */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
 
-    {/* عنوان */}
-    <span className="absolute bottom-4 start-4 text-white font-bold text-lg z-20">
-      {selectedMarker.title}
-    </span>
-  </div>
-</InfoWindow>
+            {/* عنوان */}
+            <span style={{fontFamily: 'Vazirmatn'}} className="absolute bottom-4 start-4 text-white font-bold text-lg z-20">
+              {selectedMarker.title}
+            </span>
+          </div>
+        </InfoWindow>
 
 
 

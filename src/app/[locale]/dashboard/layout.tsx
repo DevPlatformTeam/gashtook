@@ -125,7 +125,7 @@ export default function DashboardLayout({ children, params }: Props) {
                 </aside>
 
                 {/* محتوای اصلی داشبورد */}
-                <main className="w-full max-h-full p-6 px-2 mb-4 lg:mb-0 grow shadow-sm rounded-2xl overflow-hidden">
+                <main className="w-full max-h-full p-6 pb-0 px-2 mb-4 lg:mb-0 grow shadow-sm rounded-2xl overflow-hidden">
                     {children}
                 </main>
             </div>
