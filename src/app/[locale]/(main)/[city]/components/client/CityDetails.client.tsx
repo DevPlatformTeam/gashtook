@@ -143,7 +143,7 @@ export default function CityDetailsClient({ data, city }: CityDetailsProps) {
             />
           </div>
         ) : (
-          <div className="w-full h-full flex-center flex-col gap-4">
+          <div className="w-full h-full flex-center flex-col grow gap-4">
             <NoDataSvg className="max-w-36 h-36" />
             <p className="text-center text-gray-500">
               {t("CityDetail.CollectionsNotFound")}
@@ -258,7 +258,7 @@ export default function CityDetailsClient({ data, city }: CityDetailsProps) {
   };
 
   return (
-    <div className="min-h-96 mx-auto mt-16 container mb-10 transition-all">
+    <div className="flex flex-col min-h-96 mx-auto mt-16 container mb-10 transition-all">
       <div className="relative w-full border-b border-gray-300 pb-3">
         <div className="flex justify-evenly flex-wrap mx-auto h-fit">
           {tabs.map(({ key, label }) => (
@@ -281,7 +281,7 @@ export default function CityDetailsClient({ data, city }: CityDetailsProps) {
         </div>
       </div>
 
-      <div className={`mt-10 text-secondary ${locale == 'fa' ? 'text-right' : 'text-left'} text-sm`}>
+      <div className={`mt-10 h-full flex flex-col grow text-secondary ${locale == 'fa' ? 'text-right' : 'text-left'} text-sm`}>
         {renderContent()}
       </div>
     </div>
