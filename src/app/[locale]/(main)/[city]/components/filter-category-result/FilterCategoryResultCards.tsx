@@ -76,10 +76,10 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     headers: {
                         'Accept': 'application/json',
                         'Authorization': `Bearer ${token}`
-                    }
+                    },
                 }).then(res => res.json());
 
-                const dataCards = response.data.data;
+                const dataCards = response.data;
 
                 if (dataCards) {
                     const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
@@ -90,13 +90,14 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
 
                     setCards(formattedSlides);
 
-                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; sub_category_slug: string }) => ({
                         lat: +item.lat,
                         lng: +item.long,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
                         title: item.name,
                         category: item.category_slug,
+                        subCategory: item.sub_category_slug,
                     }));
 
                     setLocations(locations);
@@ -130,7 +131,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         }
                     }).then(res => res.json());
 
-                    const dataCards = response.data.data;
+                    const dataCards = response.data;
 
                     if (dataCards) {
                         const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
@@ -140,13 +141,14 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         }));
                         setCards(formattedSlides);
 
-                        const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                        const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; sub_category_slug: string }) => ({
                             lat: +item.lat,
                             lng: +item.long,
                             imageSrc: `${item.image_url}`,
                             slug: item.slug,
                             title: item.name,
                             category: item.category_slug,
+                            subCategory: item.sub_category_slug,
                         }));
     
                         setLocations(locations);
@@ -184,15 +186,16 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         }
                     }).then(res => res.json());
 
-                    const dataCards = response.data.data;
+                    const dataCards = response.data;
 
-                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; }) => ({
+                    const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; sub_category_slug: string }) => ({
                         lat: +item.lat,
                         lng: +item.long,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
                         title: item.name,
                         category: item.category_slug,
+                        subCategory: item.sub_category_slug,
                     }));
 
                     setLocations(locations);

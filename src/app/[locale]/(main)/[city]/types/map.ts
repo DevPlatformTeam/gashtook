@@ -5,4 +5,5 @@ export type Location = {
     slug: string;
     title: string;
     category: string;
+    subCategory: string;
 }
