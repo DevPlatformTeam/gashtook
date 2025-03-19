@@ -3,9 +3,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./packages.module.css";
 import Button from "@/components/Button/Button";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Swal from "sweetalert2";
 import NoDataSvg from "@/icons/NoDataSvg";
+import BuySubscriptionModal from "../components/BuySubscriptionModal";
 
 interface Subscription {
   name: string;
@@ -17,8 +18,11 @@ interface Subscription {
 
 export default function Page() {
   const t = useTranslations();
+  const locale = useLocale();
   const [subscriptions, setSubscriptions] = useState<Subscription[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [selectedSku, setSelectedSku] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,9 +36,9 @@ export default function Page() {
         const result = await response.json();
 
         if (result.success && Array.isArray(result.data)) {
-          const formattedData: Subscription[] = result.data.map((item) => ({
+          const formattedData: Subscription[] = result.data.map((item: { name: string, price: string, features: string, period: string, sku: string }) => ({
             name: item.name,
-            price: `${item.price} ${t("Dashboard.rial")}`,
+            price: `${parseInt(item.price).toLocaleString('fa-IR')} ${t("Dashboard.rial")}`,
             features: item.features.split("،"), 
             period: item.period,
             sku: item.sku,
@@ -62,6 +66,11 @@ export default function Page() {
     fetchData();
   }, [t]);
 
+  const handleBuyClick = (sku: string) => {
+    setSelectedSku(sku);
+    setModalOpen(true);
+  };
+
   return (
     <div className={styles.packages}>
       <h1 className={styles.title}>{t("Dashboard.packages")}</h1>
@@ -80,7 +89,12 @@ export default function Page() {
                   <li key={i}>{feature}</li>
                 ))}
               </ul>
-              <Button className={styles.cardButton} text={t("Dashboard.buySubscription")} outline />
+              <Button
+                className={styles.cardButton}
+                text={t("Dashboard.buySubscription")}
+                outline
+                onClick={() => handleBuyClick(sub.sku)}
+              />
             </div>
           ))
         ) : (
@@ -92,6 +106,12 @@ export default function Page() {
           </div>
         )}
       </div>
+      {/* نمایش مودال با ارسال sku انتخاب‌شده */}
+      <BuySubscriptionModal
+        sku={selectedSku}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
     </div>
   );
 }
