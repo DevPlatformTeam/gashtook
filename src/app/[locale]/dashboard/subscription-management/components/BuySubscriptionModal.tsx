@@ -32,14 +32,19 @@ export default function BuySubscriptionModal({
 }: BuySubscriptionModalProps) {
   const locale = useLocale();
   const t = useTranslations("Payment");
+
   const [subscriptionData, setSubscriptionData] =
     useState<SubscriptionData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  // ⬇️ حالت جدید برای نمایش متن «در حال انتقال به بانک...»
+  const [redirecting, setRedirecting] = useState<boolean>(false);
+
   useEffect(() => {
-    if (!isOpen) return; 
+    if (!isOpen) return;
     setLoading(true);
+
     const fetchSubscriptionData = async () => {
       try {
         const response = await fetch("/api/dashboard/order", {
@@ -49,14 +54,13 @@ export default function BuySubscriptionModal({
             "Accept-Language": locale,
           },
           credentials: "include",
-          body: JSON.stringify({ sku }), 
+          body: JSON.stringify({ sku }),
         });
         const data: ApiResponse<SubscriptionData> = await response.json();
 
         if (!response.ok) {
           throw new Error(data.message || t("requestFailed"));
         }
-
         setSubscriptionData(data.data);
       } catch (err: any) {
         setError(err.message);
@@ -71,6 +75,7 @@ export default function BuySubscriptionModal({
   const handlePay = async () => {
     if (!subscriptionData) return;
     try {
+      setRedirecting(true); // نمایش پیام "در حال انتقال به بانک..."
       const response = await fetch("/api/dashboard/payment", {
         method: "POST",
         headers: {
@@ -80,7 +85,7 @@ export default function BuySubscriptionModal({
         credentials: "include",
         body: JSON.stringify({ orderId: subscriptionData.order }),
       });
-      const data: ApiResponse<{url: string}> = await response.json();
+      const data: ApiResponse<{ url: string }> = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || t("requestFailed"));
@@ -88,71 +93,80 @@ export default function BuySubscriptionModal({
 
       if (data?.data?.url) {
         window.location.assign(data.data.url);
-        return;
       }
     } catch (err: any) {
       setError(err.message);
+      setRedirecting(false);
     }
   };
+
+  const renderBody = () => {
+    if (redirecting) {
+      return (
+        <div className="animate-pulse flex flex-col items-center justify-center min-h-[200px]">
+          <p className="animate-pulse text-center text-lg mb-4">{t("redirectingToBank")}</p>
+        </div>
+      );
+    }
+
+    if (loading) {
+      return (
+        <div className="animate-pulse flex flex-col gap-5 text-base">
+          {/* اسکلت لودر */}
+          <div className="w-5/6 h-8 bg-gray-300 rounded mx-auto"></div>
+          <div className="w-3/4 h-8 bg-gray-300 rounded mx-auto"></div>
+          {[...Array(4)].map((_, i) => (
+            <div className="flex gap-x-8" key={i}>
+              <div className="w-24 h-4 bg-gray-300 rounded"></div>
+              <div className="flex-1 h-4 bg-gray-300 rounded"></div>
+            </div>
+          ))}
+        </div>
+      );
+    }
+
+    if (error) {
+      return <div className="text-red-500 text-center text-xl">{error}</div>;
+    }
+
+    if (subscriptionData) {
+      return (
+        <div className="flex flex-col gap-5">
+          <p className="text-center text-lg mt-2 mb-8">
+            {subscriptionData.title}
+          </p>
+          <div className="flex gap-x-8">
+            <span>{t("payer")}:</span>
+            <span>{subscriptionData.payer}</span>
+          </div>
+          <div className="flex gap-x-8">
+            <span>{t("cost")}:</span>
+            <span>{subscriptionData.cost}</span>
+          </div>
+          <div className="flex gap-x-8">
+            <span>{t("start")}:</span>
+            <span>{subscriptionData.start}</span>
+          </div>
+          <div className="flex gap-x-9">
+            <span>{t("end")}:</span>
+            <span>{subscriptionData.end}</span>
+          </div>
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       footerBtn={t("pay")}
       title={t("factorTitle")}
-      showFooterBtn={!error}
-      body={
-        <div className="flex flex-col gap-5 text-base">
-          {loading ? (
-            <div className="animate-pulse flex flex-col gap-5 text-base">
-              <div className="w-5/6 h-8 bg-gray-300 rounded mx-auto"></div>
-              <div className="w-3/4 h-8 bg-gray-300 rounded mx-auto"></div>
-              <div className="flex gap-x-8">
-                <div className="w-24 h-4 bg-gray-300 rounded"></div>
-                <div className="flex-1 h-4 bg-gray-300 rounded"></div>
-              </div>
-              <div className="flex gap-x-8">
-                <div className="w-24 h-4 bg-gray-300 rounded"></div>
-                <div className="flex-1 h-4 bg-gray-300 rounded"></div>
-              </div>
-              <div className="flex gap-x-8">
-                <div className="w-24 h-4 bg-gray-300 rounded"></div>
-                <div className="flex-1 h-4 bg-gray-300 rounded"></div>
-              </div>
-              <div className="flex gap-x-8">
-                <div className="w-24 h-4 bg-gray-300 rounded"></div>
-                <div className="flex-1 h-4 bg-gray-300 rounded"></div>
-              </div>
-            </div>
-          ) : error ? (
-            <div className="text-red-500 text-center text-xl mt-6">{error}</div>
-          ) : subscriptionData ? (
-            <>
-              <p className="text-center text-lg mt-2 mb-8">
-                {subscriptionData.title}
-              </p>
-
-              <div className="flex gap-x-8">
-                <span>{t("payer")}:</span>
-                <span>{subscriptionData.payer}</span>
-              </div>
-              <div className="flex gap-x-8">
-                <span>{t("cost")}:</span>
-                <span>{subscriptionData.cost}</span>
-              </div>
-              <div className="flex gap-x-8">
-                <span>{t("start")}:</span>
-                <span>{subscriptionData.start}</span>
-              </div>
-              <div className="flex gap-x-9">
-                <span>{t("end")}:</span>
-                <span>{subscriptionData.end}</span>
-              </div>
-            </>
-          ) : null}
-        </div>
-      }
+      body={renderBody()}
       onFooterAction={handlePay}
+      showFooterBtn={!error && !redirecting}
     />
   );
 }

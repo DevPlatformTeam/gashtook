@@ -398,6 +398,7 @@
     "start": "Subscription Start",
     "end": "Subscription End",
     "pay": "Pay Cost",
-    "requestFailed": "Package purchase request encountered an error."
+    "requestFailed": "Package purchase request encountered an error.",
+    "redirectingToBank": "... transferring to Bank"
   }
 }
