@@ -38,9 +38,12 @@ export default function BuySubscriptionModal({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // ⬇️ حالت جدید برای نمایش متن «در حال انتقال به بانک...»
   const [redirecting, setRedirecting] = useState<boolean>(false);
 
+  const handleOnClose = () => {
+    setError(null);
+    onClose();
+  }
   useEffect(() => {
     if (!isOpen) return;
     setLoading(true);
@@ -75,7 +78,7 @@ export default function BuySubscriptionModal({
   const handlePay = async () => {
     if (!subscriptionData) return;
     try {
-      setRedirecting(true); // نمایش پیام "در حال انتقال به بانک..."
+      setRedirecting(true); 
       const response = await fetch("/api/dashboard/payment", {
         method: "POST",
         headers: {
@@ -161,7 +164,7 @@ export default function BuySubscriptionModal({
   return (
     <Modal
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleOnClose}
       footerBtn={t("pay")}
       title={t("factorTitle")}
       body={renderBody()}
