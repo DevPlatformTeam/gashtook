@@ -390,5 +390,14 @@
   },
   "Favorites": {
     "errorMessageAuth": "You must first log in to your account"
+  },
+  "Payment": {
+    "factorTitle": "Subscription Payment Invoice",
+    "payer": "Payer",
+    "cost": "Subscription Cost",
+    "start": "Subscription Start",
+    "end": "Subscription End",
+    "pay": "Pay Cost",
+    "requestFailed": "Package purchase request encountered an error."
   }
 }
