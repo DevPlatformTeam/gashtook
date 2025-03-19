@@ -107,7 +107,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     toast: true,
                     position: "top-end",
                     icon: "error",
-                    title: t("error-login"),
+                    title: t("Auth.error-login"),
                     text: error instanceof Error ? error.message : String(error),
                     showConfirmButton: false,
                     timer: 5000,
@@ -154,11 +154,12 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         setLocations(locations);
                     }
                 } catch (error) {
+                    console.log(error);
                     Swal.fire({
                         toast: true,
                         position: "top-end",
                         icon: "error",
-                        title: t("error-login"),
+                        title: t("Auth.error-login"),
                         text: error instanceof Error ? error.message : String(error),
                         showConfirmButton: false,
                         timer: 5000,
@@ -213,7 +214,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                         toast: true,
                         position: "top-end",
                         icon: "error",
-                        title: t("error-login"),
+                        title: t("Auth.error-login"),
                         text: error instanceof Error ? error.message : String(error),
                         showConfirmButton: false,
                         timer: 5000,

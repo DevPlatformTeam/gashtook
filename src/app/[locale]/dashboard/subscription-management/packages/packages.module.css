@@ -1,5 +1,5 @@
 .packages {
-    @apply h-full text-start;
+    @apply h-full text-start pb-8;
 
     .title {
         @apply text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200;
