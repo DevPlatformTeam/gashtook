@@ -400,5 +400,6 @@
     "pay": "Pay Cost",
     "requestFailed": "Package purchase request encountered an error.",
     "redirectingToBank": "... transferring to Bank"
-  }
+  },
+  "noTags": "Unlabeled"
 }
