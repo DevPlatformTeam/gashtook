@@ -1,8 +1,11 @@
 import { getLocale } from "next-intl/server";
+import { cookies } from "next/headers";
 
 export const FetchData = async (endpoint: string) => {
+    const cookeStore = cookies();
     const locale = await getLocale();
     const errorMessage = locale == 'fa' ? "خطایی رخ داده است" : "An error has occurred";
+    const token = cookeStore.get("token")?.value;
 
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/${endpoint}`, {
@@ -10,7 +13,8 @@ export const FetchData = async (endpoint: string) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Accept-Language': locale
+                'Accept-Language': locale,
+                "Authorization": `Bearer ${token}`
             },
             credentials: "include"
         });
