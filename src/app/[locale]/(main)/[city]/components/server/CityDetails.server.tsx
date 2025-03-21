@@ -8,7 +8,7 @@ interface CityDetailsServerProps {
   citySlug: string
 }
 
-export default async function CityDetailsServer({ city, locale, citySlug }: CityDetailsServerProps) {
+export default async function CityDetailsServer({ locale, citySlug, city }: CityDetailsServerProps) {
   const { data } = await FetchData(`cities/${citySlug}/details`);
-  return <CityDetailsClient city={city} locale={locale} data={data} />;
+  return <CityDetailsClient citySlug={citySlug} city={city} locale={locale} data={data} />;
 }

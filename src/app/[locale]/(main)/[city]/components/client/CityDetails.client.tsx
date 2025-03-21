@@ -71,10 +71,11 @@ interface Collections {
 interface CityDetailsProps {
   data: CityData;
   city: string;
+  citySlug: string;
   locale: string;
 }
 
-export default function CityDetailsClient({ data, city }: CityDetailsProps) {
+export default function CityDetailsClient({ data, city, citySlug }: CityDetailsProps) {
   const t = useTranslations();
   const locale = useLocale();
 
@@ -139,7 +140,7 @@ export default function CityDetailsClient({ data, city }: CityDetailsProps) {
               id="best-museums"
               slides={data?.city_collections}
               textOnCard={true}
-              city={city}
+              city={citySlug}
             />
           </div>
         ) : (

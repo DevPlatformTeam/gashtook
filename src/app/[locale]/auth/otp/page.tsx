@@ -114,7 +114,7 @@ export default function OtpPage() {
         sessionStorage.removeItem("temp_token");
         localStorage.removeItem("userInfo");
         localStorage.setItem("userInfo", JSON.stringify(result.data.user));
-        router.push(`/${locale}/dashboard`);
+        window.location.assign(`${window.location.origin}/${locale}/dashboard`)
       } else {
         Swal.fire({
           toast: true,
