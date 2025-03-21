@@ -46,6 +46,18 @@ export async function middleware(request: NextRequest) {
     return setAuthCookie(NextResponse.redirect(new URL("/fa", request.url)));
   }
 
+  // مسیرهای احراز هویت
+  const isAuthRoute = segments[2] === "auth";
+
+  if (isAuthRoute) {
+    if (token) {
+      return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url)));
+    }
+    const intlResponse = intlMiddleware(intlConfig)(request);
+    intlResponse.cookies.set("isAuthenticate", isAuthenticated);
+    return intlResponse;
+  }
+  
   if (!token && segments[2] === "dashboard") {
     return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/auth/login`, request.url)));
   }
@@ -58,18 +70,6 @@ export async function middleware(request: NextRequest) {
     (segments.length === 4 && segments[3] !== "auth"); // `/fa/{city}/{category}` -> مسیر دسته‌بندی‌ها به جز `/auth`
 
   if (isPublicRoute) {
-    const intlResponse = intlMiddleware(intlConfig)(request);
-    intlResponse.cookies.set("isAuthenticate", isAuthenticated);
-    return intlResponse;
-  }
-
-  // مسیرهای احراز هویت
-  const isAuthRoute = segments[2] === "auth";
-
-  if (isAuthRoute) {
-    if (token) {
-      return setAuthCookie(NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url)));
-    }
     const intlResponse = intlMiddleware(intlConfig)(request);
     intlResponse.cookies.set("isAuthenticate", isAuthenticated);
     return intlResponse;
