@@ -22,6 +22,18 @@ const nextConfig = {
     },
   ]
   },
+  output: "standalone", // مطمئن شو که خروجی استاتیک مشکل ندارد
+  headers: async () => [
+    {
+      source: "/:path*.apk",
+      headers: [
+        {
+          key: "Content-Type",
+          value: "application/vnd.android.package-archive",
+        },
+      ],
+    },
+  ],
 };
 
 export default withNextIntl(nextConfig);

@@ -58,7 +58,6 @@ export default function ContactForm() {
           />
           <TextInput
             type={"text"}
-            inputMode={"numeric"}
             label={t("contact-us.nameInputLabel")}
             name="name"
             id="name"
@@ -67,7 +66,6 @@ export default function ContactForm() {
           />
           <TextInput
             type={"text"}
-            inputMode={"numeric"}
             label={t("contact-us.emailInputLabel")}
             name="email"
             id="email"

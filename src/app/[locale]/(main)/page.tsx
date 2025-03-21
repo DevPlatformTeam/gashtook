@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import mockup from "@/assets/images/mockup.svg";
+import mockup from "@/assets/images/mockup.webp";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 import { getTranslations, getLocale } from "next-intl/server";
