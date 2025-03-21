@@ -218,6 +218,7 @@ export default async function PlacesPage({
               <Image src={downloadApp} alt="" />
             </div>
             <div className="flex flex-col gap-4 items-center">
+              <a href="https://cafebazaar.ir/app/com.gashtook.guides.app" target="_blank">
               <Button
                 text={t("Places.downloadBazzar")}
                 icon={<BsBasket3Fill />}
@@ -225,6 +226,8 @@ export default async function PlacesPage({
                 iconSize="threeXl"
                 className="!w-[240px] !justify-between"
               />
+              </a>
+              <a href={`/gashtook.apk`} download>
               <Button
                 text={t("Places.downloadLink")}
                 icon={<DiAndroid />}
@@ -232,6 +235,7 @@ export default async function PlacesPage({
                 iconSize="threeXl"
                 className="!w-[240px] !justify-between"
               />
+              </a>
               <Button
                 text={t("Places.downloadPWA")}
                 icon={<TbDeviceMobileCode />}

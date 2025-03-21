@@ -31,7 +31,8 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/api/") ||
     pathname.startsWith("/static/") ||
     pathname.startsWith("/public/") ||
-    pathname.startsWith("/favicon.ico")
+    pathname.startsWith("/favicon.ico") ||
+    pathname.startsWith("/gashtook.apk")
   ) {
     return response;
   }
