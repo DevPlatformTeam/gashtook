@@ -1,10 +1,11 @@
 "use client";
 
 import Button from "@/components/Button/Button";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { PiBriefcaseLight } from "react-icons/pi";
 import React, { useEffect, useState } from "react";
+import number_format from "@/utils/number_format";
 import Swal from "sweetalert2";
 
 interface Subscription {
@@ -18,7 +19,8 @@ interface Subscription {
 export default function Page() {
   const router = useRouter();
   const t = useTranslations();
-  
+  const locale = useLocale();
+
   const [subscriptions, setSubscriptions] = useState<Subscription[] | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -72,7 +74,7 @@ export default function Page() {
         <table className="flex !text-center lg:text-lg text-xs flex-col w-full h-full px-6 overflow-y-auto scroll pt-4 pb-10">
           <thead className="w-full flex justify-between items-center child:text-gray-400 child:w-1/5 pb-4 border-b border-gray-100">
             <th>{t("Dashboard.subscriptionType")}</th>
-            <th>{t("Dashboard.price")}</th>
+            <th>{t("Dashboard.price")} ({t("Dashboard.rial")})</th>
             <th>{t("Dashboard.orderNumber")}</th>
             <th>{t("Dashboard.status")}</th>
             <th>{t("Dashboard.referenceCode")}</th>
@@ -81,7 +83,7 @@ export default function Page() {
             {subscriptions.map((sub, index) => (
               <tr key={index} className="w-full flex justify-between items-center child:w-1/4 child:text-secondary">
                 <td>{sub.type}</td>
-                <td>{sub.price}</td>
+                <td>{number_format(parseInt(sub.price), locale)}</td>
                 <td>{sub.orderNumber}</td>
                 <td>
                   {sub.status ? (
