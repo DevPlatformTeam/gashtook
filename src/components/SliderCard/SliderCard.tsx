@@ -30,6 +30,8 @@ interface Props {
   spaceBetween?: number;
   slidesPerView?: number;
   textOnCard?: boolean;
+  asPlace?: boolean;
+  category?: string;
 }
 
 const SliderCard = ({
@@ -45,6 +47,8 @@ const SliderCard = ({
   slidesPerView = 2,
   textOnCard = false,
   showPagination = false,
+  asPlace = false,
+  category = '',
 }: Props) => {
   const locale = useLocale();
   const [uniqueId, setUniqueId] = useState<string>("");
@@ -111,7 +115,7 @@ const SliderCard = ({
             key={index}
             className={`relative h-80 lg:min-h-40 pt-4 pb-10 lg:py-8 lg:pt-4 flex flex-col justify-between ${textOnCard && "lg:!pb-14 "}`}
           >
-            <Link href={`/${locale}/${city}/collection/${slide.slug}`} className="block w-full h-full">
+            <Link href={asPlace ? `/${locale}/${city}/${category}/${slide.slug}` : `/${locale}/${city}/collection/${slide.slug}`} className="block w-full h-full">
               <div className="relative">
                 <Image
                   src={slide.imageSrc}

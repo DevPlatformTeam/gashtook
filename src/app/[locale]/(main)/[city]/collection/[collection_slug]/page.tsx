@@ -7,7 +7,6 @@ import { getTranslations } from "next-intl/server";
 
 export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string } }) {
   const { city, collection_slug } = params;
-  const collectionName = decodeURIComponent(collection_slug ?? '').replace(/-/g, ' ');
   const t = await getTranslations();
 
   const { data, error } = await FetchData(`cities/${city}/collections/${collection_slug}`);
@@ -31,7 +30,9 @@ export default async function CollectionPage({ params }: { params: { city: strin
                 title={place.name}
                 description={place.seo?.description || "بدون توضیحات"}
                 isLiked={place.is_liked}
-                category={t('Collections.place')}
+                category={place?.category_slug}
+                city={place?.city_slug}
+                place={place?.slug}
               />
             ))}
           </div>

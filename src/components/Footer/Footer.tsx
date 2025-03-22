@@ -20,22 +20,22 @@ export default function Footer() {
   return (
     <footer className="bg-background relative w-full">
       <div className="container pt-10">
-        <div className="flex w-full flex-wrap gap-y-8">
-            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2 child:w-fit">
+        <div className="flex w-full flex-wrap gap-y-12">
+            <div className="flex md:w-1/3 w-1/2 flex-col space-y-3 child:w-fit">
               <span className="font-bold">{t("gashtook")}</span>
               <Link href={`/${locale}/about-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("about")}</Link>
               <Link href={`/${locale}/contact-us`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("contact")}</Link>
               <Link href={`/${locale}/faq`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("faq")}</Link>
               <Link href={`/${locale}/rules`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("rules")}</Link>
             </div>
-            <div className="flex md:w-1/3 w-1/2 flex-col space-y-2 child:w-fit">
+            <div className="flex md:w-1/3 w-1/2 flex-col space-y-3 child:w-fit">
               <span className="font-bold">{t("cities")}</span>
               <Link href={`/${locale}/tabriz`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("tabriz")}</Link>
               <Link href={`/${locale}/tehran`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("tehran")}</Link>
               <Link href={`/${locale}/mashhad`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("mashhad")}</Link>
               <Link href={`/${locale}/isfahan`} className="hover:text-primary hover:underline hover:font-bold transition-all duration-300">{t("isfahan")}</Link>
             </div>
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-5">
               <span className="font-bold inline grow-0">{t("contact-way")}</span>
               <a href={`mailto:${t("email")}`} className="flex items-center">
                 <MdOutlineEmail size={24} className="me-1 text-primary" />
@@ -46,10 +46,10 @@ export default function Footer() {
                 {t("phone")}
               </a>
               <div className="w-full flex-between gap-4 child:text-primary child:text-2xl">
-                <span><FaInstagram /></span>
-                <span><FaTelegram /> </span>
-                <span><FaLinkedin /></span>
-                <span><FaFacebookSquare /></span>
+                <a href="https://instagram.com/gashtook_com" target="_blank"><FaInstagram /></a>
+                <a href="https://t.me/gashtook" target="_blank"><FaTelegram /> </a>
+                <a href="https://www.linkedin.com/in/gashtook-com-127aa517a/" target="_blank"><FaLinkedin /></a>
+                <a href="https://facebook.com/gashtook" target="_blank"><FaFacebookSquare /></a>
               </div>
             </div>
               <Link className="w-full flex justify-center !mt-8" href={`/${locale}/`}>

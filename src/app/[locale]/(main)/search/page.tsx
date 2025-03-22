@@ -4,6 +4,7 @@ import styles from "./search.module.css";
 
 import Card from "@/components/Card/Card";
 import map from "@/assets/images/map-category/image-1@3x.jpg";
+import { Link } from "@/i18n/routing";
 
 // Simulated server function to fetch search results
 async function fetchSearchResults(query: string) {
@@ -57,16 +58,21 @@ export default async function SearchPage({
                       image_url: string;
                       name: string;
                       is_liked: boolean;
+                      category_slug: string;
+                      city_slug: string;
+                      slug: string;
                     },
                     index: number,
                   ) => (
-                    <Card
-                      key={index}
-                      src={place?.image_url}
-                      label={place?.name}
-                      alt={place?.name}
-                      liked={place?.is_liked}
-                    />
+                    <Link href={`${place?.city_slug}/${place?.category_slug}/${place?.slug}`} key={index}>
+                      <Card
+                        city={place?.city_slug}
+                        src={place?.image_url}
+                        label={place?.name}
+                        alt={place?.name}
+                        liked={place?.is_liked}
+                      />
+                    </Link>
                   ),
                 )
               ) : (
@@ -80,21 +86,22 @@ export default async function SearchPage({
             <h1 className="text-secondary text-2xl font-bold">
               {t("resultCollections")} &quot;{query}&quot;
             </h1>
-              {/* TODO: set link for search results */}
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-8 mt-6">
               {searchResults.collections.length > 0 ? (
                 searchResults.collections.map(
                   (
-                    collection: { name: string; image: string; slug: string },
+                    collection: { name: string; image: string; slug: string, city: string },
                     index: number,
                   ) => (
-                    <Card
-                      key={index}
-                      src={collection.image}
-                      label={collection.name}
-                      alt={collection.name}
-                      showLikedBtn={false}
-                    />
+                    <Link href={`/${collection?.city}/collection/${collection?.slug}`} key={index}>
+                      <Card
+                        city={collection.city}
+                        src={collection.image}
+                        label={collection.name}
+                        alt={collection.name}
+                        showLikedBtn={false}
+                      />
+                    </Link>
                   ),
                 )
               ) : (

@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useState } from "react";
+import { useTranslations } from "next-intl";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
+import { Link } from "@/i18n/routing";
 
 interface CollectionProps {
     imageSrc: string;
@@ -11,10 +13,13 @@ interface CollectionProps {
     description: string;
     isLiked: boolean;
     category: string;
+    city: string;
+    place: string;
 }
 
-const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category }) => {
+const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category, city, place }) => {
     const [liked, setLiked] = useState(isLiked);
+    const t = useTranslations('Collections');
 
     return (
         <div className="w-full flex flex-col lg:flex-row  overflow-hidden ">
@@ -34,7 +39,9 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
                     <p className="text-sm text-gray-600 mt-2">{description}</p>
                 </div>
 
-                <Button text={`${category}`} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                <Link href={`/${city}/${category}/${place}`}>
+                <Button text={t('place')} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                </Link>
             </div>
         </div>
     );
