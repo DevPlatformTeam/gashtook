@@ -1,3 +1,3 @@
 .searchPageContainer {
-    @apply container mt-8;
+    @apply container mt-8 min-h-96;
 }
