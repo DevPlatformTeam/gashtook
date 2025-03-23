@@ -92,7 +92,7 @@ export default async function HomePage() {
           </div>
 
           <div className="md:w-1/3 md:-mt-64 z-10 flex-center">
-            <Image src={mockup} alt="Slide 4" />
+            <Image className="lg:max-w-96 max-w-80" src={mockup} alt="Gashtook App" />
           </div>
         </div>
 
