@@ -27,9 +27,47 @@ const jalaliDate = (date: string) => {
   return `${jy}/${jm}/${jd}`;
 };
 
-// const getCategoryName = (subCategory: string, category: string) => {
-
-// }
+const renderContent = (item : {type: string, ord: number, cnt: string, }, placeName: string) => {
+  switch (item.type) {
+    case "te": // Text
+      return (
+        <p
+          key={item.ord}
+          style={{ whiteSpace: "pre-line" }}
+          className="leading-10 text-pretty text-justify z-10"
+        >
+          {item.cnt}
+        </p>
+      );
+    case "ti": // Title
+      return <h2 key={item.ord}>{item.cnt}</h2>;
+    case "im": // Image
+      return (
+        <div key={item.ord} className={styles.Image}>
+          <Image
+            className="!relative"
+            fill
+            src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}/images/places/${item.cnt}`}
+            alt={`Image of ${placeName} ${item.ord}`}
+          />
+        </div>
+      );
+    case "vi": // Video
+      return (
+        <div key={item.ord} className="video-content">
+          <video controls>
+            <source
+              src={`${process.env.NEXT_PUBLIC_API_IMAGE_URL}/videos/places/${item.cnt}`}
+              type="video/mp4"
+            />
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      );
+    default:
+      return null;
+  }
+};
 
 export default async function PlacesPage({
   params,
@@ -62,7 +100,7 @@ export default async function PlacesPage({
     (p: { name: string; image_url: string; slug: string }) => ({
       title: p.name,
       imageSrc: p.image_url,
-      link: `/places/${p.slug}`,
+      slug: `${p.slug}`,
     }),
   );
 
@@ -90,16 +128,7 @@ export default async function PlacesPage({
                 alt={place?.name}
               />
             </div>
-            {place?.content.map((item: { cnt: string; ord: number }) => {
-              return (
-                <p
-                  key={item.ord}
-                  className="leading-10 text-pretty text-justify z-10"
-                >
-                  {item.cnt}
-                </p>
-              );
-            })}
+            {place?.content?.map((item: { cnt: string; ord: number, type: string }) => renderContent(item, place?.name))}
           </div>
 
           <div className={styles.col2}>
@@ -202,7 +231,7 @@ export default async function PlacesPage({
         </div>
 
         <div className="my-8">
-          <SliderCard id="related-places" slides={slides} city={city} />
+          <SliderCard id="related-places" asPlace={true} category={place.category_slug} slides={slides} city={city} />
         </div>
 
         <div className="bg-slate-100 py-6 rounded-lg">
@@ -218,23 +247,26 @@ export default async function PlacesPage({
               <Image src={downloadApp} alt="" />
             </div>
             <div className="flex flex-col gap-4 items-center">
-              <a href="https://cafebazaar.ir/app/com.gashtook.guides.app" target="_blank">
-              <Button
-                text={t("Places.downloadBazzar")}
-                icon={<BsBasket3Fill />}
-                iconFirst={false}
-                iconSize="threeXl"
-                className="!w-[240px] !justify-between"
-              />
+              <a
+                href="https://cafebazaar.ir/app/com.gashtook.guides.app"
+                target="_blank"
+              >
+                <Button
+                  text={t("Places.downloadBazzar")}
+                  icon={<BsBasket3Fill />}
+                  iconFirst={false}
+                  iconSize="threeXl"
+                  className="!w-[240px] !justify-between"
+                />
               </a>
               <a href={`/gashtook.apk`} download>
-              <Button
-                text={t("Places.downloadLink")}
-                icon={<DiAndroid />}
-                iconFirst={false}
-                iconSize="threeXl"
-                className="!w-[240px] !justify-between"
-              />
+                <Button
+                  text={t("Places.downloadLink")}
+                  icon={<DiAndroid />}
+                  iconFirst={false}
+                  iconSize="threeXl"
+                  className="!w-[240px] !justify-between"
+                />
               </a>
               <Button
                 text={t("Places.downloadPWA")}

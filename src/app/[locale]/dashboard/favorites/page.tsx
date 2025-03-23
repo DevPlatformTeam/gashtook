@@ -6,6 +6,7 @@ import NoDataSvg from "@/icons/NoDataSvg";
 import { useTranslations, useLocale } from "next-intl";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/routing";
 
 interface CardData {
   image_url: string;
@@ -140,9 +141,9 @@ export default function Page() {
         <div className="h-full md:max-h-[calc(100vh-16.5rem)] overflow-y-auto">
           <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 h-fit px-6 py-4">
             {cards.map((card) => (
-              <li onClick={()=>router.push(`/${locale}/${card.city_slug}/${card.category_slug}/${card.slug}`)} className="h-fit" key={card.slug}>
-                <Card src={card.image_url} alt={card.slug} label={card.name} liked={true} handleLike={handleLike} city={card.city_slug} />
-              </li>
+              <Link key={card.slug} href={`/${card.city_slug}/${card.category_slug}/${card.slug}`}>
+              <Card src={card.image_url} alt={card.slug} label={card.name} liked={true} handleLike={handleLike} city={card.city_slug} />
+              </Link>
             ))}
           </ul>
         </div>

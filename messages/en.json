@@ -409,7 +409,13 @@
     "end": "Subscription End",
     "pay": "Pay Cost",
     "requestFailed": "Package purchase request encountered an error.",
-    "redirectingToBank": "... transferring to Bank"
+    "redirectingToBank": "... transferring to Bank",
+    "wait": "wait",
+    "reserve": "reserved",
+    "payed": "payed",
+    "verified": "verified",
+    "canceled": "canceled",
+    "settled": "success"
   },
   "noTags": "Unlabeled"
 }
