@@ -1,10 +1,12 @@
 'use client'
 
 import React, { useState } from "react";
-import { useTranslations } from "next-intl";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import Swal from "sweetalert2";
 import { Link } from "@/i18n/routing";
 
 interface CollectionProps {
@@ -13,13 +15,64 @@ interface CollectionProps {
     description: string;
     isLiked: boolean;
     category: string;
-    city: string;
     place: string;
 }
 
-const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category, city, place }) => {
+const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category, place }) => {
+    const { city } = useParams()
     const [liked, setLiked] = useState(isLiked);
     const t = useTranslations('Collections');
+
+    const handleLikeFunctions = async (slug: string, city: string) => {
+        try {
+            const response = await fetch("/api/dashboard/favorites", {
+                method: "POST",
+                credentials: "include",
+                headers: { Accept: "application/json" },
+                body: JSON.stringify({
+                    "city": city,
+                    "place": slug
+                })
+            }).then(res => res.json());
+
+            if (response.success) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "success",
+                    title: t("ToastMessages.titleSuccess"),
+                    text: response.data.favorite === "remove" ? t("Favorites.successRemoveMessage") : t("Favorites.successAddMessage"),
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                });
+
+                setLiked(!isLiked)
+            } else if (!response.ok && response.code === 401) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "error",
+                    title: t("ToastMessages.titleError"),
+                    text: t("Favorites.errorMessageAuth"),
+                    showConfirmButton: false,
+                    timer: 5000,
+                    timerProgressBar: true,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                toast: true,
+                position: "top-end",
+                icon: "error",
+                text: t("Favorites.errorMessage"),
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            });
+            console.log(error);
+        }
+    };
 
     return (
         <div className="w-full flex flex-col lg:flex-row  overflow-hidden ">
@@ -27,7 +80,7 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
                 <Image fill src={imageSrc} alt={title} className="!relative w-full h-full min-h-48 object-cover" />
                 <button
                     className="absolute bottom-3 left-3 bg-primary p-2 rounded-full shadow-lg"
-                    onClick={() => setLiked(!liked)}
+                    onClick={() => handleLikeFunctions(place, city as string)}
                 >
                     {liked ? <FaHeart className="text-white text-xl" /> : <FaRegHeart className="text-white text-xl" />}
                 </button>

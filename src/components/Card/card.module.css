@@ -13,7 +13,7 @@
       }
 
       .likeButton {
-        @apply text-2xl text-secondary me-2 cursor-pointer;
+        @apply flex gap-1 items-center justify-center bg-slate-100 rounded-full p-1.5 text-2xl text-secondary me-2 cursor-pointer;
       }
     }
   }

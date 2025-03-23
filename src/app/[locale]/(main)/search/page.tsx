@@ -3,10 +3,18 @@ import { getTranslations } from "next-intl/server";
 import styles from "./search.module.css";
 
 import Card from "@/components/Card/Card";
-import { Link } from "@/i18n/routing";
 import Map from '@/components/Map/Map';
 
-// Simulated server function to fetch search results
+type Place = {
+  lat: string;
+  long: string;
+  name: string;
+  image_url: string;
+  category_slug: string;
+  sub_category_slug: string;
+  slug: string;
+}
+
 async function fetchSearchResults(query: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL_API}/search?query=${query}`,
@@ -39,7 +47,7 @@ export default async function SearchPage({
     );
   }
 
-  const locations = searchResults.places.map((place: any) => ({
+  const locations = searchResults.places.map((place: Place) => ({
     lat: parseFloat(place.lat),
     lng: parseFloat(place.long),
     title: place.name,
@@ -48,8 +56,6 @@ export default async function SearchPage({
     subCategory: place.sub_category_slug,
     slug: place.slug,
   }));
-
-  console.log(searchResults);
 
   return (
     <div className={styles.searchPageContainer}>
@@ -70,21 +76,24 @@ export default async function SearchPage({
                       image_url: string;
                       name: string;
                       is_liked: boolean;
-                      category_slug: string;
                       city_slug: string;
+                      category_slug: string;
+                      favorites_count: string;
                       slug: string;
                     },
                     index: number,
                   ) => (
-                    <Link href={`${place?.city_slug}/${place?.category_slug}/${place?.slug}`} key={index}>
-                      <Card
-                        city={place?.city_slug}
-                        src={place?.image_url}
-                        label={place?.name}
-                        alt={place?.name}
-                        liked={place?.is_liked}
-                      />
-                    </Link>
+                    <Card
+                      key={index}
+                      src={place?.image_url}
+                      label={place?.name}
+                      alt={place?.name}
+                      liked={place?.is_liked}
+                      city={place?.city_slug}
+                      category={place?.category_slug}
+                      favorites_count={place?.favorites_count}
+                      place={place?.slug}
+                    />
                   ),
                 )
               ) : (
@@ -102,18 +111,19 @@ export default async function SearchPage({
               {searchResults.collections.length > 0 ? (
                 searchResults.collections.map(
                   (
-                    collection: { name: string; image: string; slug: string, city: string },
+                    collection: { name: string; image: string; slug: string; city: string },
                     index: number,
                   ) => (
-                    <Link href={`/${collection?.city}/collection/${collection?.slug}`} key={index}>
-                      <Card
-                        city={collection.city}
-                        src={collection.image}
-                        label={collection.name}
-                        alt={collection.name}
-                        showLikedBtn={false}
-                      />
-                    </Link>
+                    <Card
+                      key={index}
+                      src={collection.image}
+                      label={collection.name}
+                      alt={collection.name}
+                      city={collection.city}
+                      place={collection.slug}
+                      is_collection={true}
+                      showLikedBtn={false}
+                    />
                   ),
                 )
               ) : (
@@ -125,7 +135,7 @@ export default async function SearchPage({
 
         {/* Right Map */}
         <div className="w-full lg:w-1/3 h-[300px] lg:h-[650px] bg-cover bg-center mt-12">
-             <Map locations={locations} />
+          <Map locations={locations} />
         </div>
       </div>
     </div>

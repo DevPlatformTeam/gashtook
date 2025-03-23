@@ -1,8 +1,8 @@
 import styles from "./category.module.css";
 
-import { PiSliders } from "react-icons/pi";
+// import { PiSliders } from "react-icons/pi";
 
-import { MdOutlineLocationOn } from "react-icons/md";
+// import { MdOutlineLocationOn } from "react-icons/md";
 
 import SliderCard from "@/components/SliderCard/SliderCard";
 
@@ -47,7 +47,9 @@ export default async function CategoryPage({
   return (
     <div className={styles.category}>
       <div className={styles.categories}>
-        <div className={styles.topButtons}>
+
+        {/* -------- Remove for now -------- */}
+        {/* <div className={styles.topButtons}>
           <button className={styles.topButton}>
             <MdOutlineLocationOn size={24} />
             <span>{t("mapButton")}</span>
@@ -56,7 +58,8 @@ export default async function CategoryPage({
             <PiSliders size={24} />
             <span>{t("filterButton")}</span>
           </button>
-        </div>
+        </div> */}
+
         <div className={styles.collectionSlider}>
           <label htmlFor={`collection-${city}-${categoryTitle}`}>
             <LuStar />

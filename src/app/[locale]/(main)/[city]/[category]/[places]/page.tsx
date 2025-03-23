@@ -8,7 +8,6 @@ import { getTranslations } from "next-intl/server";
 import FormatPhoneNumberForTelLink from "@/utils/FormatPhoneNumberTelLink";
 import jalaali from "jalaali-js";
 
-import { IoMdHeartEmpty } from "react-icons/io";
 import { FaLink } from "react-icons/fa";
 import { MdOutlineLocationOn, MdPhone } from "react-icons/md";
 import { TbDeviceMobileDown, TbDeviceMobileCode } from "react-icons/tb";
@@ -18,6 +17,7 @@ import { DiAndroid } from "react-icons/di";
 import SliderCard from "@/components/SliderCard/SliderCard";
 import styles from "./places.module.css";
 import downloadApp from "@/assets/images/downloadapp.png";
+import LikeButton from "./components/LikeButton";
 import { Link } from "@/i18n/routing";
 
 const jalaliDate = (date: string) => {
@@ -27,7 +27,7 @@ const jalaliDate = (date: string) => {
   return `${jy}/${jm}/${jd}`;
 };
 
-const renderContent = (item : {type: string, ord: number, cnt: string, }, placeName: string) => {
+const renderContent = (item: { type: string, ord: number, cnt: string, }, placeName: string) => {
   switch (item.type) {
     case "te": // Text
       return (
@@ -93,7 +93,7 @@ export default async function PlacesPage({
     place?.category_slug;
   const subCategoryName =
     subCategories[place.category_slug]?.find(
-      (sub: any) => sub.value === place.sub_category_slug,
+      (sub: {value: string}) => sub.value === place.sub_category_slug,
     ) ?? place.sub_category_slug;
 
   const slides = relatedPlaces.map(
@@ -104,16 +104,16 @@ export default async function PlacesPage({
     }),
   );
 
+
   return (
     <div className="w-full">
       <div className="container my-12">
         <div className="flex-between">
           <Breadcrumb />
-          <Button
-            outline={true}
-            color="secondary"
-            text={t("Places.favourite")}
-            icon={<IoMdHeartEmpty />}
+          <LikeButton
+            slug={place?.slug}
+            city={city}
+            isLiked={place?.is_liked}
           />
         </div>
 
