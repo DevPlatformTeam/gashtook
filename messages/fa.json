@@ -41,6 +41,14 @@
     {
       "id": "isfahan",
       "value": "اصفهان"
+    },
+    {
+      "id": "yazd",
+      "value": "یزد"
+    },
+    {
+      "id": "kermanshah",
+      "value": "کرمانشاه"
     }
   ],
   "cityPage": {
