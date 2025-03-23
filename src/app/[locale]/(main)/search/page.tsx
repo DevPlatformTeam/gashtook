@@ -3,8 +3,8 @@ import { getTranslations } from "next-intl/server";
 import styles from "./search.module.css";
 
 import Card from "@/components/Card/Card";
-import map from "@/assets/images/map-category/image-1@3x.jpg";
 import { Link } from "@/i18n/routing";
+import Map from '@/components/Map/Map';
 
 // Simulated server function to fetch search results
 async function fetchSearchResults(query: string) {
@@ -38,6 +38,18 @@ export default async function SearchPage({
       <p className="text-red-500 text-center mt-8">{t("errorFetching")}</p>
     );
   }
+
+  const locations = searchResults.places.map((place: any) => ({
+    lat: parseFloat(place.lat),
+    lng: parseFloat(place.long),
+    title: place.name,
+    imageSrc: place.image_url,
+    category: place.category_slug,
+    subCategory: place.sub_category_slug,
+    slug: place.slug,
+  }));
+
+  console.log(searchResults);
 
   return (
     <div className={styles.searchPageContainer}>
@@ -112,10 +124,9 @@ export default async function SearchPage({
         </div>
 
         {/* Right Map */}
-        <div
-          className="w-full lg:w-1/3 h-[300px] lg:h-[650px] bg-cover bg-center mt-12"
-          style={{ backgroundImage: `url(${map.src})` }}
-        />
+        <div className="w-full lg:w-1/3 h-[300px] lg:h-[650px] bg-cover bg-center mt-12">
+             <Map locations={locations} />
+        </div>
       </div>
     </div>
   );

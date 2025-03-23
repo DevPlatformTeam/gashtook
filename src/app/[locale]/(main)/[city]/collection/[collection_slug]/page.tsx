@@ -3,6 +3,7 @@ import map from "@/assets/images/map-category/image-1@3x.jpg";
 import Collection from './components/Collection';
 import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
+import Map from '@/components/Map/Map';
 
 
 export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string } }) {
@@ -14,6 +15,16 @@ export default async function CollectionPage({ params }: { params: { city: strin
   if (error || !data?.collection) {
     return <div className="text-center text-red-500 p-4">❌ خطا در دریافت اطلاعات</div>;
   }
+
+    const locations = data.places.map((place: any) => ({
+      lat: parseFloat(place.lat),
+      lng: parseFloat(place.long),
+      title: place.name,
+      imageSrc: place.image_url,
+      category: place.category_slug,
+      subCategory: place.sub_category_slug,
+      slug: place.slug,
+    }));
 
   return (
     <div className={styles.collectionPageContainer}>
@@ -38,10 +49,9 @@ export default async function CollectionPage({ params }: { params: { city: strin
           </div>
         </div>
 
-        <div
-          className="w-full lg:w-1/3 h-[300px] lg:h-[550px] bg-cover bg-center mt-6 lg:mt-0"
-          style={{ backgroundImage: `url(${map.src})` }}
-        />
+        <div className="w-full lg:w-1/3 h-[300px] lg:h-[550px] mt-6 lg:mt-0">
+          <Map locations={locations} />
+        </div>
       </div>
     </div>
   );
