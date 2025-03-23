@@ -230,7 +230,9 @@
     "emailInputLabel": "آدرس ایمیل",
     "messageInputLabel": "متن پیام",
     "messageInputPlaceholder": "متن خود را در اینجا بنویسید",
-    "sendButton": "ارسال پیام"
+    "sendButton": "ارسال پیام",
+    "faildSend":"ارسال پیام با خطا مواجه شد",
+    "successSend":"ارسال پیام با موفقیت انجام شد"
   },
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
