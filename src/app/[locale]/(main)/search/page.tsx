@@ -3,9 +3,18 @@ import { getTranslations } from "next-intl/server";
 import styles from "./search.module.css";
 
 import Card from "@/components/Card/Card";
-import map from "@/assets/images/map-category/image-1@3x.jpg";
+import Map from '@/components/Map/Map';
 
-// Simulated server function to fetch search results
+type Place = {
+  lat: string;
+  long: string;
+  name: string;
+  image_url: string;
+  category_slug: string;
+  sub_category_slug: string;
+  slug: string;
+}
+
 async function fetchSearchResults(query: string) {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL_API}/search?query=${query}`,
@@ -38,8 +47,15 @@ export default async function SearchPage({
     );
   }
 
-  console.log(searchResults);
-  
+  const locations = searchResults.places.map((place: Place) => ({
+    lat: parseFloat(place.lat),
+    lng: parseFloat(place.long),
+    title: place.name,
+    imageSrc: place.image_url,
+    category: place.category_slug,
+    subCategory: place.sub_category_slug,
+    slug: place.slug,
+  }));
 
   return (
     <div className={styles.searchPageContainer}>
@@ -91,12 +107,11 @@ export default async function SearchPage({
             <h1 className="text-secondary text-2xl font-bold">
               {t("resultCollections")} &quot;{query}&quot;
             </h1>
-              {/* TODO: set link for search results */}
             <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-x-4 gap-y-8 mt-6">
               {searchResults.collections.length > 0 ? (
                 searchResults.collections.map(
                   (
-                    collection: { name: string; image: string; slug: string; city:string},
+                    collection: { name: string; image: string; slug: string; city: string },
                     index: number,
                   ) => (
                     <Card
@@ -119,10 +134,9 @@ export default async function SearchPage({
         </div>
 
         {/* Right Map */}
-        <div
-          className="w-full lg:w-1/3 h-[300px] lg:h-[650px] bg-cover bg-center mt-12"
-          style={{ backgroundImage: `url(${map.src})` }}
-        />
+        <div className="w-full lg:w-1/3 h-[300px] lg:h-[650px] bg-cover bg-center mt-12">
+          <Map locations={locations} />
+        </div>
       </div>
     </div>
   );

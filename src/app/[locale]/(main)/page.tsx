@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import mockup from "@/assets/images/mockup.svg";
+import mockup from "@/assets/images/mockup.webp";
 import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -92,7 +92,7 @@ export default async function HomePage() {
           </div>
 
           <div className="md:w-1/3 md:-mt-64 z-10 flex-center">
-            <Image src={mockup} alt="Slide 4" />
+            <Image className="lg:max-w-96 max-w-80" src={mockup} alt="Gashtook App" />
           </div>
         </div>
 

@@ -33,7 +33,7 @@ export async function POST(req: Request) {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body),
+                body: JSON.stringify({ sku: body.sku, is_mobile: true }),
                 credentials: "include",
             });
         })

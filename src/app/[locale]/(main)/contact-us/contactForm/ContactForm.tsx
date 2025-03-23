@@ -8,6 +8,7 @@ import Button from "@/components/Button/Button";
 import TextareaInputComponent from "@/components/text-area/TextareaInput.component";
 import { FormProvider, useForm } from "react-hook-form";
 import SelectOptionComponent from "@/components/select-option/SelectOption.component";
+import Swal from 'sweetalert2';
 
 export default function ContactForm() {
   const t = useTranslations();
@@ -20,24 +21,73 @@ export default function ContactForm() {
 
   const onSubmit = async (data: object) => {
 
+    if (!typeMessage) {
+      Swal.fire({
+        icon: "error",
+        title: t("ToastMessages.titleError"),
+        text: t("contact-us.typeMessageInputPlaceholder"), 
+      });
+      return;
+    }
+  
     const payload = {
       ...data,
-      subject: typeMessage?.value || "",
+      subject: typeMessage.value,
     };
-
+  
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/contacts`, {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      },
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(payload),
       });
-
+  
       const result = await response.json();
-      console.log("Server Response:", result);
+  
+      if (response.ok && result.success) {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "success",
+          title: t("contact-us.successSend"),
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+      } else if (response.status === 400 || response.status === 422) {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: t("contact-us.faildSend"),
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+      } else {
+        Swal.fire({
+          toast: true,
+          position: "top-end",
+          icon: "error",
+          title: t("contact-us.faildSend"),
+          showConfirmButton: false,
+          timer: 5000,
+          timerProgressBar: true,
+        });
+      }
     } catch (error) {
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: t("contact-us.faildSend"),
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+      });
       console.error("Fetch Error:", error);
     }
   };
@@ -58,7 +108,6 @@ export default function ContactForm() {
           />
           <TextInput
             type={"text"}
-            inputMode={"numeric"}
             label={t("contact-us.nameInputLabel")}
             name="name"
             id="name"
@@ -67,7 +116,6 @@ export default function ContactForm() {
           />
           <TextInput
             type={"text"}
-            inputMode={"numeric"}
             label={t("contact-us.emailInputLabel")}
             name="email"
             id="email"

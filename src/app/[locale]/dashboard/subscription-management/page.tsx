@@ -12,7 +12,7 @@ interface Subscription {
   type: string;
   price: string;
   orderNumber: number;
-  status: boolean;
+  status: number;
   referenceCode: string;
 }
 
@@ -38,9 +38,10 @@ export default function Page() {
             type: item.subscriptions[0],
             price: `${item.total_price} ${t("Dashboard.rial")}`,
             orderNumber: item.oid,
-            status: item.status === 1,
+            status: item.status ,
             referenceCode: item.refid,
           }));
+          console.table(formattedData);
           setSubscriptions(formattedData);
         }
       } catch (error) {
@@ -62,6 +63,28 @@ export default function Page() {
     fetchData();
   }, [t]);
 
+  const renderStatus = (status: number) => {
+    console.log(`status: ${status}`, typeof status)
+    switch (status) {
+      case 0:
+        return <span className="text-amber-600">{t("Payment.wait")}</span>;
+
+      case 1:
+        return <span className="text-sky-500">{t("Payment.reserve")}</span>; 
+
+      case 2:
+        return <span className="text-teal-500">{t("Payment.payed")}</span>;
+
+      case 3:
+        return <span className="text-pink-600">{t("Payment.verified")}</span>;
+
+      case 4:
+        return <span className="text-green-700">{t("Payment.settled")}</span>;
+      
+      default:
+        return <span className="text-red-400">{t("Payment.canceled")}</span>;
+    }
+  };
   return (
     <div className="h-full text-start">
       <h1 className="hidden lg:block text-xl font-bold pb-4 mx-6 border-b-2 border-gray-200">
@@ -85,12 +108,8 @@ export default function Page() {
                 <td>{sub.type}</td>
                 <td>{number_format(parseInt(sub.price), locale)}</td>
                 <td>{sub.orderNumber}</td>
-                <td>
-                  {sub.status ? (
-                    <span className="text-primary">{t("Dashboard.active")}</span>
-                  ) : (
-                    <span className="text-red-400">{t("Dashboard.inactive")}</span>
-                  )}
+                <td className="font-semibold">
+                  { renderStatus(sub.status) }
                 </td>
                 <td>{sub.referenceCode}</td>
               </tr>

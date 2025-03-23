@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
-import { useParams, useRouter } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Swal from "sweetalert2";
+import { Link } from "@/i18n/routing";
 
 interface CollectionProps {
     imageSrc: string;
@@ -18,13 +19,9 @@ interface CollectionProps {
 }
 
 const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category, place }) => {
-    const router = useRouter();
     const { city } = useParams()
-
-    const locale = useLocale();
-    const t = useTranslations();
-
     const [liked, setLiked] = useState(isLiked);
+    const t = useTranslations('Collections');
 
     const handleLikeFunctions = async (slug: string, city: string) => {
         try {
@@ -95,7 +92,9 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
                     <p className="text-sm text-gray-600 mt-2">{description}</p>
                 </div>
 
-                <Button onClick={() => router.push(`/${locale}/${city}/${category}/${place}`)} text={`${category}`} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                <Link href={`/${city}/${category}/${place}`}>
+                <Button text={t('place')} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                </Link>
             </div>
         </div>
     );
