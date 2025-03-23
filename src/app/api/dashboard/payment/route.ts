@@ -18,7 +18,6 @@ const logger = winston.createLogger({
 });
 
 export async function POST(req: Request) {
-    console.log('here', `${process.env.BASE_URL_API}/payment/checkout`);
     const cookeStore = cookies();
     const token = cookeStore.get("token")?.value;
     const lang = req.headers.get("accept-language") || "fa";
@@ -34,7 +33,7 @@ export async function POST(req: Request) {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body),
+                body: JSON.stringify({ orderId: body.orderId, market: "pwa" }),
                 credentials: "include",
             });
         })
