@@ -41,6 +41,14 @@
     {
       "id": "isfahan",
       "value": "Isfahan"
+    },
+    {
+      "id": "yazd",
+      "value": "yazd"
+    },  
+    {
+      "id": "kermanshah",
+      "value": "kermanshah"
     }
   ],
   "cityPage": {
@@ -222,7 +230,9 @@
     "emailInputLabel": "Email Address",
     "messageInputLabel": "Message",
     "messageInputPlaceholder": "Type your message here",
-    "sendButton": "Send"
+    "sendButton": "Send",
+    "faildSend":"Message sent successfully",
+    "successSend":"Failed to send message"
   },
   "Header": {
     "downloadAppButton": "Download app",
