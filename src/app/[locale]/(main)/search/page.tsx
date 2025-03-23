@@ -38,6 +38,9 @@ export default async function SearchPage({
     );
   }
 
+  console.log(searchResults);
+  
+
   return (
     <div className={styles.searchPageContainer}>
       <div className="w-full flex flex-col lg:flex-row gap-x-8">
@@ -57,6 +60,10 @@ export default async function SearchPage({
                       image_url: string;
                       name: string;
                       is_liked: boolean;
+                      city_slug: string;
+                      category_slug: string;
+                      favorites_count: string;
+                      slug: string;
                     },
                     index: number,
                   ) => (
@@ -66,6 +73,10 @@ export default async function SearchPage({
                       label={place?.name}
                       alt={place?.name}
                       liked={place?.is_liked}
+                      city={place?.city_slug}
+                      category={place?.category_slug}
+                      favorites_count={place?.favorites_count}
+                      place={place?.slug}
                     />
                   ),
                 )
@@ -85,7 +96,7 @@ export default async function SearchPage({
               {searchResults.collections.length > 0 ? (
                 searchResults.collections.map(
                   (
-                    collection: { name: string; image: string; slug: string },
+                    collection: { name: string; image: string; slug: string; city:string},
                     index: number,
                   ) => (
                     <Card
@@ -93,6 +104,9 @@ export default async function SearchPage({
                       src={collection.image}
                       label={collection.name}
                       alt={collection.name}
+                      city={collection.city}
+                      place={collection.slug}
+                      is_collection={true}
                       showLikedBtn={false}
                     />
                   ),

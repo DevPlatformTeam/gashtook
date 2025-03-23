@@ -8,7 +8,6 @@ import { getTranslations } from "next-intl/server";
 import FormatPhoneNumberForTelLink from "@/utils/FormatPhoneNumberTelLink";
 import jalaali from "jalaali-js";
 
-import { IoMdHeartEmpty } from "react-icons/io";
 import { FaLink } from "react-icons/fa";
 import { MdOutlineLocationOn, MdPhone } from "react-icons/md";
 import { TbDeviceMobileDown, TbDeviceMobileCode } from "react-icons/tb";
@@ -18,6 +17,7 @@ import { DiAndroid } from "react-icons/di";
 import SliderCard from "@/components/SliderCard/SliderCard";
 import styles from "./places.module.css";
 import downloadApp from "@/assets/images/downloadapp.png";
+import LikeButton from "./components/LikeButton";
 
 const jalaliDate = (date: string) => {
   const [gy, gm, gd] = date.split("-").map(Number);
@@ -47,16 +47,16 @@ export default async function PlacesPage({
     }),
   );
 
+
   return (
     <div className="w-full">
       <div className="container my-12">
         <div className="flex-between">
           <Breadcrumb />
-          <Button
-            outline={true}
-            color="secondary"
-            text={t("favourite")}
-            icon={<IoMdHeartEmpty />}
+          <LikeButton
+            slug={place?.slug}
+            city={city}
+            isLiked={place?.is_liked}
           />
         </div>
 

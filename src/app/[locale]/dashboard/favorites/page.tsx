@@ -5,7 +5,6 @@ import Card from "@/components/Card/Card";
 import NoDataSvg from "@/icons/NoDataSvg";
 import { useTranslations, useLocale } from "next-intl";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
 
 interface CardData {
   image_url: string;
@@ -14,13 +13,12 @@ interface CardData {
   is_liked: boolean;
   city_slug: string;
   category_slug: string;
+  favorites_count: string;
 }
 
 export default function Page() {
   const t = useTranslations();
   const locale = useLocale();
-
-  const router = useRouter();
 
   const [cards, setCards] = useState<CardData[] | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,7 +32,7 @@ export default function Page() {
         headers: { Accept: "application/json", "Authorization": `Bearer ${token}` },
       });
       const result = await response.json();
-
+      
       setCards(result.data.data || []);
     } catch (error) {
       Swal.fire({
@@ -51,6 +49,7 @@ export default function Page() {
       setLoading(false);
     }
   }
+    
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -140,8 +139,8 @@ export default function Page() {
         <div className="h-full md:max-h-[calc(100vh-16.5rem)] overflow-y-auto">
           <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 h-fit px-6 py-4">
             {cards.map((card) => (
-              <li onClick={()=>router.push(`/${locale}/${card.city_slug}/${card.category_slug}/${card.slug}`)} className="h-fit" key={card.slug}>
-                <Card src={card.image_url} alt={card.slug} label={card.name} liked={true} handleLike={handleLike} city={card.city_slug} />
+              <li className="h-fit" key={card.slug}>
+                <Card src={card.image_url} alt={card.slug} label={card.name} liked={true} favorites_count={card.favorites_count} handleLike={handleLike} city={card.city_slug} category={card.category_slug} place={card.slug} />
               </li>
             ))}
           </ul>

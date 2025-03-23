@@ -46,7 +46,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     const { mainCategory } = useContext(CategoryContext);
     const { category, subCategory } = useContext(SubCategoryContext);
 
-    const [likedPlaces, setLikedPlaces] = useState<{id: string; isLiked: boolean} []>([]);
+    const [likedPlaces, setLikedPlaces] = useState<{ id: string }[]>([]);
 
     const [token, setToken] = useState<string | null>(null);
 
@@ -62,7 +62,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
         };
         fetchToken();
     }, []);
-    
+
 
     useEffect(() => {
         if (!token) return;
@@ -82,10 +82,12 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 const dataCards = response.data;
 
                 if (dataCards) {
-                    const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
+                    const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                         title: item.name,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
+                        is_liked: item.is_liked,
+                        favorites_count: item.favorites_count,
                     }));
 
                     setCards(formattedSlides);
@@ -134,10 +136,12 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     const dataCards = response.data;
 
                     if (dataCards) {
-                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
+                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                             title: item.name,
                             imageSrc: `${item.image_url}`,
                             slug: item.slug,
+                            is_liked: item.is_liked,
+                            favorites_count: item.favorites_count,
                         }));
                         setCards(formattedSlides);
 
@@ -150,7 +154,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                             category: item.category_slug,
                             subCategory: item.sub_category_slug,
                         }));
-    
+
                         setLocations(locations);
                     }
                 } catch (error) {
@@ -202,10 +206,12 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     setLocations(locations);
 
                     if (dataCards) {
-                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; }) => ({
+                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                             title: item.name,
                             imageSrc: `${item.image_url}`,
                             slug: item.slug,
+                            is_liked: item.is_liked,
+                            favorites_count: item.favorites_count,
                         }));
                         setCards(formattedSlides);
                     }
@@ -234,7 +240,10 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     }, [subCategory, category, mainCategory, token]);
 
     useEffect(() => {
-        setLikedPlaces(cards.map((card) => ({ id: card.slug, isLiked: false })));
+        const liked = cards.filter((card) => card.is_liked);
+        setLikedPlaces(
+            liked.map((card) => ({ id: card.slug }))
+        );
     }, [cards]);
 
     const handleLike = async (slug: string) => {
@@ -261,7 +270,17 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     timerProgressBar: true,
                 });
 
-                setLikedPlaces(likedPlaces.map((place) => place.id === slug ? { ...place, isLiked: !place.isLiked } : place));
+                setLikedPlaces((prevLikedPlaces) => {
+                    const exists = prevLikedPlaces.find((place) => place.id === slug);
+
+                    if (exists) {
+                        // اگر آیتم وجود دارد و isLiked=true است، آن را حذف کنیم
+                        return prevLikedPlaces.filter((place) => place.id !== slug);
+                    } else {
+                        // اگر آیتم وجود ندارد، آن را اضافه کنیم
+                        return [...prevLikedPlaces, { id: slug }];
+                    }
+                });
             } else if (!response.ok && response.code === 401) {
                 Swal.fire({
                     toast: true,
@@ -311,8 +330,8 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                                     <div className={styles.textContainer}>
                                         <div onClick={() => router.push(`/${locale}/${city}/${mainCategory}/${card.slug}`)} className={styles.title}>{card.title}</div>
                                         <div className={styles.likeButton} onClick={() => handleLike(card.slug)}>
-                                            {card.favorites_count !== "0" ? <span className='text-gray-500 text-sm'>{card.favorites_count}</span> : null}
-                                            {likedPlaces.find((place) => place.id === card.slug)?.isLiked ? <IoMdHeart className='text-primary' size={28} /> : <IoMdHeartEmpty className='text-gray-400 hover:text-primary transition-colors' size={28} />}
+                                            {card.favorites_count !== "0" ? <span className='text-gray-500 text-base mt-1'>{card.favorites_count}</span> : null}
+                                            {likedPlaces.find((place) => place.id === card.slug) ? <IoMdHeart className='text-primary' size={28} /> : <IoMdHeartEmpty className='text-gray-400 hover:text-primary transition-colors' size={28} />}
                                         </div>
                                     </div>
                                 </div>
