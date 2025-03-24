@@ -30,6 +30,8 @@ interface userInfoI {
     name?: string | null;
     image?: string | null;
     image_url?: string | null;
+    subscriptionStart?: string;
+    subscriptionEnd?: string;
 }
 
 export default function DashboardLayout({ children, params }: Props) {
@@ -38,6 +40,9 @@ export default function DashboardLayout({ children, params }: Props) {
     const pathname = usePathname();
     const t = useTranslations('Dashboard');
     const lastSegment = pathname.split('/').pop();
+    const [remainingDays, setRemainingDays] = useState<number>(0);
+    const [progressPercentage, setProgressPercentage] = useState<number>(0);
+
 
     const expireSubscription = Math.round(28 * 100 / 30);
 
@@ -59,6 +64,23 @@ export default function DashboardLayout({ children, params }: Props) {
         }
     }, [lastSegment]);
 
+    useEffect(() => {
+        if (userInfo.subscriptionStart && userInfo.subscriptionEnd) {
+            const today = new Date();
+            const startDate = new Date(userInfo.subscriptionStart);
+            const endDate = new Date(userInfo.subscriptionEnd);
+    
+            const totalDays = Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+            const remaining = Math.floor((endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    
+            setRemainingDays(Math.max(remaining, 0));
+            setProgressPercentage(totalDays > 0 ? (remaining / totalDays) * 100 : 0);
+        } else {
+            setRemainingDays(0);
+            setProgressPercentage(0);
+        }
+    }, [userInfo]);
+    
     return (
         <div>
             <Header />
@@ -81,21 +103,21 @@ export default function DashboardLayout({ children, params }: Props) {
                         </div>
                         <div className='pt-4'>
                             <div className='relative w-full h-[3px] rounded-full bg-gray-200 my-2'>
-                                <span className={`absolute h-full left-0 rounded-full bg-primary`} style={{ width: expireSubscription && expireSubscription + "%" }}></span>
+                                <span className="absolute h-full left-0 rounded-full bg-primary" style={{ width: `${progressPercentage}%` }}></span>
                             </div>
                             <div className='flex items-center justify-between text-gray-500 text-sm'>
                                 <span>{t("expireSubscription")}</span>
                                 <Link href={"/"} className='flex items-center gap-1'>
                                     {locale === 'fa' ?
                                         <>
-                                            <span className='text-primary'>28 روز</span>
+                                            <span className='text-primary'>{remainingDays} روز</span>
                                             <FaChevronLeft />
                                         </>
                                         :
                                         <>
 
                                             <FaChevronRight />
-                                            <span className='text-primary'>28 days</span>
+                                            <span className='text-primary'>{remainingDays} days</span>
                                         </>
                                     }
                                 </Link>

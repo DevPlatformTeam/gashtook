@@ -147,14 +147,15 @@ export default function ContactForm() {
             maxLength={1000}
             validation={{ required: "پیام الزامی است", minLength: { value: 6, message: "پیام باید حداقل 6 کاراکتر باشد" }}}
           />
-          <Button
-            type="submit"
-            text={t("contact-us.sendButton")}
-            textColor="third"
-            color="primary"
-            loading={isSubmitting}
-            disabled={isSubmitting}
-          />
+         <Button
+           type="submit"
+           text={t("contact-us.sendButton")}
+           textColor="third"
+           color="primary"
+           loading={isSubmitting} // نمایش لودر
+           disabled={isSubmitting} // غیرفعال کردن دکمه هنگام ارسال فرم
+         />
+
         </div>
       </form>
     </FormProvider>
