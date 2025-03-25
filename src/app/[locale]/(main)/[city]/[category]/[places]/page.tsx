@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Button from "@/components/Button/Button";
 import { FetchData } from "@/components/Fetch/FetchData";
@@ -20,16 +19,20 @@ import downloadApp from "@/assets/images/downloadapp.png";
 import LikeButton from "./components/LikeButton";
 import { Link } from "@/i18n/routing";
 
+// تابع تبدیل تاریخ میلادی به جلالی
 const jalaliDate = (date: string) => {
   const [gy, gm, gd] = date.split("-").map(Number);
   const { jy, jm, jd } = jalaali.toJalaali(gy, gm, gd);
-
   return `${jy}/${jm}/${jd}`;
 };
 
-const renderContent = (item: { type: string, ord: number, cnt: string, }, placeName: string) => {
+// رندر محتوای داینامیک بر اساس نوع آیتم
+const renderContent = (
+  item: { type: string; ord: number; cnt: string },
+  placeName: string
+) => {
   switch (item.type) {
-    case "te": // Text
+    case "te":
       return (
         <p
           key={item.ord}
@@ -39,9 +42,9 @@ const renderContent = (item: { type: string, ord: number, cnt: string, }, placeN
           {item.cnt}
         </p>
       );
-    case "ti": // Title
+    case "ti": // عنوان
       return <h2 key={item.ord}>{item.cnt}</h2>;
-    case "im": // Image
+    case "im": // تصویر
       return (
         <div key={item.ord} className={styles.Image}>
           <Image
@@ -52,7 +55,7 @@ const renderContent = (item: { type: string, ord: number, cnt: string, }, placeN
           />
         </div>
       );
-    case "vi": // Video
+    case "vi": // ویدئو
       return (
         <div key={item.ord} className="video-content">
           <video controls>
@@ -69,13 +72,24 @@ const renderContent = (item: { type: string, ord: number, cnt: string, }, placeN
   }
 };
 
+export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
+  const { places } = params;
+  const { data } = await FetchData(`places/slug/${decodeURIComponent(places)}`);
+  const seo = data?.place?.seo;  
+
+  return {
+    title: seo?.title,
+    description: seo?.description,
+    keywords: seo?.focuskw,
+  };
+}
+
 export default async function PlacesPage({
   params,
 }: {
   params?: { [key: string]: string };
 }) {
   const { places } = params ?? {};
-
   const t = await getTranslations();
   const city = params?.city as string;
 
@@ -93,7 +107,7 @@ export default async function PlacesPage({
     place?.category_slug;
   const subCategoryName =
     subCategories[place.category_slug]?.find(
-      (sub: {value: string}) => sub.value === place.sub_category_slug,
+      (sub: { value: string }) => sub.value === place.sub_category_slug
     ) ?? place.sub_category_slug;
 
   const slides = relatedPlaces.map(
@@ -101,9 +115,8 @@ export default async function PlacesPage({
       title: p.name,
       imageSrc: p.image_url,
       slug: `${p.slug}`,
-    }),
+    })
   );
-
 
   return (
     <div className="w-full">
@@ -128,7 +141,9 @@ export default async function PlacesPage({
                 alt={place?.name}
               />
             </div>
-            {place?.content?.map((item: { cnt: string; ord: number, type: string }) => renderContent(item, place?.name))}
+            {place?.content?.map((item: { cnt: string; ord: number; type: string }) =>
+              renderContent(item, place?.name)
+            )}
           </div>
 
           <div className={styles.col2}>
@@ -162,7 +177,7 @@ export default async function PlacesPage({
                   >
                     <MdPhone size={24} className="me-1 text-primary" />
                     <span>{t("Places.phone")}: </span>
-                    <span> {place.contact.phone} </span>
+                    <span>{place.contact.phone}</span>
                   </a>
                 )}
                 {place?.contact?.website && (
@@ -215,7 +230,7 @@ export default async function PlacesPage({
                 href={`/${city}/${place?.category_slug}`}
                 className="font-semibold text-black text-sm"
               >
-                {categoryName?.name} {" , "} {subCategoryName?.name}
+                {categoryName?.name} , {subCategoryName?.name}
               </Link>
             </span>
           </span>
@@ -231,7 +246,13 @@ export default async function PlacesPage({
         </div>
 
         <div className="my-8">
-          <SliderCard id="related-places" asPlace={true} category={place.category_slug} slides={slides} city={city} />
+          <SliderCard
+            id="related-places"
+            asPlace={true}
+            category={place.category_slug}
+            slides={slides}
+            city={city}
+          />
         </div>
 
         <div className="bg-slate-100 py-6 rounded-lg">
@@ -244,7 +265,7 @@ export default async function PlacesPage({
           </p>
           <div className="w-full grid lg:grid-cols-2 grid-cols-1 items-center">
             <div>
-              <Image src={downloadApp} alt="" />
+              <Image src={downloadApp} alt="Download app" />
             </div>
             <div className="flex flex-col gap-4 items-center">
               <a

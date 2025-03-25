@@ -14,6 +14,17 @@ type Place = {
   }
 }
 
+export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
+  const { city, collection_slug } = params;
+  const { data } = await FetchData(`cities/${city}/collections/${collection_slug}`);
+  const seo = data?.collection;
+
+  return {
+    title: seo?.name,
+    description: seo?.description,
+  };
+}
+
 export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string } }) {
   const { city, collection_slug } = params;
   // const collectionName = decodeURIComponent(collection_slug ?? '').replace(/-/g, ' ');

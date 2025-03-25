@@ -12,7 +12,20 @@ import CityDetailsServer from "./components/server/CityDetails.server";
 import FilterCategory from "./components/filter-category-tubular/FilterCategoryTubular";
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
 import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
+import { FetchData } from "@/components/Fetch/FetchData";
 
+
+export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
+  const { city } = params;
+  const { data } = await FetchData(`cities/${city}/details`);
+  const seo = data?.seo;
+
+  return {
+    title: seo?.title,
+    description: seo?.description,
+    keywords: seo?.focuskw,
+  };
+}
 
 export default async function Page({
   params,
