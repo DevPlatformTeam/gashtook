@@ -417,5 +417,14 @@
     "canceled": "canceled",
     "settled": "success"
   },
+  "ViewsAlert": {
+    "title": "Remaining Views",
+    "text": "You have {count} views left."
+  },
+  "buy-subscription": {
+    "freeLimitReached": "Your free views have ended",
+    "subscribeForMore": "Enjoy more access and features of Gashtook with a subscription",
+    "subscribeButton": "Buy Subscription"
+  },
   "noTags": "Unlabeled"
 }

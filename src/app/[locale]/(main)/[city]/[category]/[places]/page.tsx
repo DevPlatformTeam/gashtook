@@ -3,6 +3,7 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Button from "@/components/Button/Button";
 import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
+import dynamic from "next/dynamic";
 
 import FormatPhoneNumberForTelLink from "@/utils/FormatPhoneNumberTelLink";
 import jalaali from "jalaali-js";
@@ -19,14 +20,12 @@ import downloadApp from "@/assets/images/downloadapp.png";
 import LikeButton from "./components/LikeButton";
 import { Link } from "@/i18n/routing";
 
-// تابع تبدیل تاریخ میلادی به جلالی
 const jalaliDate = (date: string) => {
   const [gy, gm, gd] = date.split("-").map(Number);
   const { jy, jm, jd } = jalaali.toJalaali(gy, gm, gd);
   return `${jy}/${jm}/${jd}`;
 };
 
-// رندر محتوای داینامیک بر اساس نوع آیتم
 const renderContent = (
   item: { type: string; ord: number; cnt: string },
   placeName: string
@@ -118,9 +117,16 @@ export default async function PlacesPage({
     })
   );
 
+  const ViewsAlert = dynamic(() => import("./components/ViewsAlert"), { ssr: false });
+  
+  // const views = place?.views;
+     const views = 5;
+
+  // console.log(place);
   return (
     <div className="w-full">
-      <div className="container my-12">
+{(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
+<div className="container my-12">
         <div className="flex-between">
           <Breadcrumb />
           <LikeButton

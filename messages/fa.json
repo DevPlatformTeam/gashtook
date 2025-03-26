@@ -420,5 +420,14 @@
     "canceled": "لغو شده",
     "settled": "موفق"
   },
+    "ViewsAlert": {
+    "title": "بازدید باقی مانده",
+    "text": "شما {count} بازدید دیگر دارید."
+  },
+  "buy-subscription": {
+    "freeLimitReached": "تعداد نمایش رایگان شما به اتمام رسیده",
+    "subscribeForMore": "با خرید اشتراک، از دسترسی‌ها و امکانات بیشتر گشتوک لذت ببرید",
+    "subscribeButton": "خرید اشتراک"
+  },
   "noTags": "بدون برچسب"
 }
