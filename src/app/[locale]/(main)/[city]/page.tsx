@@ -16,12 +16,13 @@ import { FetchData } from "@/components/Fetch/FetchData";
 
 
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
-  const { city } = params;
+  const { city, locale } = params;
   const { data } = await FetchData(`cities/${city}/details`);
   const seo = data?.seo;
+  const cityName = locale === 'fa'? `شهر ${data?.name} | گشتوک` : `${city} | Gashtook`;
 
   return {
-    title: seo?.title,
+    title: seo?.title || `${cityName}`,
     description: seo?.description,
     keywords: seo?.focuskw,
   };
@@ -34,20 +35,21 @@ export default async function Page({
 }) {
 
   const { locale, city } = params;
+  const { data } = await FetchData(`cities/${city}`);
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
   return (
     <div className={styles.city}>
       <Image
-        src={slidImage}
-        alt=""
+        src={data?.image_url || slidImage}
+        alt={`${city} | گشتوک | Gashtook`}
       />
       <p className={styles.title}>
         {locale === 'fa' ? `به ${cityFa} ${t('cityPage.titleCity')}` : `${t('cityPage.titleCity')} ${city}`}
       </p>
       <p className={styles.description}>
-        {t('cityPage.descriptionCity')}
+        {data?.description || t('cityPage.descriptionCity')}
       </p>
 
       <CityDetailsServer locale={locale} citySlug={city} city={locale == 'fa' ? cityFa : city} />

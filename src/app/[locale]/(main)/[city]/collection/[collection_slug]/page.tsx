@@ -53,12 +53,14 @@ function Skeleton() {
 }
 
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
-  const { city, collection_slug } = params;
+  const { locale, city, collection_slug } = params;
   const { data } = await FetchData(`cities/${city}/collections/${collection_slug}`);
   const seo = data?.collection;
+  const appName = locale === 'fa' ? 'گشتوک' : 'Gashtook';
+  const cityName = seo?.city || city;
 
   return {
-    title: seo?.name,
+    title: `${cityName} - ${seo?.name} | ${appName}`,
     description: seo?.description,
   };
 }

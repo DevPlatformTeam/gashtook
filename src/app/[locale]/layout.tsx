@@ -24,12 +24,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const translations = {
     fa: {
-      title: "گشتوک",
-      description: "راهنمای گردشگری شهرهای ایران",
+      title: "گشتوک | راهنمای گردشگری شهرهای ایران",
+      description: "گشتوک | جاذبه های گردشگری، دیدنی و زیبایی های شهرهای ایران همراه با معرفی مراکز تفریحی، موزه ها و گالری ها، رستوران ها و کافه ها، هتل ها، مراکز خرید و ...",
+      keywords: "گشتوک,gashtook,تهران,tehran,ایران,iran,جاذبه های گردشگری,جاذبه های گردشگری ایران,جاذبه های گردشگری شهر,جاذبه های گردشگری شهر های ایران,جاذبه های دیدنی شهر,دیدنی های شهر,مراکز تفریحی,موزه ها,گالری ها,رستوران ها,کافه ها,هتل ها,مراکز خرید,پارک ها"
     },
     en: {
-      title: "Gashtook",
-      description: "Iranian Cities Travel Guide",
+      title: "Gashtook | Tourist Guide to Iranian Cities",
+      description: "Gashtook | Tourist attractions, sights and beauties of Iranian cities along with introduction of entertainment centers, museums and galleries, restaurants and cafes, hotels, shopping malls and ...",
+      keywords: "Gashtook,gashtook,tehran,iran,tourist attractions,tourist attractions of Iran,tourist attractions of the city,tourist attractions of Iranian cities,city sights,city sights,entertainment centers,museums,galleries,restaurants,cafes,hotels,shopping malls,parks"
     },
   };
 
