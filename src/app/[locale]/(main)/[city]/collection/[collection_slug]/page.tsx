@@ -14,6 +14,44 @@ type Place = {
   }
 }
 
+function Skeleton() {
+  return (
+    <div className={styles.collectionPageContainer}>
+      <div className="w-full flex flex-col lg:flex-row py-8 animate-pulse">
+        <div className="lg:w-2/3 lg:px-6 px-2 md:px-4">
+          <div className="h-8 w-2/5 bg-gray-300 rounded-md mb-4"></div>
+          <div className="space-y-3 mb-6 mt-3">
+            <div className="h-4 w-full bg-gray-300 rounded-md"></div>
+            <div className="h-4 w-full bg-gray-300 rounded-md"></div>
+            <div className="h-4 w-full bg-gray-300 rounded-md"></div>
+            <div className="h-4 w-full bg-gray-300 rounded-md"></div>
+            <div className="h-4 w-3/5 bg-gray-300 rounded-md"></div>
+          </div>
+
+          <div className="space-y-6">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="flex border border-gray-200 rounded-md p-4 space-x-4">
+                <div className="w-36 h-24 bg-gray-300 rounded-md"></div>
+
+                <div className="flex-1 space-y-2  mt-1">
+                  <div className="h-5 w-3/5 bg-gray-300 rounded-md mr-6"></div>
+
+                  <div className="flex items-center space-x-2 mt-14 mr-6">
+                    <div className="h-8 w-36 bg-gray-300 rounded-md"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* بخش نقشه */}
+        <div className="w-full lg:w-1/3 h-[300px] lg:h-[550px] bg-gray-300 rounded-md mt-6 lg:mt-0"></div>
+      </div>
+    </div>
+  );
+}
+
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
   const { city, collection_slug } = params;
   const { data } = await FetchData(`cities/${city}/collections/${collection_slug}`);
@@ -27,24 +65,23 @@ export async function generateMetadata({ params }: { params: { [key: string]: st
 
 export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string } }) {
   const { city, collection_slug } = params;
-  // const collectionName = decodeURIComponent(collection_slug ?? '').replace(/-/g, ' ');
   const t = await getTranslations();
 
   const { data, error } = await FetchData(`cities/${city}/collections/${collection_slug}`);
 
   if (error || !data?.collection) {
-    return <div className="text-center text-red-500 p-4">❌ خطا در دریافت اطلاعات</div>;
+    return <Skeleton />;
   }
 
-    const locations = data.places.map((place: Place & {lat: string; long: string; category_slug: string; sub_category_slug: string}) => ({
-      lat: parseFloat(place.lat),
-      lng: parseFloat(place.long),
-      title: place.name,
-      imageSrc: place.image_url,
-      category: place.category_slug,
-      subCategory: place.sub_category_slug,
-      slug: place.slug,
-    }));
+  const locations = data.places.map((place: Place & { lat: string; long: string; category_slug: string; sub_category_slug: string }) => ({
+    lat: parseFloat(place.lat),
+    lng: parseFloat(place.long),
+    title: place.name,
+    imageSrc: place.image_url,
+    category: place.category_slug,
+    subCategory: place.sub_category_slug,
+    slug: place.slug,
+  }));
 
   return (
     <div className={styles.collectionPageContainer}>
@@ -57,9 +94,9 @@ export default async function CollectionPage({ params }: { params: { city: strin
             {data.places.map((place: Place, index: number) => (
               <Collection
                 key={index}
-                imageSrc={place.image_url || "https://via.placeholder.com/300x150"}
+                imageSrc={place.image_url}
                 title={place.name}
-                description={place.seo?.description || "بدون توضیحات"}
+                description={place.seo?.description || t('Collections.nodesc')}
                 isLiked={place.is_liked}
                 category={t('Collections.place')}
                 place={place.slug}
