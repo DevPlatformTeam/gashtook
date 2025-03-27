@@ -4,9 +4,6 @@ import { Link, routing } from "@/i18n/routing";
 import { FaCoffee } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 import CheckBox from "@/components/CheckBox/CheckBox";
-import Map from "@/components/Map/Map";
-import Script from "next/script";
-import { useEffect, useState } from "react";
 
 import { notFound } from "next/navigation";
 // import SelectOptionComponent from "@/components/Select-option/SelectOption.component";
@@ -18,13 +15,13 @@ export default function HomePage({
   params: { locale: string };
 }) {
   const t = useTranslations("HomePage");
-  const locations = [
-    { lat: 35.6892, lng: 51.389 }, // تهران
-    { lat: 36.2605, lng: 59.6168 }, // مشهد
-    { lat: 29.5914, lng: 52.5837 }, // شیراز
-  ];
+  // const locations = [
+  //   { lat: 35.6892, lng: 51.389 }, // تهران
+  //   { lat: 36.2605, lng: 59.6168 }, // مشهد
+  //   { lat: 29.5914, lng: 52.5837 }, // شیراز
+  // ];
 
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
 
 
 
@@ -65,7 +62,7 @@ export default function HomePage({
           id="select-option"
         />
         <SearchInputComponents id="search" placeholder="سرچ کنید...." /> */}
-        <Map locations={locations} />
+        {/* <Map locations={locations} /> */}
 
 
       </div>

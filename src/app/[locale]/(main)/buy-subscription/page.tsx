@@ -4,7 +4,6 @@ import { useTranslations } from "next-intl";
 import MainLogo from "@/assets/images/logo-english-new@2x.png";
 import Button from "@/components/Button/Button";
 import { Link } from "@/i18n/routing";
-import { useLocale } from "next-intl";
 
 export default function Page() {
   const t = useTranslations("buy-subscription");

@@ -1,4 +1,3 @@
-import { log } from "console";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import winston from "winston";

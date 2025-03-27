@@ -16,6 +16,15 @@ interface Subscription {
   referenceCode: string;
 }
 
+interface invoicesItem {
+  _id: string;
+  subscriptions: string[];
+  total_price: string; 
+  oid: number;
+  refid?: string;
+  status: number;
+}
+
 export default function Page() {
   const router = useRouter();
   const t = useTranslations();
@@ -34,7 +43,7 @@ export default function Page() {
         const result = await response.json();
 
         if (result.success && Array.isArray(result.data)) {
-          const formattedData: Subscription[] = result.data.map((item) => ({
+          const formattedData: Subscription[] = result.data.map((item: invoicesItem) => ({
             type: item.subscriptions[0],
             price: `${item.total_price} ${t("Dashboard.rial")}`,
             orderNumber: item.oid,
