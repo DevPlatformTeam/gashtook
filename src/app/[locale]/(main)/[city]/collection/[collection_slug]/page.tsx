@@ -2,6 +2,7 @@ import styles from './collection.module.css';
 import Collection from './components/Collection';
 import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
+import { redirect } from "next/navigation";
 import Map from '@/components/Map/Map';
 
 type Place = {
@@ -65,11 +66,17 @@ export async function generateMetadata({ params }: { params: { [key: string]: st
   };
 }
 
-export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string } }) {
-  const { city, collection_slug } = params;
+export default async function CollectionPage({ params }: { params: { city: string; collection_slug: string, locale:string } }) {
+  const { city, collection_slug, locale } = params;
   const t = await getTranslations();
 
-  const { data, error } = await FetchData(`cities/${city}/collections/${collection_slug}`);
+  const { data, error, status } = await FetchData(`cities/${city}/collections/${collection_slug}`);
+
+  if (status === 402) {
+    redirect(`/${locale}/buy-subscription`);
+  } else if (status === 401) {
+    redirect(`/${locale}/auth/login`);
+  }
 
   if (error || !data?.collection) {
     return <Skeleton />;

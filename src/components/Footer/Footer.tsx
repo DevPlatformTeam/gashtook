@@ -41,9 +41,11 @@ export default function Footer() {
                 <MdOutlineEmail size={24} className="me-1 text-primary" />
                 {t("email")}
               </a>
-              <a href={`tel:${t("phone")}`} className="flex items-center">
+              <a href={`tel:+98${t("phoneNumber")}`} className="flex items-center">
                 <AiOutlinePhone size={24} className="me-1 text-primary" />
-                {t("phone")}
+                <span className="ms-2">
+                  {locale == 'fa' ? '0' : ''}{t("phoneNumber")}
+                </span>
               </a>
               <div className="w-full flex-between gap-4 child:text-primary child:text-2xl">
                 <a href="https://instagram.com/gashtook_com" target="_blank"><FaInstagram /></a>

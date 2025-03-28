@@ -6,7 +6,7 @@ import styles from "./category.module.css";
 
 import SliderCard from "@/components/SliderCard/SliderCard";
 
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { LuStar } from "react-icons/lu";
 import FilterCategory from "../components/filter-category-tubular/FilterCategoryTubular";
@@ -27,8 +27,11 @@ export default async function CategoryPage({
 
   const { city, category } = params;
 
-  const { data } = await FetchData(`cities/${city}/collections`);
+  const { data, status } = await FetchData(`cities/${city}/collections`);
 
+  if (status === 401) {
+    return redirect(`/auth/login`);
+  }
   const formattedSlides: [] = data?.map((item: { name: string; image_url: string; slug: string; }) => ({
     title: item.name,
     imageSrc: `${item.image_url}`,

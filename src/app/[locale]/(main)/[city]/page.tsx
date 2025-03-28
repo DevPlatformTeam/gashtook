@@ -13,6 +13,7 @@ import FilterCategory from "./components/filter-category-tubular/FilterCategoryT
 import FilterCategoryResultCards from "./components/filter-category-result/FilterCategoryResultCards";
 import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
 import { FetchData } from "@/components/Fetch/FetchData";
+import { redirect } from "next/navigation";
 
 
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
@@ -35,16 +36,24 @@ export default async function Page({
 }) {
 
   const { locale, city } = params;
-  const { data } = await FetchData(`cities/${city}`);
+  const { data, status } = await FetchData(`cities/${city}`);
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
+  if (status === 401) {
+    return redirect(`/auth/login`);
+  }
+
   return (
     <div className={styles.city}>
-      <Image
-        src={data?.image_url || slidImage}
-        alt={`${city} | گشتوک | Gashtook`}
-      />
+      <div className="w-full relative lg:h-96 h-56">
+        <Image
+          className="!relative lg:max-h-96 max-h-56 w-full object-cover"
+          fill
+          src={data?.image_url || slidImage}
+          alt={`${city} | گشتوک | Gashtook`}
+        />
+      </div>
       <p className={styles.title}>
         {locale === 'fa' ? `به ${cityFa} ${t('cityPage.titleCity')}` : `${t('cityPage.titleCity')} ${city}`}
       </p>

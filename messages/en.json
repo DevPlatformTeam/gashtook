@@ -264,7 +264,7 @@
     "isfahan": "Isfahan",
     "copyright": "© Gashtook. All rights reserved.",
     "email": "info@gashtook.com",
-    "phone": "Phone: (+98) 21 2165 4565"
+    "phoneNumber": "Phone: (+98) 21 2165 4565"
   },
   "Auth": {
     "signin": "login",
