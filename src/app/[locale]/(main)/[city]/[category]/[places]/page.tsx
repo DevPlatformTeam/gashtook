@@ -126,12 +126,9 @@ export default async function PlacesPage({
     })
   );
 
-  const ViewsAlert = dynamic(() => import("./components/ViewsAlert"), { ssr: false });
+  const ViewsAlert = dynamic(() => import("@/components/ViewsAlert/ViewsAlert"), { ssr: false });
   
   const views = place?.views;
-    //  const views = 5;
-
-  // console.log(place);
   return (
     <div className="w-full">
 {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}

@@ -4,6 +4,7 @@ import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import Map from '@/components/Map/Map';
+import dynamic from "next/dynamic";
 
 type Place = {
   image_url: string;
@@ -92,8 +93,12 @@ export default async function CollectionPage({ params }: { params: { city: strin
     slug: place.slug,
   }));
 
+  const ViewsAlert = dynamic(() => import("@/components/ViewsAlert/ViewsAlert"), { ssr: false });
+
+  const views = data?.views;
   return (
     <div className={styles.collectionPageContainer}>
+    {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
       <div className="w-full flex flex-col lg:flex-row py-8">
         <div className="lg:w-2/3 lg:px-6 px-2 md:px-4">
           <h1 className="text-secondary text-2xl font-bold">{data.collection.name}</h1>
