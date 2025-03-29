@@ -9,6 +9,6 @@ interface CityDetailsServerProps {
 }
 
 export default async function CityDetailsServer({ locale, citySlug, city }: CityDetailsServerProps) {
-  const { data } = await FetchData(`cities/${citySlug}/details`);  
+  const { data } = await FetchData(`cities/${citySlug}/details`);
   return <CityDetailsClient citySlug={citySlug} city={city} locale={locale} data={data} />;
 }

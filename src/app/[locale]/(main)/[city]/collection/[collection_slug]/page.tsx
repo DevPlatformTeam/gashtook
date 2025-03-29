@@ -3,6 +3,7 @@ import Collection from './components/Collection';
 import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
 import Map from '@/components/Map/Map';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 
 type Place = {
   image_url: string;
@@ -48,8 +49,9 @@ export default async function CollectionPage({ params }: { params: { city: strin
 
   return (
     <div className={styles.collectionPageContainer}>
-      <div className="w-full flex flex-col lg:flex-row py-8">
-        <div className="lg:w-2/3 lg:px-6 px-2 md:px-4">
+      <Breadcrumb />
+      <div className="w-full flex flex-col lg:gap-6 gap-2 md:gap-4 lg:flex-row py-8">
+        <div className="lg:w-2/3">
           <h1 className="text-secondary text-2xl font-bold">{data.collection.name}</h1>
           <p className="mt-2 text-gray-600 text-justify leading-8">{data.collection.description}</p>
 
