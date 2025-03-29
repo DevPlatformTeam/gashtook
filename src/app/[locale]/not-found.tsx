@@ -1,10 +1,40 @@
 import React, { ReactElement } from "react";
+import Image from "next/image";
+import IMG404 from "@/assets/images/image404.jpg";
+import Button from "@/components/Button/Button";
+import Link from "next/link";
+import { getTranslations, getLocale } from "next-intl/server";
 
-export default function NotFound(): ReactElement {
+export default async function NotFound(): ReactElement {
+
+  const t = await getTranslations("NotFoundPage");
+  const locale = await getLocale();
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold">404</h1>
-      <p className="text-2xl">Page not found</p>
+    <div
+      className="relative flex flex-col items-center mb-12 mt-12 bg-cover bg-center"
+    >
+      <div className="absolute inset-0 !bg-[#fff] "></div>
+      
+      <div className="w-80 md:w-5/12 relative md:h-96 ">
+        <Image
+          className="!relative h-full w-full object-cover"
+          fill
+          src={IMG404}
+          alt={``}
+        />
+      </div>
+      <div className="relative z-10 text-center px-4 justify-center items-center">
+        <p className="text-3xl text-secondary mb-2">{t("title")}</p>
+        <Link href={`/${locale}`} className="flex text-center justify-center !mt-8">
+                <Button
+                  text={t("buttonContent")}
+                  color="primary"
+                />
+        </Link>
+
+      </div>
+      
     </div>
   );
 }
