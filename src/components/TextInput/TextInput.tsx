@@ -21,6 +21,7 @@ interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement> {
     | undefined;
   className?: string;
   validation?: object;
+  autocomplete?: string;
 }
 
 export default function TextInput({
@@ -49,6 +50,7 @@ export default function TextInput({
       <input
         {...register(name, validation)}
         type={type}
+        autoComplete={props.autoComplete || "on"}
         inputMode={inputMode}
         className={`${styles.input} ${errors[name] && "!outline-red-500 focus:!outline-red-500"}`}
         id={id}

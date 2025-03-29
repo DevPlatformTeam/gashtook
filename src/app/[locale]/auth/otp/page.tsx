@@ -23,6 +23,14 @@ import MainLogo from "@/assets/images/logo-english-new@2x.png";
 import Link from "next/link";
 import { IoArrowBack } from "react-icons/io5";
 
+interface OTPCredential extends Credential {
+  code: string;
+}
+
+interface OTPCredentialRequestOptions extends CredentialRequestOptions {
+  otp?: { transport: string[] };
+}
+
 export default function OtpPage() {
   const t = useTranslations("Auth");
   const locale = useLocale();
@@ -59,6 +67,37 @@ export default function OtpPage() {
 
     return () => clearInterval(timer);
   }, [timeLeft]);
+
+  // Auto-complete OTP via WebOTP API
+  useEffect(() => {
+    if ("OTPCredential" in window) {
+      const input = document.querySelector('input[autocomplete="one-time-code"]') as HTMLInputElement;
+      if (!input) return;
+
+      const ac = new AbortController();
+      const form = input.closest("form");
+      if (form) {
+        form.addEventListener("submit", () => {
+          ac.abort();
+        });
+      }
+      navigator.credentials
+        .get({
+          otp: { transport: ["sms"] },
+          signal: ac.signal,
+        } as OTPCredentialRequestOptions)
+        .then((result: Credential | null) => {
+          if (result) {
+            const otp = result as OTPCredential;
+            input.value = otp.code;
+            if (form) form.submit();
+          }
+        })
+        .catch((err: Error) => {
+          console.error(err);
+        });
+    }
+  }, []);
 
   // Format Timer: MM:SS
   const formatTime = (seconds: number) => {
@@ -262,6 +301,7 @@ export default function OtpPage() {
               id="otp"
               placeHolder="* * * * *"
               autoFocus
+              autoComplete="one-time-code"
               className="child:text-center"
               validation={{ required: "کد تایید الزامی است", pattern: { value: /^\d{5}$/, message: "کد تایید نامعتبر است" } }}
               minLength={5}
