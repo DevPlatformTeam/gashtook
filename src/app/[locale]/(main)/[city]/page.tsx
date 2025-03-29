@@ -14,7 +14,7 @@ import FilterCategoryResultCards from "./components/filter-category-result/Filte
 import { FilterCategoryProvider } from "./components/filter-category-provider/FilterCategoryProvider";
 import { FetchData } from "@/components/Fetch/FetchData";
 import { redirect } from "next/navigation";
-
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
   const { city, locale } = params;
@@ -36,12 +36,15 @@ export default async function Page({
 }) {
 
   const { locale, city } = params;
-  const { data, status } = await FetchData(`cities/${city}`);
+  const { data, status, error } = await FetchData(`cities/${city}`);
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
+  console.log(data, status, error)
   if (status === 401) {
     return redirect(`/auth/login`);
+  } else if (status === 404) {
+    return notFound(); 
   }
 
   return (

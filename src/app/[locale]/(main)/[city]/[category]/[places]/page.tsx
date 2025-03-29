@@ -19,7 +19,7 @@ import styles from "./places.module.css";
 import downloadApp from "@/assets/images/downloadapp.png";
 import LikeButton from "./components/LikeButton";
 import { Link } from "@/i18n/routing";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 const jalaliDate = (date: string) => {
   if (!date) return "";
@@ -101,6 +101,8 @@ export default async function PlacesPage({
     redirect(`/${locale}/buy-subscription`);
   } else if (status === 401) {
     redirect(`/${locale}/auth/login`);
+  } else if (status === 404) {
+    return notFound(); 
   }
   const place = data?.place;
   const relatedPlaces = data?.places ?? [];

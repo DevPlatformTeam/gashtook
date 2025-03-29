@@ -2,7 +2,7 @@ import styles from './collection.module.css';
 import Collection from './components/Collection';
 import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
-import { redirect } from "next/navigation";
+import { redirect, notFound } from "next/navigation";
 import Map from '@/components/Map/Map';
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import dynamic from "next/dynamic";
@@ -78,6 +78,8 @@ export default async function CollectionPage({ params }: { params: { city: strin
     redirect(`/${locale}/buy-subscription`);
   } else if (status === 401) {
     redirect(`/${locale}/auth/login`);
+  } else if (status === 404) {
+    return notFound(); 
   }
 
   if (error || !data?.collection) {

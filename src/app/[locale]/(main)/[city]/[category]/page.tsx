@@ -31,7 +31,10 @@ export default async function CategoryPage({
 
   if (status === 401) {
     return redirect(`/auth/login`);
+  } else if (status === 404) {
+    return notFound();
   }
+  
   const formattedSlides: [] = data?.map((item: { name: string; image_url: string; slug: string; }) => ({
     title: item.name,
     imageSrc: `${item.image_url}`,

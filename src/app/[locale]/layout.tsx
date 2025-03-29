@@ -5,9 +5,6 @@ import "./globals.css";
 import { NextIntlClientProvider } from "next-intl";
 
 import { getMessages } from "next-intl/server";
-import { notFound } from "next/navigation";
-
-import { routing } from "@/i18n/routing";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -38,12 +35,6 @@ export async function generateMetadata({
         "Gashtook,gashtook,tehran,iran,tourist attractions,tourist attractions of Iran,tourist attractions of the city,tourist attractions of Iranian cities,city sights,city sights,entertainment centers,museums,galleries,restaurants,cafes,hotels,shopping malls,parks",
     },
   };
-
-  if (
-    !routing.locales.includes(params.locale as (typeof routing.locales)[number])
-  ) {
-    return notFound();
-  }
 
   return {
     title: translations[params.locale as keyof typeof translations].title,
@@ -77,8 +68,8 @@ export async function generateMetadata({
       },
     ],
     icons: [
-      { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
-      { rel: "icon", url: "icons/icon-128x128.png" },
+      { rel: "apple-touch-icon", url: "/icons/icon-128x128.png" },
+      { rel: "icon", url: "/icons/icon-128x128.png" },
     ],
   };
 }
