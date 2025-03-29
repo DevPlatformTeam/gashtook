@@ -56,7 +56,7 @@ const SelectOptionSearchComponent = React.memo(
       if (selectValue?.value && selectValue.value !== searchTerm) {
         setSearchTerm(selectValue.value);
       }
-    },[selectValue])
+    },[searchTerm, selectValue])
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setSearchTerm(e.target.value);

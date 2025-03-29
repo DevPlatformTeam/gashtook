@@ -237,7 +237,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
             }
         }
 
-    }, [subCategory, category, mainCategory, token]);
+    }, [subCategory, category, mainCategory, token, isSubCategories, city, t]);
 
     useEffect(() => {
         const liked = cards.filter((card) => card.is_liked);

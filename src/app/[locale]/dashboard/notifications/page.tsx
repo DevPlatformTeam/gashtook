@@ -60,7 +60,7 @@ export default function Page() {
     };
 
     fetchData();
-  }, [t]);
+  }, [locale, t]);
 
   return (
     <div className="h-full text-start">
