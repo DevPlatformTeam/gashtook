@@ -13,6 +13,14 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
   const publicRoutes = ["/", "/download", "/contact-us", "/faq", "/about-us", "/rules"];
 
+  if (
+    pathname.match(/\.(json|png|jpg|jpeg|gif|ico|svg)$/) ||
+    pathname.match(/(sw\.js|service-worker\.js|workbox-[\w\d]+\.js)$/) ||
+    pathname.startsWith("/icons/")
+  ) {
+    return NextResponse.next();
+  }
+
   // تعیین مقدار isAuthenticate بر اساس وجود توکن
   const isAuthenticated = token ? "true" : "false";
 

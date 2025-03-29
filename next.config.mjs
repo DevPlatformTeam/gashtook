@@ -1,28 +1,31 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import withPWA from "next-pwa";
 
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  swcMinify: true,
   images: {
-    remotePatterns : [{
-      hostname: "picsum.photos" ,
-      protocol: "https",
-      pathname: "/**"
-    },
-    {
-      hostname: process.env.BASE_URL_API_HOSTNAME,
-      protocol: "http",
-      pathname: "/**"
-    },
-    {
-      hostname: process.env.BASE_URL_API_HOSTNAME,
-      protocol: "https",
-      pathname: "/**"
-    },
-  ]
+    remotePatterns: [
+      {
+        hostname: "picsum.photos",
+        protocol: "https",
+        pathname: "/**",
+      },
+      {
+        hostname: process.env.BASE_URL_API_HOSTNAME,
+        protocol: "http",
+        pathname: "/**",
+      },
+      {
+        hostname: process.env.BASE_URL_API_HOSTNAME,
+        protocol: "https",
+        pathname: "/**",
+      },
+    ],
   },
-  output: "standalone", // مطمئن شو که خروجی استاتیک مشکل ندارد
+  output: "standalone",
   headers: async () => [
     {
       source: "/:path*.apk",
@@ -36,4 +39,9 @@ const nextConfig = {
   ],
 };
 
-export default withNextIntl(nextConfig);
+export default withPWA({
+  dest: "public",
+  disable: process.env.NODE_ENV === "development",
+  register: true,
+  skipWaiting: true,
+})(withNextIntl(nextConfig));

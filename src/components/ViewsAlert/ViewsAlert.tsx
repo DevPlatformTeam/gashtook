@@ -20,7 +20,7 @@ export default function ViewsAlert({ views }: ViewsAlertProps) {
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 4000,
         timerProgressBar: true,
       });
     }
