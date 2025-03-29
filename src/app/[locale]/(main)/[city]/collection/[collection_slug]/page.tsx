@@ -4,6 +4,7 @@ import { FetchData } from "@/components/Fetch/FetchData";
 import { getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import Map from '@/components/Map/Map';
+import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import dynamic from "next/dynamic";
 
 type Place = {
@@ -100,6 +101,7 @@ export default async function CollectionPage({ params }: { params: { city: strin
     <div className={styles.collectionPageContainer}>
     {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
       <div className="w-full flex flex-col lg:flex-row py-8">
+        <Breadcrumb />
         <div className="lg:w-2/3 lg:px-6 px-2 md:px-4">
           <h1 className="text-secondary text-2xl font-bold">{data.collection.name}</h1>
           <p className="mt-2 text-gray-600 text-justify leading-8">{data.collection.description}</p>

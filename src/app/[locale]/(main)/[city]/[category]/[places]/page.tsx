@@ -77,7 +77,7 @@ const renderContent = (
 export async function generateMetadata({ params }: { params: { [key: string]: string } }) {
   const { places } = params;
   const { data } = await FetchData(`places/slug/${decodeURIComponent(places)}`);
-  const seo = data?.place?.seo;  
+  const seo = data?.place?.seo;
 
   return {
     title: seo?.title,
@@ -131,8 +131,8 @@ export default async function PlacesPage({
   const views = place?.views;
   return (
     <div className="w-full">
-{(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
-<div className="container my-12">
+      {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
+      <div className="container my-12">
         <div className="flex-between">
           <Breadcrumb />
           <LikeButton
