@@ -6,6 +6,7 @@ import { useTranslations, useLocale } from "next-intl";
 
 import NoDataSvg from "@/icons/NoDataSvg";
 import SliderCard from "@/components/SliderCard/SliderCard";
+import { Link } from "@/i18n/routing";
 
 interface CitySeo {
   title: string;
@@ -29,6 +30,8 @@ interface Budget {
 interface TransportArrival {
   _id: string;
   name: string;
+  category_slug: string;
+  slug: string;
   long: string;
   lat: string;
   seo: CitySeo;
@@ -160,12 +163,12 @@ export default function CityDetailsClient({ data, city, citySlug }: CityDetailsP
             <ul className={`${locale == 'fa' ? "text-right" : 'text-left'} mb-6`}>
               {data?.transport?.arrive?.map((item) => (
                 <li key={item._id} className="mb-2">
-                  <a
-                    href="#"
+                  <Link
+                    href={`/${citySlug}/${item.category_slug}/${item.slug}`}
                     className="text-primary font-semibold hover:underline"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               )) || <p> { t('CityDetail.NoData') } </p>}
             </ul>

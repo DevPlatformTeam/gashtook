@@ -44,7 +44,7 @@ export default function DashboardLayout({ children, params }: Props) {
     const [progressPercentage, setProgressPercentage] = useState<number>(0);
 
 
-    const expireSubscription = Math.round(28 * 100 / 30);
+    // const expireSubscription = Math.round(28 * 100 / 30);
 
     const navRef = useRef<HTMLDivElement>(null);
 

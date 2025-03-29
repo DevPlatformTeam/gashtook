@@ -14,7 +14,7 @@ export default function ContactForm() {
   const t = useTranslations();
 
   const methods = useForm();
-  const { handleSubmit, formState: { isSubmitted, isLoading, isSubmitting } } = methods;
+  const { handleSubmit, formState: { isSubmitted, isSubmitting } } = methods;
 
   const [typeMessage, setTypeMessage] = useState<{ id: string; value: string } | null>(null);
   

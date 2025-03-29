@@ -1,5 +1,5 @@
 import CityDetailsClient from "../client/CityDetails.client";
-
+import { redirect } from "next/navigation";
 import { FetchData } from "@/components/Fetch/FetchData";
 
 interface CityDetailsServerProps {
@@ -9,6 +9,9 @@ interface CityDetailsServerProps {
 }
 
 export default async function CityDetailsServer({ locale, citySlug, city }: CityDetailsServerProps) {
-  const { data } = await FetchData(`cities/${citySlug}/details`);
+  const { data, status } = await FetchData(`cities/${citySlug}/details`);  
+  if (status === 401) {
+    return redirect(`/auth/login`);
+  }
   return <CityDetailsClient citySlug={citySlug} city={city} locale={locale} data={data} />;
 }

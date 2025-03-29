@@ -65,8 +65,9 @@ export default function BuySubscriptionModal({
           throw new Error(data.message || t("requestFailed"));
         }
         setSubscriptionData(data.data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "خطایی رخ داده است";
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -97,8 +98,9 @@ export default function BuySubscriptionModal({
       if (data?.data?.url) {
         window.location.assign(data.data.url);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : "خطایی رخ داده است";
+      setError(errorMessage);
       setRedirecting(false);
     }
   };

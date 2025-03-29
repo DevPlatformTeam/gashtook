@@ -44,7 +44,7 @@ export default function SearchPage() {
     null,
   );
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string|null>(null);
 
   useEffect(() => {
     if (!query) {
@@ -70,8 +70,9 @@ export default function SearchPage() {
         if (!res.ok) throw new Error(t("errorFetching"));
         const data = await res.json();
         setSearchResults(data.data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "خطایی رخ داده است";
+        setError(errorMessage);
       } finally {
         setIsLoading(false);
       }

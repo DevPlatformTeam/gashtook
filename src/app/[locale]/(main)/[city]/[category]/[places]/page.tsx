@@ -19,8 +19,11 @@ import styles from "./places.module.css";
 import downloadApp from "@/assets/images/downloadapp.png";
 import LikeButton from "./components/LikeButton";
 import { Link } from "@/i18n/routing";
+import { redirect } from "next/navigation";
 
 const jalaliDate = (date: string) => {
+  if (!date) return "";
+
   const [gy, gm, gd] = date.split("-").map(Number);
   const { jy, jm, jd } = jalaali.toJalaali(gy, gm, gd);
   return `${jy}/${jm}/${jd}`;
@@ -88,11 +91,17 @@ export default async function PlacesPage({
 }: {
   params?: { [key: string]: string };
 }) {
-  const { places } = params ?? {};
+  const { places, locale } = params ?? {};
   const t = await getTranslations();
   const city = params?.city as string;
 
-  const { data } = await FetchData(`places/slug/${decodeURIComponent(places)}`);
+  const { data, status } = await FetchData(`places/slug/${decodeURIComponent(places)}`);
+
+  if (status === 402) {
+    redirect(`/${locale}/buy-subscription`);
+  } else if (status === 401) {
+    redirect(`/${locale}/auth/login`);
+  }
   const place = data?.place;
   const relatedPlaces = data?.places ?? [];
 
@@ -105,9 +114,9 @@ export default async function PlacesPage({
     categories.find((c) => c.value === place?.category_slug) ??
     place?.category_slug;
   const subCategoryName =
-    subCategories[place.category_slug]?.find(
-      (sub: { value: string }) => sub.value === place.sub_category_slug
-    ) ?? place.sub_category_slug;
+    subCategories[place?.category_slug]?.find(
+      (sub: { value: string }) => sub.value === place?.sub_category_slug
+    ) ?? place?.sub_category_slug;
 
   const slides = relatedPlaces.map(
     (p: { name: string; image_url: string; slug: string }) => ({
@@ -117,12 +126,9 @@ export default async function PlacesPage({
     })
   );
 
-  const ViewsAlert = dynamic(() => import("./components/ViewsAlert"), { ssr: false });
-
-  // const views = place?.views;
-  const views = 5;
-
-  // console.log(place);
+  const ViewsAlert = dynamic(() => import("@/components/ViewsAlert/ViewsAlert"), { ssr: false });
+  
+  const views = place?.views;
   return (
     <div className="w-full">
       {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
@@ -255,7 +261,7 @@ export default async function PlacesPage({
           <SliderCard
             id="related-places"
             asPlace={true}
-            category={place.category_slug}
+            category={place?.category_slug}
             slides={slides}
             city={city}
           />
@@ -267,7 +273,7 @@ export default async function PlacesPage({
             <span>{t("Places.downloadApp")}</span>
           </h2>
           <p className="m-0 mt-12 text-center text-xl lg:mb-0 mb-12 text-primary">
-            {t("Places.allPlacesInApp")}
+            {t("Places.downloadAppInfo")}
           </p>
           <div className="w-full grid lg:grid-cols-2 grid-cols-1 items-center">
             <div>

@@ -23,7 +23,7 @@ import logo from "@/assets/images/logo-green.png";
 import locationIcon from "@/assets/images/map-marker-alt.png";
 import { getTranslations, getLocale } from "next-intl/server";
 import { FetchData } from "@/components/Fetch/FetchData";
-
+import { redirect } from "next/navigation";
 
 export default async function HomePage() {
 
@@ -31,8 +31,11 @@ export default async function HomePage() {
   const locale = await getLocale();
 
   const { data: sliderData } = await FetchData("site/sliders");
-  const { data: cityData } = await FetchData("cities");
+  const { data: cityData, status } = await FetchData("cities");
 
+  if (status === 401) {
+    return redirect(`/auth/login`);
+  }
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
     return notFound();
