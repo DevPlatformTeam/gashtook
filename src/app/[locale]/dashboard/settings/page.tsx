@@ -149,14 +149,14 @@ export default function Page() {
                   <IoIosPerson className="size-full" />
                 )}
               </span>
-              <Button
+              {/* <Button
                 type="button"
                 className="child:!text-red-400"
                 text={locale === "fa" ? "حذف تصویر" : "Delete Profile"}
                 color="third"
                 outline
                 textColor="secondary"
-              />
+              /> */}
               <input
                 className="hidden"
                 type="file"

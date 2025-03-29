@@ -432,5 +432,9 @@
     "title": "Gashtook Web App",
     "unsupported": "Unfortunately, this browser does not support it. Please use another browser.",
     "success": "Gashtook Web App was successfully installed."
+  },
+  "NotFoundPage": {
+    "title": "Page Not Found!",
+    "buttonContent": "Back to Home Page"
   }
 }
