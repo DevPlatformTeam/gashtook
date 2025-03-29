@@ -49,7 +49,7 @@ function Skeleton() {
         </div>
 
         {/* بخش نقشه */}
-        <div className="w-full lg:w-1/3 h-[300px] lg:h-[550px] bg-gray-300 rounded-md mt-6 lg:mt-0"></div>
+        <div className="w-full lg:w-1/3 lg:h-[550px] bg-gray-300 rounded-md mt-6 lg:mt-0"></div>
       </div>
     </div>
   );
@@ -106,7 +106,7 @@ export default async function CollectionPage({ params }: { params: { city: strin
           <h1 className="text-secondary text-2xl font-bold">{data.collection.name}</h1>
           <p className="mt-2 text-gray-600 text-justify leading-8">{data.collection.description}</p>
 
-          <div className="space-y-4 mt-6">
+          <div className="mt-6 flex flex-col gap-14">
             {data.places.map((place: Place, index: number) => (
               <Collection
                 key={index}
@@ -121,7 +121,7 @@ export default async function CollectionPage({ params }: { params: { city: strin
           </div>
         </div>
 
-        <div className="w-full lg:w-1/3 h-[300px] lg:h-[550px] mt-6 lg:mt-0">
+        <div className="w-full lg:w-1/3 lg:h-[550px] mt-6 lg:mt-0">
           <Map locations={locations} />
         </div>
       </div>

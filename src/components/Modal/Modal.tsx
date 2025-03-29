@@ -85,16 +85,16 @@ export default function Modal({
                 <div className="mt-4">{body}</div>
                 {showFooterBtn && (
                   <>
-                    <div className="mt-4 hidden md:block">
+                    <div className="mt-4 block w-full">
                       <Button
-                        className="mx-auto"
+                        className="m-auto lg:w-1/3 w-10/12 mt-12"
                         text={footerBtn}
                         loading={loading}
                         onClick={handleFooterClick}
                         disabled={loading}
                       />
                     </div>
-                    <div className="w-screen block absolute bottom-0 left-0 md:hidden">
+                    {/* <div className="w-screen block absolute bottom-0 left-0 md:hidden">
                       <Button
                         className="mx-auto w-full py-5 text-2xl !rounded-none"
                         text={footerBtn}
@@ -102,7 +102,7 @@ export default function Modal({
                         onClick={handleFooterClick}
                         disabled={loading}
                       />
-                    </div>
+                    </div> */}
                   </>
                 )}
               </Dialog.Panel>

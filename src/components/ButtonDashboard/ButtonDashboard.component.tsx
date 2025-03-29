@@ -71,7 +71,7 @@ export default function ButtonDashboardComponent({ className }: Props) {
         <div className="size-8 rounded-full p-1 bg-primaryfade/10">
           <LuUserRound className='size-full text-primary' />
         </div>
-        <p className="max-w-20 line-clamp-1">
+        <p className="max-w-24 line-clamp-1">
           {locale === "fa" && userInfo?.mobile ? userInfo?.mobile : locale === "fa" && !userInfo?.mobile ? userInfo?.email : locale === "en" && userInfo?.email ? userInfo?.email : userInfo?.mobile}
         </p>
       </button>
