@@ -174,7 +174,9 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 }
             };
             if (subCategory === "all") {
-                fetchAllSubCategoryPlaces();
+                setTimeout(()=> {
+                    fetchAllSubCategoryPlaces();
+                }, 500);
             } else {
                 fetchSubcategoryPlaces()
             }
@@ -231,7 +233,9 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 }
             };
             if (mainCategory === "all") {
-                fetchAllCategoryPlaces();
+                setTimeout(()=> {
+                    fetchAllCategoryPlaces();
+                }, 500);
             } else {
                 fetchAllSubCategoryPlaces();
             }
