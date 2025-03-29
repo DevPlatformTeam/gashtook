@@ -260,7 +260,7 @@ export default function OtpPage() {
               label={t("otp-label-input")}
               name="otp"
               id="otp"
-              placeHolder="****"
+              placeHolder="* * * * *"
               autoFocus
               className="child:text-center"
               validation={{ required: "کد تایید الزامی است", pattern: { value: /^\d{5}$/, message: "کد تایید نامعتبر است" } }}

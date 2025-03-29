@@ -115,7 +115,7 @@ export default function RegisterPage() {
       <div
         className={`lg:w-1/2 md:w-1/2 w-full bg-white flex flex-col justify-center px-12 ${isRtl ? "rounded-l-md" : "rounded-r-md"} `}
       >
-        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start`}>
+        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start mb-12`}>
           <Image className="inset-block-card-btn" src={MainLogo} alt="Gashtook" />
         </Link>
         <FormProvider {...methods}>
@@ -131,6 +131,7 @@ export default function RegisterPage() {
               inputMode={locale === 'fa' ? "numeric" : "email"}
               label={locale === 'fa' ? t("mobile") : t("email")}
               name='email_mobile'
+              autoFocus
               id={locale === 'fa' ? "mobile" : "email"}
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?

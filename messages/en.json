@@ -427,5 +427,10 @@
     "subscribeForMore": "Enjoy more access and features of Gashtook with a subscription",
     "subscribeButton": "Buy Subscription"
   },
-  "noTags": "Unlabeled"
+  "noTags": "Unlabeled",
+  "PWA": {
+    "title": "Gashtook Web App",
+    "unsupported": "Unfortunately, this browser does not support it. Please use another browser.",
+    "success": "Gashtook Web App was successfully installed."
+  }
 }
