@@ -110,7 +110,7 @@ export default function SearchPage() {
             ))}
           </div>
         </div>
-        <div className="bg-slate-200 animate-pulse w-full lg:w-1/3 h-[300px] lg:h-[600px] rounded-lg"></div>
+        <div className="bg-slate-200 animate-pulse w-full lg:w-1/3 lg:h-[600px] rounded-lg"></div>
       </div>
     );
   }

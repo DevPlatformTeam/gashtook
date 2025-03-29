@@ -75,7 +75,7 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
     };
 
     return (
-        <div className="w-full flex flex-col lg:flex-row  overflow-hidden ">
+        <div className="w-full flex flex-col lg:flex-row overflow-hidden lg:shadow-none shadow-lg">
             <div className="relative w-full lg:w-1/2">
                 <Image fill src={imageSrc} alt={title} className="!relative w-full h-full min-h-48 object-cover" />
                 <button

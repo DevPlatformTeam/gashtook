@@ -171,7 +171,7 @@ export default function BuySubscriptionModal({
       title={t("factorTitle")}
       body={renderBody()}
       onFooterAction={handlePay}
-      showFooterBtn={!error && !redirecting}
+      showFooterBtn={!error && !redirecting && !loading}
     />
   );
 }
