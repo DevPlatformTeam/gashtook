@@ -56,7 +56,7 @@ export default function TextInput({
         id={id}
         placeholder={placeHolder}
         {...props}
-        dir={locale === "fa" ? "rtl" : "ltr"}
+        dir={locale === "fa" && !props.dir ? "rtl" : (props.dir || "ltr")}
       />
       {errors[name] && (
         <p className={styles.error}>{(errors[name]?.message as string) || "خطای نامعتبر"}</p>

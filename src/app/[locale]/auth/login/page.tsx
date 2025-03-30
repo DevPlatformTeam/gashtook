@@ -108,7 +108,7 @@ export default function LoginPage() {
         </div>
       </div>
       <div className={`${styles.formContainer} ${isRtl ? styles.roundedL : styles.roundedR}`}>
-        <Link href={`/${locale}`} className={`w-full flex md:hidden justify-center items-start`}>
+        <Link href='/' className={`w-full flex md:hidden justify-center items-start`}>
           <Image className="inset-block-card-btn" src={MainLogo} alt="Gashtook" />
         </Link>
         <FormProvider {...methods}>
@@ -124,6 +124,7 @@ export default function LoginPage() {
               name='email_mobile'
               id={locale === 'fa' ? "mobile" : "email"}
               autoFocus
+              dir="ltr"
               placeHolder={locale === 'fa' ? "09XXXXXXXXXX" : "example@gmail.com"}
               validation={locale === 'fa' ?
                 { required: t("FormValidationMessages.requiredError", {value: "شماره تلفن"}), pattern: { value: /^\d{11}$/, message: t("FormValidationMessages.invalidError", {value: "شماره تلفن"}) } }

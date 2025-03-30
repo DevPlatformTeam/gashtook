@@ -37,7 +37,7 @@
         @apply bg-slate-50 shadow !relative flex flex-col gap-2 rounded-xl overflow-hidden transition-all hover:bg-primaryfade;
 
         img {
-          @apply !relative !h-40 lg:!h-60 object-none cursor-pointer;
+          @apply !relative !h-40 lg:!h-60 object-cover cursor-pointer;
         }
 
         .textContainer {

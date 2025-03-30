@@ -21,7 +21,7 @@ export default function Breadcrumb() {
   };
 
   return (
-    <nav className="text-sm">
+    <nav className="text-sm hidden" hidden>
       <ul
         className="flex items-center gap-1"
         onMouseLeave={() => setActiveIndex(null)}

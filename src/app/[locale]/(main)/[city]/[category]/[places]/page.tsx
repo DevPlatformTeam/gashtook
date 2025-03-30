@@ -135,7 +135,7 @@ export default async function PlacesPage({
     <div className="w-full">
       {(typeof views !== "undefined" && views > 0) && <ViewsAlert views={views} />}
       <div className="container my-12">
-        <div className="flex-between">
+        <div className="flex items-center justify-end mb-4">
           <Breadcrumb />
           <LikeButton
             slug={place?.slug}

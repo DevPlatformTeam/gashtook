@@ -30,7 +30,7 @@ export default async function LogoutFunction({ locale, pathname, setIsOpen }: Pr
                 timerProgressBar: true,
             });
 
-            localStorage.clear();
+            localStorage.removeItem('userInfo');
 
             if (pathname.split("/").length === 2) {
                 if (navigator.userAgent.toLowerCase().indexOf('edge') > -1) {
