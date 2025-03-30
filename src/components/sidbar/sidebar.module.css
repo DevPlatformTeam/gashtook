@@ -1,5 +1,5 @@
 .overlay {
-    @apply sm:hidden fixed flex-center w-full top-0 start-0 z-40 opacity-0 invisible;
+    @apply lg:hidden fixed flex-center w-full top-0 start-0 z-40 opacity-0 invisible;
 
     background-color: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(10px);
@@ -8,7 +8,7 @@
     height: calc(100% + 70px);
 
     .sidebar {
-        @apply fixed top-0 -start-full w-3/4 bg-background z-50 transition-all;
+        @apply fixed top-0 -start-full w-3/4 sm:w-1/2 bg-background z-50 transition-all;
 
         transition: all 0.5s ease;
         height: calc(100% + 70px);
@@ -18,7 +18,7 @@
         @apply relative p-2;
 
         .close-icon {
-            @apply absolute top-4 end-6 transition-all hover:scale-125 hover:rotate-90 hover:text-primary;
+            @apply absolute top-4 end-6 transition-all hover:scale-125 hover:rotate-90 hover:text-primary cursor-pointer;
         }
     }
 

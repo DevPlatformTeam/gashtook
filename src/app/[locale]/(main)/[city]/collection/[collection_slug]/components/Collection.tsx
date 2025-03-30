@@ -21,7 +21,7 @@ interface CollectionProps {
 const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, isLiked, category, place }) => {
     const { city } = useParams()
     const [liked, setLiked] = useState(isLiked);
-    const t = useTranslations('Collections');
+    const t = useTranslations();
 
     const handleLikeFunctions = async (slug: string, city: string) => {
         try {
@@ -93,7 +93,7 @@ const Collection: React.FC<CollectionProps> = ({ imageSrc, title, description, i
                 </div>
 
                 <Link href={`/${city}/${category}/${place}`}>
-                <Button text={t('place')} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
+                <Button text={t('Collections.place')} color="primary" className=" !mb-2 lg:mt-0 mt-2" />
                 </Link>
             </div>
         </div>
