@@ -179,7 +179,7 @@ export default async function PlacesPage({
               <div className="flex flex-col gap-4">
                 <span className="flex items-center gap-x-2">
                   <MdOutlineLocationOn
-                    size={24}
+                    size={40}
                     className="me-1 text-primary"
                   />
                   {t("Places.address")}: {place?.contact?.address || "نامشخص"}
@@ -189,14 +189,14 @@ export default async function PlacesPage({
                     href={FormatPhoneNumberForTelLink(place.contact.phone)}
                     className="flex items-center gap-x-2"
                   >
-                    <MdPhone size={24} className="me-1 text-primary" />
+                    <MdPhone size={31} className="me-1 text-primary" />
                     <span>{t("Places.phone")}: </span>
                     <span>{place.contact.phone}</span>
                   </a>
                 )}
                 {place?.contact?.website && (
                   <span className="flex items-center">
-                    <FaLink size={24} className="me-1 text-primary" />
+                    <FaLink size={27} className="me-1 text-primary" />
                     <a
                       href={place.contact.website}
                       target="_blank"

@@ -14,7 +14,8 @@ type Place = {
   slug: string;
   seo: {
     description: string;
-  }
+  },
+  category_slug: string;
 }
 
 function Skeleton() {
@@ -116,7 +117,7 @@ export default async function CollectionPage({ params }: { params: { city: strin
                 title={place.name}
                 description={place.seo?.description || t('Collections.nodesc')}
                 isLiked={place.is_liked}
-                category={t('Collections.place')}
+                category={place.category_slug}
                 place={place.slug}
               />
             ))}
