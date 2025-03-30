@@ -2,7 +2,7 @@ import "./style.css";
 
 import { routing } from "@/i18n/routing";
 
-import { FaCoffee } from "react-icons/fa";
+import { FaDownload } from "react-icons/fa6";
 
 import Button from "@/components/Button/Button";
 import MainCard from "../components/MainCard/MainCard";
@@ -85,7 +85,7 @@ export default async function HomePage() {
                 <Button
                   text={t("downloadApp")}
                   color="primary"
-                  icon={<FaCoffee />}
+                  icon={<FaDownload size={19} />}
                 />
               </Link>
               <a href="#citiesList">
