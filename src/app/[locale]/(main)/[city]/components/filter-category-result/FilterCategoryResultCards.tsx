@@ -55,6 +55,23 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
             const response = await fetch("/api/auth/token", {
                 credentials: 'include',
             });
+
+            if (response.status === 401) {
+                Swal.fire({
+                    toast: true,
+                    position: "top-end",
+                    icon: "error",
+                    title: t("ToastMessages.titleError"),
+                    text: t("Favorites.errorMessageAuth"),
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+                setTimeout(() => {
+                    router.push(`/${locale}/auth/login`); 
+                }, 3000);
+            }
+
             const data = await response.json();
             if (data.token) {
                 setToken(data.token.value);

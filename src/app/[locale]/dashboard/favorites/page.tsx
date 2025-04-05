@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "@/components/Card/Card";
 import NoDataSvg from "@/icons/NoDataSvg";
+import { useRouter } from 'next/navigation';
 import { useTranslations, useLocale } from "next-intl";
 import Swal from "sweetalert2";
 
@@ -22,6 +23,7 @@ export default function Page() {
 
   const [cards, setCards] = useState<CardData[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const [token, setToken] = useState<string | null>(null);
 
@@ -57,6 +59,24 @@ export default function Page() {
         credentials: 'include',
       });
       const data = await response.json();
+
+        if (response.status === 401) {
+          setToken(null);
+          Swal.fire({
+            toast: true,
+            position: "top-end",
+            icon: "error",
+            title: t("ToastMessages.titleError"),
+            text: t("Favorites.errorMessageAuth"),
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
+          setTimeout(() => {
+            router.push(`/${locale}/auth/login`); 
+          }, 3000);
+      }
+
       if (data.token) {
         setToken(data.token.value);
       }
