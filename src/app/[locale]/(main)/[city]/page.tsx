@@ -36,11 +36,11 @@ export default async function Page({
 }) {
 
   const { locale, city } = params;
-  const { data, status, error } = await FetchData(`cities/${city}`);
+  const { data, status } = await FetchData(`cities/${city}`);
   const t = await getTranslations();
   const cityFa = t.raw(`city`).filter((item: { id: string, value: string }) => item.id === city)[0]?.value;
 
-  console.log(data, status, error)
+  
   if (status === 401) {
     return redirect(`/auth/login`);
   } else if (status === 404) {

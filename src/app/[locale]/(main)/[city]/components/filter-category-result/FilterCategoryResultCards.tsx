@@ -89,9 +89,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 setIsLoading(true);
 
                 const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${isSubCategories ? category : mainCategory}`, {
-                    credentials: 'include',
                     headers: {
-                        'Accept': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
                 }).then(res => res.json());
@@ -122,6 +120,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     setLocations(locations);
                 }
             } catch (error) {
+                console.log(error)
                 Swal.fire({
                     toast: true,
                     position: "top-end",
@@ -143,9 +142,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     setIsLoading(true);
 
                     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${category}/${subCategory}`, {
-                        credentials: 'include',
                         headers: {
-                            'Accept': 'application/json',
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => res.json());
@@ -203,9 +200,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     setIsLoading(true);
 
                     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}`, {
-                        credentials: 'include',
                         headers: {
-                            'Accept': 'application/json',
                             'Authorization': `Bearer ${token}`
                         }
                     }).then(res => res.json());

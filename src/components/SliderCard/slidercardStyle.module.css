@@ -28,7 +28,7 @@
 }
 
 .overlay {
-  @apply w-full h-full absolute inset-0 bg-gradient-to-t from-black to-transparent z-10 rounded-3xl;
+  @apply w-full h-full absolute inset-0 bg-gradient-to-t from-black to-transparent z-10 rounded-lg;
 }
 
 .custom-swiper-button:hover {

@@ -78,7 +78,7 @@ export default function Page() {
       formData.append("email", data.email || "");
       formData.append("mobile", data.mobile || userInfo?.mobile || "");
 
-      if (data.image && data.image.length > 0) {
+      if (data.image instanceof FileList && data.image.length > 0) {
         formData.append("image", data.image[0]);
       }
 
@@ -102,11 +102,25 @@ export default function Page() {
         localStorage.setItem("userInfo", JSON.stringify(result.data));
         router.push(`/${locale}/dashboard`);
       } else {
+        let errorMessage = result.message || "خطایی رخ داده است"; // Start with the general message
+
+        if (result.errors) {
+            let detailedErrors = "";
+            for (const field in result.errors) {
+                if (result.errors.hasOwnProperty(field)) {
+                    const fieldErrors = result.errors[field];
+                    detailedErrors += `${field}: ${fieldErrors.join(", ")}\n`; // Format each field's errors
+                }
+            }
+            if (detailedErrors) {
+                errorMessage = detailedErrors; // Replace the general message with detailed errors
+            }
+        }
         Swal.fire({
           toast: true,
           position: "top-end",
           icon: "error",
-          title: result.error || "خطایی رخ داده است",
+          title: errorMessage,
           showConfirmButton: false,
           timer: 5000,
           timerProgressBar: true,

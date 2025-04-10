@@ -260,6 +260,7 @@ export default async function PlacesPage({
         </div>
 
         <div className="my-8">
+          <h3 className="text-xl mb-3 text-gray-900 font-semibold">{t("Places.relatedPlaces")}</h3>
           <SliderCard
             id="related-places"
             asPlace={true}
