@@ -1,0 +1,10 @@
+.enamadLogo {
+    width: 100px;
+    /* Example: Adjust width as needed */
+    height: auto;
+    /* Maintain aspect ratio */
+    border: 1px solid #ccc;
+    /* Example: Add a border */
+    border-radius: 5px;
+    /* Example: Rounded corners */
+}
