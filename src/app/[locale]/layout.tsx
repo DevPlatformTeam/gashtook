@@ -92,7 +92,7 @@ export default async function RootLayout({
           type="text/css"
         />
       </head>
-      <body data-atm-ext-installed="1.29.6">
+      <body data-atm-ext-installed="1.29.6" className="overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>
