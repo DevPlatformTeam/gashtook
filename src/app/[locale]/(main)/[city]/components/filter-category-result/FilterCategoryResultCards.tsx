@@ -14,7 +14,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { CiBoxList } from 'react-icons/ci';
 import { Location } from '../../types/map';
 import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
-
+import { getPlaces } from '@/app/actions/placeActions';
 
 type Props = {
     isSubCategories?: boolean;
@@ -48,56 +48,27 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
 
     const [likedPlaces, setLikedPlaces] = useState<{ id: string }[]>([]);
 
-    const [token, setToken] = useState<string | null>(null);
-
     useEffect(() => {
-        const fetchToken = async () => {
-            const response = await fetch("/api/auth/token", {
-                credentials: 'include',
-            });
-
-            if (response.status === 401) {
-                Swal.fire({
-                    toast: true,
-                    position: "top-end",
-                    icon: "error",
-                    title: t("ToastMessages.titleError"),
-                    text: t("Favorites.errorMessageAuth"),
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                });
-                setTimeout(() => {
-                    router.push(`/${locale}/auth/login`); 
-                }, 3000);
-            }
-
-            const data = await response.json();
-            if (data.token) {
-                setToken(data.token.value);
-            }
-        };
-        fetchToken();
-    }, []);
-
-
-    useEffect(() => {
-        if (!token) return;
 
         const fetchAllSubCategoryPlaces = async () => {
             try {
                 setIsLoading(true);
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${isSubCategories ? category : mainCategory}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    },
-                }).then(res => res.json());
+                const result = await getPlaces({
+                    city,
+                    category,
+                    mainCategory,
+                    isSubCategories
+                });
 
-                const dataCards = response.data;
+                if ('isError' in result) {
+                    throw new Error(result.message);
+                }
+
+                const dataCards = result?.data;
 
                 if (dataCards) {
-                    const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
+                    const formattedSlides = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                         title: item.name,
                         imageSrc: `${item.image_url}`,
                         slug: item.slug,
@@ -141,16 +112,22 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 try {
                     setIsLoading(true);
 
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}/${category}/${subCategory}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    }).then(res => res.json());
+                    const result = await getPlaces({
+                        city,
+                        mainCategory,
+                        category,
+                        subCategory,
+                        isSubCategories
+                    });
 
-                    const dataCards = response.data;
+                    if ('isError' in result) {
+                        throw new Error(result.message);
+                    }
+
+                    const dataCards = result?.data;
 
                     if (dataCards) {
-                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
+                        const formattedSlides = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                             title: item.name,
                             imageSrc: `${item.image_url}`,
                             slug: item.slug,
@@ -188,7 +165,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 }
             };
             if (subCategory === "all") {
-                setTimeout(()=> {
+                setTimeout(() => {
                     fetchAllSubCategoryPlaces();
                 }, 500);
             } else {
@@ -199,13 +176,14 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 try {
                     setIsLoading(true);
 
-                    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/places/${city}`, {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    }).then(res => res.json());
+                    const result = await getPlaces({
+                        city
+                    });
 
-                    const dataCards = response.data;
+                    if ('isError' in result) {
+                        throw new Error(result.message);
+                    }
+                    const dataCards = result?.data;
 
                     const locations = dataCards.map((item: { lat: string; long: string; image_url: string; slug: string; name: string; category_slug: string; sub_category_slug: string }) => ({
                         lat: +item.lat,
@@ -220,7 +198,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                     setLocations(locations);
 
                     if (dataCards) {
-                        const formattedSlides: [] = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
+                        const formattedSlides = dataCards?.map((item: { name: string; image_url: string; slug: string; is_liked: boolean; favorites_count: string; }) => ({
                             title: item.name,
                             imageSrc: `${item.image_url}`,
                             slug: item.slug,
@@ -245,7 +223,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
                 }
             };
             if (mainCategory === "all") {
-                setTimeout(()=> {
+                setTimeout(() => {
                     fetchAllCategoryPlaces();
                 }, 500);
             } else {
@@ -253,7 +231,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
             }
         }
 
-    }, [subCategory, category, mainCategory, token, isSubCategories, city, t]);
+    }, [subCategory, category, mainCategory, isSubCategories, city]);
 
     useEffect(() => {
         const liked = cards.filter((card) => card.is_liked);

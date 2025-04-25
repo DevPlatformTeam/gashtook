@@ -21,9 +21,11 @@ export async function generateMetadata({ params }: { params: { [key: string]: st
   const { data } = await FetchData(`cities/${city}/details`);
   const seo = data?.seo;
   const cityName = locale === 'fa'? `شهر ${data?.name} | گشتوک` : `${city} | Gashtook`;
+  const siteName = locale === 'fa' ? `گشتوک` : `Gashtook`;
+  const title = seo?.title ? `${seo.title} | ${siteName}` : `${cityName}`;
 
   return {
-    title: seo?.title || `${cityName}`,
+    title: title,
     description: seo?.description,
     keywords: seo?.focuskw,
   };
