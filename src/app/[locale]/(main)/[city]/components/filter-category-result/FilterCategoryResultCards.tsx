@@ -15,7 +15,6 @@ import { CiBoxList } from 'react-icons/ci';
 import { Location } from '../../types/map';
 import { IoMdHeart, IoMdHeartEmpty } from 'react-icons/io';
 import { getPlaces } from '@/app/actions/placeActions';
-import { redirect } from "next/navigation";
 
 type Props = {
     isSubCategories?: boolean;
@@ -50,7 +49,7 @@ export default function FilterCategoryResultCards({ isSubCategories = false }: P
     const [likedPlaces, setLikedPlaces] = useState<{ id: string }[]>([]);
 
     const redirectToAuth = () => {
-        setTimeout(() => { return redirect(`/auth/login`) }, 3000 )
+        setTimeout(() => { return router.push(`/${locale}/auth/login`) }, 3000 )
     }
     useEffect(() => {
 
