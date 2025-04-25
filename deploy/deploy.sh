@@ -2,6 +2,10 @@
 echo "Stopping current app..."
 pm2 stop gashtook-nextjs-app
 
+echo "remove file changes git ..."
+git reset --hard
+git clean -fd
+
 echo "Pulling latest changes..."
 git pull
 
