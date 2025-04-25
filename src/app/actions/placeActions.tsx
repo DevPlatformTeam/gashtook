@@ -1,10 +1,8 @@
-// In placeActions.tsx
 'use server';
 
 import { cookies } from 'next/headers';
 import { getLocale } from 'next-intl/server';
 
-// Define response types
 type ApiResponse = {
     success: boolean;
     message: string;
@@ -25,14 +23,12 @@ type Places = {
     favorites_count: string;
 }
 
-// Create a serializable error response
 type ErrorResult = {
     isError: true;
     message: string;
     code: number;
 }
 
-// Combined return type
 type ActionResult = ApiResponse | ErrorResult;
 
 export async function getPlaces({
@@ -48,11 +44,9 @@ export async function getPlaces({
     subCategory?: string;
     isSubCategories?: boolean;
 }): Promise<ActionResult> {
-    // Get the locale from the request headers
     const locale = await getLocale();
     
     try {
-        // Get the token from cookies
         const token = cookies().get('token')?.value;
 
         if (!token) {
@@ -63,20 +57,18 @@ export async function getPlaces({
             };
         }
 
-        // Base URL from server environment variable
         const baseUrl = process.env.BASE_URL_API;
 
         if (!baseUrl) {
             return {
                 isError: true,
-                message: locale === 'fa' ? 'آدرس API یافت نشد' : 'API base URL not found',
+                message: locale === 'fa' ? "خطای داخلی بروز کرده است." : "Internal error contact support",
                 code: 500
             };
         }
 
         let url: string;
 
-        // Determine which API endpoint to use
         if (subCategory) {
             url = `${baseUrl}/places/${city}/${category}/${subCategory}`;
         } else if (category || mainCategory) {
@@ -86,7 +78,6 @@ export async function getPlaces({
             url = `${baseUrl}/places/${city}`;
         }
 
-        // Fetch data from the API
         const response = await fetch(url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -97,15 +88,17 @@ export async function getPlaces({
             cache: 'no-store'
         });
 
+        const data = await response.json();
+        const errorMsg = locale === 'fa' ? 'خطا در دریافت اطلاعات' : `Error fetching data!`;
+    
         if (!response.ok) {
             return {
                 isError: true,
-                message: locale === 'fa' ? 'خطا در دریافت اطلاعات' : `Error fetching data (${response.status})`,
+                message: data?.message || errorMsg,
                 code: response.status
             };
         }
 
-        const data = await response.json();
         return data;
     } catch (error) {
         console.error('Error fetching places:', error);
