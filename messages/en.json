@@ -49,7 +49,7 @@
     {
       "id": "yazd",
       "value": "yazd"
-    },  
+    },
     {
       "id": "kermanshah",
       "value": "kermanshah"
@@ -235,8 +235,8 @@
     "messageInputLabel": "Message",
     "messageInputPlaceholder": "Type your message here",
     "sendButton": "Send",
-    "faildSend":"Message sent successfully",
-    "successSend":"Failed to send message"
+    "faildSend": "Message sent successfully",
+    "successSend": "Failed to send message"
   },
   "Header": {
     "downloadAppButton": "Download app",
@@ -375,7 +375,7 @@
   },
   "Collections": {
     "place": "show place",
-    "nodesc":"No Description"
+    "nodesc": "No Description"
   },
   "TimeAgo": {
     "justNow": "Just now",
@@ -434,8 +434,15 @@
   "noTags": "Unlabeled",
   "PWA": {
     "title": "Gashtook Web App",
+    "description": "Guide to adding an app to your phone's home screen",
     "unsupported": "Unfortunately, this browser does not support it. Please use another browser.",
-    "success": "Gashtook Web App was successfully installed."
+    "success": "Gashtook Web App was successfully installed.",
+    "helpInstallerTitle": "Installation Guide",
+    "helpInstallerText": "Please follow the instructions on the page.",
+    "addToHomeScreen": "Add to home screen",
+    "step1": "Tap the Share button",
+    "step2": "Select Add to Home Screen",
+    "step3": "Tap Add at the top"
   },
   "NotFoundPage": {
     "title": "Page Not Found!",
