@@ -235,8 +235,8 @@
     "messageInputLabel": "متن پیام",
     "messageInputPlaceholder": "متن خود را در اینجا بنویسید",
     "sendButton": "ارسال پیام",
-    "faildSend":"ارسال پیام با خطا مواجه شد",
-    "successSend":"ارسال پیام با موفقیت انجام شد"
+    "faildSend": "ارسال پیام با خطا مواجه شد",
+    "successSend": "ارسال پیام با موفقیت انجام شد"
   },
   "Header": {
     "downloadAppButton": "دانلود اپلیکیشن",
@@ -376,7 +376,7 @@
   },
   "Collections": {
     "place": "مشاهده اطلاعات مکان",
-    "nodesc":"بدون توضیحات"
+    "nodesc": "بدون توضیحات"
   },
   "TimeAgo": {
     "justNow": "لحظاتی پیش",
@@ -391,7 +391,7 @@
     "Collections": "مجموعه ها",
     "Transportation": "حمل و نقل",
     "Budget": "بودجه و هزینه",
-    "Arrive-To": "رسیدن به " ,
+    "Arrive-To": "رسیدن به ",
     "Urban": "حمل و نقل شهری {city}",
     "Currency": "درباره پول رایج",
     "LowCost": "حداقل هزینه لازم برای زندگی در {city}",
@@ -425,7 +425,7 @@
     "canceled": "لغو شده",
     "settled": "موفق"
   },
-    "ViewsAlert": {
+  "ViewsAlert": {
     "title": "بازدید باقی مانده",
     "text": "شما {count} بازدید دیگر دارید."
   },
@@ -437,8 +437,15 @@
   "noTags": "بدون برچسب",
   "PWA": {
     "title": "وب اپلیکیشن گشتوک",
+    "description": "راهنمای افزودن اپلیکیشن به صفحه اصلی گوشی",
     "unsupported": "متاسفانه این مرورگر پشتیبانی نمی کند. لطفا از مرورگر دیگری استفاده کنید.",
-    "success": "وب اپلیکیشن گشتوک با موفقیت نصب شد."
+    "success": "وب اپلیکیشن گشتوک با موفقیت نصب شد.",
+    "helpInstallerTitle": "راهنمای نصب",
+    "helpInstallerText": "لطفاً طبق راهنمای صفحه عمل کنید.",
+    "addToHomeScreen": "افزودن به صفحه اصلی",
+    "step1": "روی دکمه Share کلیک کنید",
+    "step2": "گزینه Add to Home Screen را انتخاب کنید",
+    "step3": "روی دکمه Add کلیک کنید"
   },
   "NotFoundPage": {
     "title": "صفحه مورد نظر یافت نشد!",
