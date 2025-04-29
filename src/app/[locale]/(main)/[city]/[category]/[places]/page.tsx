@@ -304,13 +304,15 @@ export default async function PlacesPage({
                   className="!w-[240px] !justify-between"
                 />
               </a>
-              <Button
-                text={t("Places.downloadPWA")}
-                icon={<TbDeviceMobileCode />}
-                iconFirst={false}
-                iconSize="fourXl"
-                className="!w-[240px] !justify-between"
-              />
+              <Link href={`/download/PWA`}>
+                <Button
+                  text={t("Places.downloadPWA")}
+                  icon={<TbDeviceMobileCode />}
+                  iconFirst={false}
+                  iconSize="fourXl"
+                  className="!w-[240px] !justify-between"
+                />
+              </Link>
             </div>
           </div>
         </div>
