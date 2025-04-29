@@ -442,7 +442,8 @@
     "addToHomeScreen": "Quick install",
     "step1": "Tap the Share button",
     "step2": "Select Add to Home Screen",
-    "step3": "Tap Add at the top"
+    "step3": "Tap Add at the top",
+    "alreadyInstalled": "App is already installed on this device."
   },
   "NotFoundPage": {
     "title": "Page Not Found!",

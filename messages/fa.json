@@ -445,7 +445,8 @@
     "addToHomeScreen": "نصب سریع و آسان",
     "step1": "روی دکمه Share کلیک کنید",
     "step2": "گزینه Add to Home Screen را انتخاب کنید",
-    "step3": "روی دکمه Add کلیک کنید"
+    "step3": "روی دکمه Add کلیک کنید",
+    "alreadyInstalled": "درحال حاضر نسخه وب اپلیکیشن برای شما نصب شده است."  
   },
   "NotFoundPage": {
     "title": "صفحه مورد نظر یافت نشد!",

@@ -1,42 +1,35 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Swal from "sweetalert2";
-import { TbDeviceMobileCode } from "react-icons/tb";
-import { GoShare } from "react-icons/go";
-import { CgAddR } from "react-icons/cg";
-import Image from "next/image";
-import MainLogo from "@/assets/images/logo-english-new@2x.png";
-import { useTranslations } from "next-intl";
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => void;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
-}
+import React from 'react';
+import Swal from 'sweetalert2';
+import { TbDeviceMobileCode } from 'react-icons/tb';
+import { GoShare } from 'react-icons/go';
+import { CgAddR } from 'react-icons/cg';
+import Image from 'next/image';
+import MainLogo from '@/assets/images/logo-english-new@2x.png';
+import { useTranslations } from 'next-intl';
+import { usePwaStatus } from './hooks/usePwaStatus';
 
 export default function PwaGuidePage() {
   const t = useTranslations();
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
-
-    window.addEventListener("beforeinstallprompt", handler);
-
-    return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
-    };
-  }, []);
-
-  const isIOS = () => {
-    return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
-  };
+  const { isIOS, canPrompt, isInstalled, promptInstall } = usePwaStatus();
 
   const handleInstall = async () => {
-    if (isIOS()) {
+    if (isInstalled) {
+      Swal.fire({
+        title: t("PWA.title"),
+        text: t("PWA.alreadyInstalled"),
+        icon: "info",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 4000,
+        timerProgressBar: true,
+      });
+      return;
+    }
+
+    if (isIOS) {
       Swal.fire({
         title: t("PWA.helpInstallerTitle"),
         text: t("PWA.helpInstallerText"),
@@ -50,7 +43,7 @@ export default function PwaGuidePage() {
       return;
     }
 
-    if (!deferredPrompt) {
+    if (!canPrompt) {
       Swal.fire({
         title: t("PWA.title"),
         text: t("PWA.unsupported"),
@@ -64,8 +57,7 @@ export default function PwaGuidePage() {
       return;
     }
 
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
+    const outcome = await promptInstall();
     if (outcome === "accepted") {
       Swal.fire({
         title: t("PWA.title"),
@@ -78,7 +70,6 @@ export default function PwaGuidePage() {
         timerProgressBar: true,
       });
     }
-    setDeferredPrompt(null);
   };
 
   return (
@@ -89,18 +80,12 @@ export default function PwaGuidePage() {
       </div>
 
       <div className="flex flex-col items-center bg-gray-50 p-4 rounded-2xl shadow-md w-full max-w-md">
-        <Image src={MainLogo} className="mb-10" alt="" />
+        <Image src={MainLogo} className="mb-10" alt="Gashtook logo" />
 
         <ol className="list-decimal list-inside text-start text-gray-700 space-y-4 mb-8">
-          <li>
-            {t("PWA.step1")} ( <GoShare className="inline size-7 text-primary" /> )
-          </li>
-          <li>
-            {t("PWA.step2")} ( <CgAddR className="inline size-6 text-primary" /> )
-          </li>
-          <li>
-            {t("PWA.step3")}
-          </li>
+          <li>{t("PWA.step1")} ( <GoShare className="inline size-7 text-primary" /> )</li>
+          <li>{t("PWA.step2")} ( <CgAddR className="inline size-6 text-primary" /> )</li>
+          <li>{t("PWA.step3")}</li>
         </ol>
 
         <button
