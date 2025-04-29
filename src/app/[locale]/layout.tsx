@@ -6,6 +6,8 @@ import { NextIntlClientProvider } from "next-intl";
 
 import { getMessages } from "next-intl/server";
 
+import { PwaAppRecommendationToast } from '@/components/PwaAppRecommendationToast/PwaAppRecommendationToast';
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -95,6 +97,10 @@ export default async function RootLayout({
       <body data-atm-ext-installed="1.29.6" className="overflow-x-hidden">
         <NextIntlClientProvider messages={messages}>
           {children}
+          <PwaAppRecommendationToast
+            message={locale === 'fa' ? "اپ را از آیکون هوم اسکرین باز کنید تا سریع‌تر و بدون نوار آدرس اجرا شود." : "Open the app from the home screen icon to run faster and without the address bar."}
+            duration={5000}
+          />
         </NextIntlClientProvider>
       </body>
     </html>
